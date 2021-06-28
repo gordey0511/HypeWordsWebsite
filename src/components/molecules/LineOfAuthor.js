@@ -1,23 +1,50 @@
 import React, {useEffect} from "react";
+import {Author} from "../atoms/Author";
 
-export const ListOfAuthor = (props) => {
-    const array = props.array;
-    console.log(array)
-    const ListItems = array.map(({name}) =>
-        <li>
-            {/*{name}*/}
-            dskjosdoji
-        </li>
-    );
+export const LineOfAuthor = () => {
+    // console.log(array)
+    // const ListItems = array.map(({text}) =>
+    //     <li>
+    //         {text}
+    //     </li>
+    // );
+    // const array =[]
 
     useEffect(() => {
-        console.log(array)
+        // console.log(array)
     },[])
 
     return (
-        <ul style={{color:"#000000"}}>
-            {/*<li>sdhsdojids</li>*/}
-            <ListItems />
-        </ul>
+        <div>
+            {/*<ul style={styles.block}>*/}
+            {/*    {array.map(({surname}) =>*/}
+            {/*        <li style={styles.li} key={surname}>*/}
+            {/*            <Author name={surname}/>*/}
+            {/*        </li>*/}
+            {/*    )*/}
+            {/*    }*/}
+            {/*</ul>*/}
+        </div>
     )
+}
+
+const styles = {
+    block:{
+        position:'relative',
+        width:400,
+        color: "#000000",
+        backgroundColor:'#404040',
+        borderRadius: 20,
+        paddingLeft: 0,
+        textAlign: 'left'
+    },
+
+    li:{
+        listStyleType:"none",
+        padding:10,
+        textDecoration:'none',
+        textAlign:'left'
+    }
+
+
 }

@@ -1,3 +1,52 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {Link} from "react-router-dom";
+import {AuthorAPI} from "../../services/AuthorApi";
 
-export const Author
+export const Author = ({name,surname}) => {
+
+    useEffect(() => {
+        console.log(name)
+    },[])
+
+    return (
+        <div style={styles.box}>
+            <img style={styles.img} src="author_me.jpg"/>
+            <text style={styles.text}>
+                <Link style={styles.text} to={`/author/${AuthorAPI.getByName(name)}`}>{name}</Link>
+            </text>
+            {/*<text>{surname}</text>*/}
+        </div>
+    )
+}
+
+const styles = {
+    box:{
+        position:'relative',
+        margin:10,
+        fontStyle: 'italic',
+        color: 'gray',
+        display:'flex',
+        flexDirection:'row',
+
+        // backgroundColor:'gray',
+    },
+
+    img:{
+        display:'inline-block',
+        weight:40,
+        height:40,
+        right:50,
+        marginRight:20,
+        borderRadius:'50%',
+    },
+
+    text:{
+        display:'flex',
+        flexDirection:'row',
+        color: '#cecccc',
+        alignItems:'center',
+        verticalAlign:'middle',
+        textDecoration:'none',
+    }
+}
+

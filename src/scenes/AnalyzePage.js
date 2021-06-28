@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export const Analyze = () => {
+export const AnalyzePage = () => {
 
     return (
         <div className="App">

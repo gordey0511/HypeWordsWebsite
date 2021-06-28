@@ -1,23 +1,14 @@
 import React, {useEffect} from "react";
+import {LineOfAuthor} from "../molecules/LineOfAuthor";
 
-export const ListOfAuthor = (props) => {
-    const array = props.array;
-    console.log(array)
-    const ListItems = array.map(({name}) =>
-        <li>
-            {/*{name}*/}
-            dskjosdoji
-        </li>
-    );
-
+export const ListOfAuthor = () => {
     useEffect(() => {
-        console.log(array)
+        // console.log("CREATE")
     },[])
 
     return (
-        <ul style={{color:"#000000"}}>
-            {/*<li>sdhsdojids</li>*/}
-            <ListItems />
-        </ul>
+        <div>
+            <LineOfAuthor/>
+        </div>
     )
 }

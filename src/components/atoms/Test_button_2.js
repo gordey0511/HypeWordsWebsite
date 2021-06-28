@@ -1,11 +1,10 @@
 import React from "react";
 
-export const test_button_2 = () => {
+export const Test_button_2 = ({text}) => {
     // render() {
         return (
-            // eslint-disable-next-line react/jsx-no-undef
-            <div style={{fontSize:50}}>
-                Кнопка
+            <div style={{color:"#000000"}}>
+                <text>{text}</text>
             </div>
         );
     // }

@@ -6,11 +6,15 @@ const MuggerSchema = new Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     link: Number,
+    about: String,
+    image: mongoose.Schema.Types.Buffer,
+    time_of_live: String,
+    place_of_live: String,
+    size: String,
+    visitors: Number,
     section: String,
-    year_created: String,
-    author_ud: mongoose.Schema.Types.ObjectId,
 })
 
-const MuggerBook = mongoose.model("book",MuggerSchema)
+const MuggerAuthor = mongoose.model("book",MuggerSchema)
 
-module.exports = MuggerBook;
+module.exports = MuggerAuthor;
