@@ -1,0 +1,15 @@
+main_div{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+btn{
+    fontSize: 25px;
+}
+
+invested_div{
+    margin: 20px;
+    color: #020707;
+    text-decoration: none;
+}
