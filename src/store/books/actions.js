@@ -1,15 +1,16 @@
-import {ACTION_CHANGE_FIRST_NAME, ACTION_CHANGE_SECOND_NAME} from "../index";
+import {ACTION_GET_DATA_OF_BOOK} from "../actions";
 
-export const changeFirstName = (newFirstName) => {
+export const getDataBook = (link_of_book) => {
+    console.log("ACTIONS GETBOOK "+link_of_book)
     return {
-        type:ACTION_CHANGE_FIRST_NAME,
-        payload: newFirstName,
+        type:ACTION_GET_DATA_OF_BOOK,
+        payload: link_of_book,
     }
 }
 
-export const changeSecondName = (newSecondName) => {
-    return {
-        type:ACTION_CHANGE_SECOND_NAME,
-        payload: newSecondName,
-    }
-}
+// export const changeSecondName = (newSecondName) => {
+//     return {
+//         type:ACTION_CHANGE_SECOND_NAME,
+//         payload: newSecondName,
+//     }
+// }

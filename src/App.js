@@ -8,6 +8,7 @@ import {AuthorPage} from "./scenes/AuthorPage";
 import {AnalyzePage} from "./scenes/AnalyzePage";
 import {ListOfAuthor} from "./components/organisms/ListOfAuthors";
 import AllBooks from "./scenes/AllBooks";
+import BookPage from "./scenes/BookPage";
 
 const App= (props) => {
     const {history} = props;
@@ -15,11 +16,12 @@ const App= (props) => {
     return(
         <Switch>
             <Route exact history={history} path={'/'} component={MainPage}/>
-            <Route path={'/aboutme'} component={AboutMe}/>
+            <Route exact path={'/aboutme'} component={AboutMe}/>
             <Route exact path='/author/:id' component={AuthorPage}/>
             <Route exact path='/authors' component={ListOfAuthor}/>
             <Route exact path='/analyze' component={AnalyzePage}/>
             <Route exact path='/books' component={AllBooks}/>
+            <Route exact path='/book/:id' component={BookPage}/>
         </Switch>
     )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {Book} from "../atoms/Book";
+import {BookOfList} from "../atoms/BookOfList";
 
 export const LinesOfAuthorsBooks = ({array}) => {
 
@@ -9,7 +9,7 @@ export const LinesOfAuthorsBooks = ({array}) => {
             <ul style={styles.ul}>
                 {array.map(({name}) =>
                     <li style={styles.li} key={name}>
-                        <Book name={name}/>
+                        <BookOfList name={name}/>
                     </li>
                 )
                 }

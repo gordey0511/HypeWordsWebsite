@@ -7,7 +7,7 @@ const initialState = {
     ],
 };
 
-export const booksReducer = (state=initialState,action) => {
+export const profileReducer = (state=initialState,action) => {
     switch(action.type){
         // case
     }

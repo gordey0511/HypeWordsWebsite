@@ -1,16 +1,7 @@
 import React, {useEffect} from "react";
-import {Book} from "../atoms/Book";
+import {BookOfList} from "../atoms/BookOfList";
 
 export const LinesOfBooks = ({array}) => {
-    console.log(array)
-
-    // const ListItems = array.map(({text}) =>
-    //     <li>
-    //         {text}
-    //     </li>
-    // );
-    // const array =[]
-
     useEffect(() => {
         // console.log(array)
     },[])
@@ -20,7 +11,7 @@ export const LinesOfBooks = ({array}) => {
             <div style={styles.block}>
                 {array.map(({name}) =>
                     <div style={styles.li} key={name}>
-                        <Book name={name}/>
+                        <BookOfList name={name}/>
                     </div>
                 )
                 }

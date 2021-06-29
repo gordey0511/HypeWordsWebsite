@@ -5,8 +5,6 @@ import {AuthorAPI} from "../services/AuthorApi";
 import {Link, Switch} from "react-router-dom";
 import {bindActionCreators, createStore} from "redux";
 import {connect, Provider} from "react-redux";
-import {changeFirstName, changeSecondName} from "../store/actions";
-import {Navbar} from "../components/organisms/Navbar";
 
 const MainPage = (props) => {
     console.log(props);
@@ -21,16 +19,6 @@ const MainPage = (props) => {
 
     return (
         <div className="App">
-            {/*<div>*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        placeholder={"First Name"}*/}
-            {/*    />*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        placeholder={"Second Name"}*/}
-            {/*    />*/}
-            {/*</div>*/}
             <header className="App-header">
                 <a style={styles.block_top}>
                     <b>Всем привет!<br/> Это сайт про любимые слова авторов</b>
@@ -67,8 +55,8 @@ const putStateToProps = (state) => {
 
 const puActionToProps = (dispatch) => {
     return {
-        changeFirstName : bindActionCreators(changeFirstName,dispatch),
-        changeSecondName : bindActionCreators(changeSecondName,dispatch),
+        // changeFirstName : bindActionCreators(changeFirstName,dispatch),
+        // changeSecondName : bindActionCreators(changeSecondName,dispatch),
     }
 }
 

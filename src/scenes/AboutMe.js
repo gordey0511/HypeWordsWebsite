@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 export const AboutMe = () => {
     return (
         <div>
-            Это мой сайт!!!
+            Это наш сайт!!!
             <br/>
             <Link to='/'>На Главную!</Link>
         </div>
