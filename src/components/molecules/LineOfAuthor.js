@@ -1,29 +1,22 @@
 import React, {useEffect} from "react";
 import {Author} from "../atoms/Author";
 
-export const LineOfAuthor = () => {
-    // console.log(array)
-    // const ListItems = array.map(({text}) =>
-    //     <li>
-    //         {text}
-    //     </li>
-    // );
-    // const array =[]
+export const LineOfAuthor = ({array}) => {
 
     useEffect(() => {
-        // console.log(array)
+        console.log(array)
     },[])
 
     return (
         <div>
-            {/*<ul style={styles.block}>*/}
-            {/*    {array.map(({surname}) =>*/}
-            {/*        <li style={styles.li} key={surname}>*/}
-            {/*            <Author name={surname}/>*/}
-            {/*        </li>*/}
-            {/*    )*/}
-            {/*    }*/}
-            {/*</ul>*/}
+            <div style={styles.block}>
+                {array.map(({name}) =>
+                    <div style={styles.li} key={name}>
+                        <Author name={name}/>
+                    </div>
+                )
+                }
+            </div>
         </div>
     )
 }
@@ -31,12 +24,12 @@ export const LineOfAuthor = () => {
 const styles = {
     block:{
         position:'relative',
-        width:400,
+        // width:400,
         color: "#000000",
+        marginLeft: '20%',
+        marginRight: '20%',
         backgroundColor:'#404040',
         borderRadius: 20,
-        paddingLeft: 0,
-        textAlign: 'left'
     },
 
     li:{

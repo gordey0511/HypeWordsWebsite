@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {ListOfAuthor} from "../components/organisms/ListOfAuthors";
+import {ListOfAuthor} from "./ListOfAuthors";
 import {AddAuthor} from "../components/organisms/AddAuthor";
 import {AuthorAPI} from "../services/AuthorApi";
 import {Link, Switch} from "react-router-dom";

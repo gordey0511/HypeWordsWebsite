@@ -22,7 +22,6 @@ export const LinesOfAuthorsBooks = ({array}) => {
 const styles={
     li:{
         textDecoration:'none',
-        textAlign:'left',
         listStyleType:'none',
         justifyContent:'center',
     },
