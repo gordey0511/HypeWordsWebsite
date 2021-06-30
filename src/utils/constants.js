@@ -12,3 +12,8 @@ export const NAVBAR_TITLE = {
 export const COLORS = {
     red: '#e65154',
 }
+
+export const LINES = {
+    authors: 1,
+    books: 2,
+}

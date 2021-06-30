@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import {BookOfList} from "../atoms/BookOfList";
 import axios from 'axios';
 import {SearchField} from "./SearchField";
-import "../../styles/blocks.css";
+import "../../styles/blocks.css"
+import {LINES} from '../../utils/constants';
+import {Author} from "../atoms/Author";
 
-export const LinesOfBooks = ({array}) => {
+export const Lines = ({array,id}) => {
     useEffect(() => {
 
     },[])
@@ -21,13 +23,26 @@ export const LinesOfBooks = ({array}) => {
         );
     });
 
+    const Layout = ({name}) => {
+        if(id === LINES.books){
+            return (
+                <BookOfList name={name}/>
+            );
+        }
+        if(id === LINES.authors){
+            return (
+                <Author name={name}/>
+            );
+        }
+    }
+
     return (
         <div>
             <div className={"center_block"}>
                 <SearchField value={filter} onChange={handleChange} />
                 {filteredData.map(item => (
                     <div style={styles.li} key={item.name}>
-                        <BookOfList name={item.name}/>
+                        <Layout name={item.name}/>
                     </div>
                 ))
                 }

@@ -10,3 +10,10 @@
     align-items: flex-start;
     /*display: inline-block;*/
 }
+
+.search_field{
+    vertical-align: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+}

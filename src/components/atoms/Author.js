@@ -10,39 +10,16 @@ export const Author = ({name,index=0}) => {
 
     return (
         <div>
-            <Link style={styles.text} to={`/author/${index}`}>{name}</Link>
+            <Link style={styles.name} to={`/author/${index}`}>{name}</Link>
         </div>
     )
 }
 
 const styles = {
-    box:{
-        position:'relative',
-        margin:10,
-        fontStyle: 'italic',
-        color: 'gray',
-        display:'flex',
-        flexDirection:'row',
-
-        // backgroundColor:'gray',
-    },
-
-    img:{
-        display:'inline-block',
-        weight:40,
-        height:40,
-        right:50,
-        marginRight:20,
-        borderRadius:'50%',
-    },
-
-    text:{
-        display:'flex',
-        flexDirection:'row',
-        color: '#cecccc',
-        alignItems:'center',
-        verticalAlign:'middle',
-        textDecoration:'none',
+    name:{
+        textDecoration: 'none',
+        color:"#fd0404",
+        fontSize:25,
     }
 }
 
