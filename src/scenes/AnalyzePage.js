@@ -4,12 +4,15 @@ import {changeText} from "../store/analyze/actions";
 import {connect} from "react-redux";
 import "../styles/button.css"
 import "../styles/margins.css"
+import {update_navbar} from "../store/navbar/actions";
+import {NAVBAR_TITLE} from "../utils/constants";
 
-const AnalyzePage = ({text,changeText}) => {
+const AnalyzePage = ({text,changeText, updateNavbar}) => {
 
 
     useEffect(() => {
         // changeText()
+        updateNavbar(NAVBAR_TITLE.Analyze)
     },[])
 
     return (
@@ -46,7 +49,8 @@ const puStateToProps = (state) => {
 
 const putDispatchToProps = (dispatch) => {
     return{
-        changeText: bindActionCreators(changeText,dispatch)
+        changeText: bindActionCreators(changeText,dispatch),
+        updateNavbar: bindActionCreators(update_navbar,dispatch),
     }
 }
 

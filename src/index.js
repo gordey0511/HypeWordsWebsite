@@ -10,7 +10,7 @@ import {MainPage} from "./scenes/MainPage";
 import {createStore} from "redux";
 import {connect, Provider} from "react-redux";
 import rootReducer from "./store/reducers";
-import {Navbar} from "./components/organisms/Navbar";
+import Navbar from "./components/organisms/Navbar";
 
 const history = createBrowserHistory()
 

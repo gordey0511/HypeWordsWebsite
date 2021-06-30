@@ -1,0 +1,12 @@
+.center_block{
+    vertical-align: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.outer_block{
+    display: flex;
+    align-items: flex-start;
+    /*display: inline-block;*/
+}

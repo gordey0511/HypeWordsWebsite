@@ -8,3 +8,7 @@ export const NAVBAR_TITLE = {
     Log_up: "Выйти",
     Profile:"Профиль",
 }
+
+export const COLORS = {
+    red: '#e65154',
+}
