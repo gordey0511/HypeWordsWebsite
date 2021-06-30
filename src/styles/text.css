@@ -1,0 +1,10 @@
+.unlink_text{
+    margin: 20px;
+    color: #020707;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.unlink_text:hover{
+    color: #e65154;
+}

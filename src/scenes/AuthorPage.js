@@ -4,9 +4,13 @@ import {bindActionCreators} from "redux";
 import {getDataAuthor} from "../store/authors/actions";
 import {connect} from "react-redux";
 import '../scenes/scenes.css'
+import {update_navbar} from "../store/navbar/actions";
+import {NAVBAR_TITLE} from "../utils/constants";
 
-export const AuthorPage = ({name,link_of_author,profile,date_of_birth,date_of_death,books,array_of_words,getData}) => {
+export const AuthorPage = ({name,link_of_author,profile,date_of_birth,date_of_death,books,array_of_words,getData, updateNavbar}) => {
+
     useEffect(() => {
+        updateNavbar(NAVBAR_TITLE.Authors);
         getData("/a/nikulshin/2132132.html");
     },[])
 
@@ -35,7 +39,8 @@ const putStateToProps = (state) => {
 
 const putDispatchToProps = (dispatch) => {
     return{
-        getData : bindActionCreators(getDataAuthor,dispatch)
+        getData : bindActionCreators(getDataAuthor,dispatch),
+        updateNavbar: bindActionCreators(update_navbar,dispatch),
     }
 }
 

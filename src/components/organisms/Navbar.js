@@ -1,23 +1,33 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NAVBAR_TITLE} from "../../utils/constants";
 import {Link} from "react-router-dom";
-import './test.css'
+import './organisms.css'
+import '../../styles/img.css'
+import '../../styles/blocks.css'
+import {connect} from "react-redux";
 
-export const Navbar = () => {
+const Navbar = ({current_text}) => {
+
+    useEffect(() => {
+        console.log("NAVBAR CURRENT "+current_text)
+    },[current_text])
 
     return(
         <div className={"main_div"}>
             <Link to={"/"} className={"invested_div"}>
-                <div>
-                    <b>
+
+                <div className={"outer_block"}>
+                    <img src="logo.png" className={"img_logo"}/>
+                    <b className={"center_block"}>
                         {NAVBAR_TITLE.Home}
                     </b>
                 </div>
             </Link>
-            <Link className={'invested_div'} to={"/books"}>
-                <div>
+            <Link className={"invested_div"} to={"/books"}>
+                <div className={"red_tab_navbar"}>
                     {NAVBAR_TITLE.Books}
                 </div>
+
             </Link>
             <Link className={'invested_div'} to={"/authors"}>
                 <div>
@@ -32,3 +42,13 @@ export const Navbar = () => {
         </div>
     )
 }
+
+
+const putStateToProps = (state) => {
+    return {
+        current_text: state.navbar.current_text,
+    }
+}
+
+
+export default connect(putStateToProps,null)(Navbar);

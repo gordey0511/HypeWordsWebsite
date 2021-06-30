@@ -5,8 +5,8 @@ import {Route, Switch, Redirect, withRouter, Router} from "react-router-dom";
 import MainPage from "./scenes/MainPage";
 import {AboutMe} from "./scenes/AboutMe";
 import AuthorPage from "./scenes/AuthorPage";
-import {AnalyzePage} from "./scenes/AnalyzePage";
 import ListOfAuthor from "./scenes/ListOfAuthors";
+import AnalyzePage from "./scenes/AnalyzePage";
 import AllBooks from "./scenes/AllBooks";
 import BookPage from "./scenes/BookPage";
 
