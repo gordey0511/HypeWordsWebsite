@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {LinesOfBooks} from "../components/molecules/LinesOfBooks";
 
 const AllBooks = (props) => {
-    console.log(props.books)
+    console.log(props)
     return (
         <div>
             <LinesOfBooks array={props.books}/>

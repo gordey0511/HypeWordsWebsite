@@ -2,19 +2,15 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {AuthorAPI} from "../../services/AuthorApi";
 
-export const Author = ({name,surname}) => {
+export const Author = ({name,index=0}) => {
 
     useEffect(() => {
         console.log(name)
     },[])
 
     return (
-        <div style={styles.box}>
-            <img style={styles.img} src="author_me.jpg"/>
-            <text style={styles.text}>
-                <Link style={styles.text} to={`/author/${AuthorAPI.getByName(name)}`}>{name}</Link>
-            </text>
-            {/*<text>{surname}</text>*/}
+        <div>
+            <Link style={styles.text} to={`/author/${index}`}>{name}</Link>
         </div>
     )
 }

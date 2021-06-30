@@ -1,50 +1,42 @@
 import React, {useEffect} from "react";
-import {AuthorAPI as AuthorApi} from "../services/AuthorApi";
 import {LinesOfAuthorsBooks} from "../components/molecules/LinesOfAuthorsBooks";
+import {bindActionCreators} from "redux";
+import {getDataAuthor} from "../store/authors/actions";
+import {connect} from "react-redux";
+import '../scenes/scenes.css'
 
-export const AuthorPage = (props) => {
-    const author=AuthorApi.getById(props.match.params.id)
-
+export const AuthorPage = ({name,link_of_author,profile,date_of_birth,date_of_death,books,array_of_words,getData}) => {
     useEffect(() => {
-
+        getData("/a/nikulshin/2132132.html");
     },[])
 
     return (
-        <div style={styles.main}>
+        <div className="center_div">
+            Имя: <b>{name}</b>
             <br/>
-            <b style={styles.author_name}>
-                {author.name}  {author.surname}<br/>
-            </b>
-            Дата рождения {author.date_birth}<br/>
-
-            <b style={styles.author_name}>
-                Книги
-            </b>
-            <LinesOfAuthorsBooks array={[{name:"Обломов"},{name:"Преступление и наказание"},{name:"Война и мир"}]}/>
-
+            Годы жизни: <b>{date_of_birth} - {date_of_death}</b>
+            <br/>
+            <LinesOfAuthorsBooks array={books}/>
         </div>
     )
 }
 
-const styles = {
-    main:{
-        display: 'block',
-        position: 'relative',
-        height: '100%',
-        justifyContent: 'left',
-        alignItems: 'center',
-        textAlign: 'left',
-        marginLeft: "20%",
-        verticalAlign: 'center',
-        marginTop: 20,
-    },
-
-    profile:{
-        position: 'relative',
-        marginTop: 100,
-    },
-
-    author_name:{
-        fontSize: 40,
+const putStateToProps = (state) => {
+    return{
+        name: state.authors.name,
+        profile: state.authors.profile,
+        link_of_author: state.authors.link_of_author,
+        date_of_birth: state.authors.date_of_birth,
+        date_of_death: state.authors.date_of_death,
+        array_of_words: state.authors.array_of_words,
+        books: state.authors.books,
     }
 }
+
+const putDispatchToProps = (dispatch) => {
+    return{
+        getData : bindActionCreators(getDataAuthor,dispatch)
+    }
+}
+
+export default connect(putStateToProps,putDispatchToProps)(AuthorPage);

@@ -4,14 +4,15 @@ import './App.css';
 import {Route, Switch, Redirect, withRouter, Router} from "react-router-dom";
 import MainPage from "./scenes/MainPage";
 import {AboutMe} from "./scenes/AboutMe";
-import {AuthorPage} from "./scenes/AuthorPage";
+import AuthorPage from "./scenes/AuthorPage";
+import ListOfAuthor from "./scenes/ListOfAuthors";
 import AnalyzePage from "./scenes/AnalyzePage";
-import {ListOfAuthor} from "./components/organisms/ListOfAuthors";
 import AllBooks from "./scenes/AllBooks";
 import BookPage from "./scenes/BookPage";
 
 const App= (props) => {
     const {history} = props;
+    require('dotenv').config();
 
     return(
         <Switch>
