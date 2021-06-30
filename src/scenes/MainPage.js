@@ -24,16 +24,6 @@ const MainPage = (props) => {
                     <b>Всем привет!<br/> Это сайт про любимые слова авторов</b>
                     <img style={styles.img_back} src="books_background_main_page.png"/>
                 </a>
-
-                {/*<ListOfAuthor array={AuthorAPI.all()}/>*/}
-
-                {/*<AddAuthor addAuthor={addAuthor}/>*/}
-                {/*<div style={styles.about_me}>*/}
-                {/*    <Link to={'/aboutme'}>*/}
-                {/*        <text style={styles.about_me}>Обо мне</text>*/}
-                {/*    </Link>*/}
-                {/*</div>*/}
-
                 <div>
                     <Link to={'/analyze'}>
                         <button style={styles.button_analyze}>

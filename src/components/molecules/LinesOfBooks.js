@@ -1,24 +1,41 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {BookOfList} from "../atoms/BookOfList";
+import axios from 'axios';
+
+let filter = "";
 
 export const LinesOfBooks = ({array}) => {
     useEffect(() => {
-        // console.log(array)
+
     },[])
+
+    const [filter,setFilter] = useState("")
+    const handleChange = event => {
+        setFilter(event.target.value );
+    };
+
+    const lowercasedFilter = filter.toLowerCase();
+    const filteredData = array.filter(item => {
+        return Object.keys(item).some(key =>
+            item[key].toLowerCase().includes(lowercasedFilter)
+        );
+    });
 
     return (
         <div>
             <div style={styles.block}>
-                {array.map(({name}) =>
-                    <div style={styles.li} key={name}>
-                        <BookOfList name={name}/>
+                <input value={filter} onChange={handleChange} />
+                {filteredData.map(item => (
+                    <div style={styles.li} key={item.name}>
+                        <BookOfList name={item.name}/>
                     </div>
-                )
+                ))
                 }
-            </div>
+            </div>z
         </div>
     )
 }
+
 
 const styles = {
     block:{
