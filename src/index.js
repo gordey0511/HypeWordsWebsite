@@ -17,7 +17,6 @@ const history = createBrowserHistory()
 const store = createStore(rootReducer);
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         firstName: state.firstName,
         secondName: state.secondName,

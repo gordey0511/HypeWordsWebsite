@@ -9,11 +9,12 @@ export const LinesOfBooks = ({array}) => {
     return (
         <div>
             <div style={styles.block}>
-                {array.map(({name}) =>
-                    <div style={styles.li} key={name}>
-                        <BookOfList name={name}/>
-                    </div>
-                )
+                {
+                    array.map(({name}) =>
+                        <div style={styles.li} key={name}>
+                            <BookOfList name={name}/>
+                        </div>
+                    )
                 }
             </div>
         </div>
