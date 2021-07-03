@@ -7,14 +7,15 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom"
 import {createBrowserHistory} from "history";
 import {MainPage} from "./scenes/MainPage";
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {connect, Provider} from "react-redux";
 import rootReducer from "./store/reducers";
 import Navbar from "./components/organisms/Navbar";
+import {api} from "./store/api";
 
 const history = createBrowserHistory()
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer,applyMiddleware(api));
 
 const mapStateToProps = (state) => {
     return {

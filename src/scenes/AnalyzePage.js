@@ -6,8 +6,39 @@ import "../styles/button.css"
 import "../styles/margins.css"
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
+import Button from "@material-ui/core/Button";
+import {CustomizedDialog} from "../components/atoms/CustomizedDialog";
+import {MultilineText} from "../components/atoms/MultilineText";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    root: {
+        width:"100%",
+    },
+
+    icon:{
+        width:"5%",
+    },
+
+    text_field:{
+        width:"95%",
+    },
+
+    button_analyze:{
+        marginTop: 20,
+    }
+}));
 
 const AnalyzePage = ({text,changeText, updateNavbar}) => {
+    const [open, setOpen] = React.useState(false);
+    const classes = useStyles();
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
 
     useEffect(() => {
@@ -15,28 +46,29 @@ const AnalyzePage = ({text,changeText, updateNavbar}) => {
         updateNavbar(NAVBAR_TITLE.Analyze)
     },[])
 
+    const changeMultilineText = (event) => {
+        console.log("UPDATE TEXT " +event.target.value)
+        changeText(event.target.value)
+    }
+
     return (
         <div className="App">
-            <textarea
-                rows={"20"}
-                cols={"50"}
-                placeholder={"Введите ваш текст"}
-                value={text}
-                onChange={(event) => {
-                    console.log("UPDATE TEXT " +event.target.value)
-                    changeText(event.target.value)
-                }}
-            >
-            </textarea>
+            <MultilineText className={classes.root} text={text} changeText={changeMultilineText}/>
             <br/>
-            <button className={"button_analyze"}>
+            <Button
+                variant="contained"
+                color={"primary"}
+                onClick={handleClickOpen}
+                className={classes.button_analyze}
+            >
                 Анализировать
-            </button>
+            </Button>
             <br/>
             <div className={"top_margin"}>
                 Текст из поля: {text}
             </div>
 
+            <CustomizedDialog open={open} handleClose={handleClose}/>
         </div>
     );
 }

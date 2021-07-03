@@ -7,6 +7,7 @@ import {InputField} from "../atoms/InputField";
 export const SearchField = ({value,onChange}) => {
     return(
         <div className={"search_field"}>
+
             <InputField value={value} onChange={onChange}/>
         </div>
     );

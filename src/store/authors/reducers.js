@@ -22,7 +22,6 @@ const initialState = {
 };
 
 export const authorsReducer = (state=initialState,action) => {
-    console.log("REDUCER GETAUTHORS "+action.type)
     switch(action.type){
         // case
         case ACTION_GET_DATA_OF_AUTHOR:

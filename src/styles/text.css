@@ -8,3 +8,13 @@
 .unlink_text:hover{
     color: #e65154;
 }
+
+.main_page_text{
+    margin-top: 10%;
+    font-size: 50px;
+    font-weight: 450;
+}
+
+.main_page_text_color{
+    color: #e65154;
+}

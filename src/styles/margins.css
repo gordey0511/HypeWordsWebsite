@@ -1,3 +1,10 @@
 .top_margin{
     margin-top: 30px;
 }
+
+.margin_small {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    top: 10px;
+}

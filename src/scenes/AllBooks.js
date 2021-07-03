@@ -1,15 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {LinesOfBooks} from "../components/molecules/LinesOfBooks";
+import {update_navbar} from "../store/navbar/actions";
+import {NAVBAR_TITLE} from "../utils/constants";
 import {Lines} from "../components/molecules/Lines";
 import {LINES} from '../utils/constants';
 
-const AllBooks = (props) => {
-    console.log(props)
+const AllBooks = ({books,updateNavbar}) => {
+
+    useEffect(() => {
+        updateNavbar(NAVBAR_TITLE.Books);
+    })
     return (
         <div>
-            <Lines array={props.books} id={LINES.books}/>
+            <Lines array={books} id={LINES.books}/>
             {/*<LinesOfBooks array={props.books}/>*/}
         </div>
     )
@@ -21,4 +26,10 @@ const putStateToProps = state => {
     }
 }
 
-export default connect(putStateToProps)(AllBooks);
+const putDispatchToProps = dispatch => {
+    return{
+        updateNavbar: bindActionCreators(update_navbar,dispatch),
+    }
+}
+
+export default connect(putStateToProps, putDispatchToProps)(AllBooks);

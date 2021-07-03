@@ -1,8 +1,20 @@
 .center_block{
+    /*display: inline-block;*/
     vertical-align: center;
     justify-content: center;
     text-align: center;
     margin-left: 10px;
+}
+
+.center_block_login{
+    display: flex;
+    vertical-align: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    /*margin-left: 10px;*/
 }
 
 .outer_block{
@@ -11,9 +23,39 @@
     /*display: inline-block;*/
 }
 
+.outer_block_red{
+    display: flex;
+    align-items: flex-start;
+    /*display: inline-block;*/
+    color:#e65154;
+}
+
 .search_field{
     vertical-align: center;
     justify-content: center;
     text-align: center;
     margin-top: 10px;
+}
+
+.vertical_blocks{
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+}
+
+.block_vertical{
+    display: flex;
+    margin-top: 30px;
+    /*margin-bottom: 30px;*/
+    padding-top: 30px;
+    vertical-align: middle;
+}
+
+.middle_block_list{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    justify-content: center;
+    text-align: center;
+
 }

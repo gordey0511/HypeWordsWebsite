@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 export const BookOfList = ({name,index=0}) => {
 
     useEffect(() => {
-        console.log('CREATE')
     },[])
 
     return(

@@ -5,6 +5,7 @@ import {SearchField} from "./SearchField";
 import "../../styles/blocks.css"
 import {LINES} from '../../utils/constants';
 import {Author} from "../atoms/Author";
+import {OutlinedCard} from "../atoms/OutlinedCard";
 
 export const Lines = ({array,id}) => {
     useEffect(() => {
@@ -26,18 +27,17 @@ export const Lines = ({array,id}) => {
     const Layout = ({name}) => {
         if(id === LINES.books){
             return (
-                <BookOfList name={name}/>
+                <OutlinedCard text={name} type={"Проза"} year={"1893"}/>
             );
-        }
-        if(id === LINES.authors){
+        }else if(id === LINES.authors){
             return (
-                <Author name={name}/>
+                <OutlinedCard name={name} type={"Русская классика"} year={"1880"}/>
             );
         }
     }
 
     return (
-        <div>
+        <div className={"middle_block_list"}>
             <div className={"center_block"}>
                 <SearchField value={filter} onChange={handleChange} />
                 {filteredData.map(item => (
@@ -63,6 +63,7 @@ const styles = {
     },
 
     li:{
+        display: 'inline-block',
         listStyleType:"none",
         padding:10,
         textDecoration: 'none',

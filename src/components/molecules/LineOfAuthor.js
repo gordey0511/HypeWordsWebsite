@@ -4,7 +4,7 @@ import {Author} from "../atoms/Author";
 export const LineOfAuthor = ({array}) => {
 
     useEffect(() => {
-        console.log(array)
+        // console.log(array)
     },[])
 
     return (

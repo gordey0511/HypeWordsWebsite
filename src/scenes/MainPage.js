@@ -1,28 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ListOfAuthor} from "./ListOfAuthors";
 import {AddAuthor} from "../components/organisms/AddAuthor";
 import {AuthorAPI} from "../services/AuthorApi";
 import {Link, Switch} from "react-router-dom";
 import {bindActionCreators, createStore} from "redux";
 import {connect, Provider} from "react-redux";
+import {update_navbar} from "../store/navbar/actions";
+import {NAVBAR_TITLE} from "../utils/constants";
+import '../styles/text.css'
 
-const MainPage = (props) => {
-    console.log(props);
+const MainPage = ({updateNavbar}) => {
 
-
-    const addAuthor = (data) => {
-        console.log("AddAuthor "+data.name)
-        AuthorAPI.addAuthor(data)
-        const authors=AuthorAPI.all;
-        // console.log(authors)
-    }
+    useEffect(() => {
+        updateNavbar(NAVBAR_TITLE.Home)
+    })
 
     return (
         <div className="App">
-            <header className="App-header">
+
+            <header>
                 <a style={styles.block_top}>
-                    <b>Всем привет!<br/> Это сайт про любимые слова авторов</b>
-                    <img style={styles.img_back} src="books_background_main_page.png"/>
+                    <div className={"main_page_text"}>
+                        Рады вас видеть на нашем сайте <text className={"main_page_text_color"}>HypeWords.</text>
+                        <br/>
+                        <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые слова авторов и разных книг
+                    </div>
                 </a>
                 <div>
                     <Link to={'/analyze'}>
@@ -43,14 +45,13 @@ const putStateToProps = (state) => {
     }
 }
 
-const puActionToProps = (dispatch) => {
+const putDispatchToProps = (dispatch) => {
     return {
-        // changeFirstName : bindActionCreators(changeFirstName,dispatch),
-        // changeSecondName : bindActionCreators(changeSecondName,dispatch),
+        updateNavbar: bindActionCreators(update_navbar,dispatch),
     }
 }
 
-export default connect(putStateToProps,puActionToProps)(MainPage);
+export default connect(putStateToProps,putDispatchToProps)(MainPage);
 
 const styles={
     about_me:{
@@ -102,10 +103,10 @@ const styles={
     block_top:{
         // position:'absolute',
         // position:'relative',
-        display:'inline-block',
+        // display:'inline-block',
         // top: 40,
         color:'#000000',
-        verticalAlign: 'bottom',
+        // verticalAlign: 'bottom',
     }
 
 }

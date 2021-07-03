@@ -1,36 +1,45 @@
-import {ACTION_GET_DATA_OF_BOOK} from "../actions";
+import {ACTION_GET_DATA_OF_BOOK_FAIL, ACTION_GET_DATA_OF_BOOK_SUCCESS, ACTION_GET_TEXT_OF_BOOK} from "./actions";
+import parse_book from "../../server/parse_book";
 
 const initialState = {
     name: "test",
-    author: null,
-    link_of_author: null,
-    date_of_publish: null,
-    link_of_text: null,
+    author: "",
+    link_of_author: "",
+    date_of_publish: "",
+    link_of_text: "",
     array_of_words: [],
     books: [
-        {name:"Книга #1"},
-        {name:"Книга #2"},
-        {name:"Книга #3"},
-        {name:"Книга #4"},
+        {name:"Книга о Путине"},
+        {name:"Книга о Обаме"},
+        {name:"Книга о Навальном"},
+        {name:"Книга о Меркельы"},
+        {name:"Книга о Обаме"},
+        {name:"Книга о Маске"},
+        {name:"История игрушек"},
+        {name:"История России"},
     ],
+    text_book: [],
 };
 
 export const booksReducer = (state=initialState,action) => {
+    const data = action.payload;
+    console.log("BOOKS REDUCER "+action+" "+data)
     switch(action.type){
-        case ACTION_GET_DATA_OF_BOOK:
+        case ACTION_GET_DATA_OF_BOOK_SUCCESS:
             //запрос к бд
             return {...state,
-                name:'Евгений Онегин',
-                author: 'Александр Пушкин',
-                link_of_author:"/p/pushkin_a_s/",
-                link_of_text:"/p/pushkin_a_s/text_0170.shtml",
-                date_of_publish: "1830",
-                array_of_words: [
-                    {name:"Полина",cnt:15},
-                    {name:"Лизочка",cnt:11},
-                    {name:"Даша",cnt:5},
-                    {name:"Ксяша",cnt:3},
-                ],
+                name:data.name,
+            }
+        case ACTION_GET_DATA_OF_BOOK_FAIL:
+            //запрос к бд
+            return {...state,
+            }
+        case ACTION_GET_TEXT_OF_BOOK:
+            const results = parse_book(data);
+
+            return {
+                ...state,
+                text_book: results,
             }
     }
     return state;

@@ -5,7 +5,7 @@ import {AuthorAPI} from "../../services/AuthorApi";
 export const Author = ({name,index=0}) => {
 
     useEffect(() => {
-        console.log(name)
+        // console.log(name)
     },[])
 
     return (
