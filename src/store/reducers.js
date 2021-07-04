@@ -6,6 +6,10 @@ import {analyzeReducer} from "./analyze/reducers";
 import {navbarReducer} from "./navbar/reducers";
 import {loginReducer} from "./login/reducers";
 
+export const SUCCESS = "_SUCCESS";
+export const FAIL = "_FAIL";
+export const START = "_START";
+
 export default  combineReducers({
     analyze: analyzeReducer,
     books: booksReducer,

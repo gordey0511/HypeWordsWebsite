@@ -18,16 +18,17 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
     // if(token) {
         headers = {
             ...headers,
+            // "Access-Control-Allow-Origin": "*",
             // Authorization: `Bearer ${token}`
         }
     // }
     const url = BASE_URL + action.rest
 
     console.log("FETCH "+url)
-    // next({
-    //     ...action,
-    //     type: action.type + '_START',
-    // })
+    next({
+        ...action,
+        type: action.type + '_START',
+    })
     fetch(url, {
         method: action.method,
         //mode: 'no-cors',
@@ -39,12 +40,21 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
         body: action.method === 'GET' ? undefined : JSON.stringify(action.query),
     })
         .then(response => {
+            if(response.status !== 200){
+                next({
+                    status: response.status,
+                    error: response.error,
+                    type: action.type + '_FAIL',
+                    prevAction: action,
+                })
+            }else{
                 return response.json();
+
             }
-        )
+        })
         .then(data => {
         console.log(data)
-        // if(response.status === 200) {
+        // if(data.status === 200) {
             next({
                 payload: data,
                 type: action.type + '_SUCCESS',
@@ -52,7 +62,7 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
             })
         // } else {
         //     next({
-        //         status: response.status,
+        //         status: data.status,
         //         error: data,
         //         type: action.type + '_FAIL',
         //         prevAction: action,

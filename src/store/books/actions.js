@@ -1,14 +1,14 @@
 export const ACTION_GET_DATA_OF_BOOK = "ACTION_GET_DATA_OF_BOOK";
 export const ACTION_GET_TEXT_OF_BOOK = "ACTION_GET_TEXT_OF_BOOK";
-export const ACTION_GET_DATA_OF_BOOK_SUCCESS = 'ACTION_GET_DATA_OF_BOOK_SUCCESS';
-export const ACTION_GET_DATA_OF_BOOK_FAIL = 'ACTION_GET_DATA_OF_BOOK_FAIL';
+export const ACTION_GET_DATA_OF_ALL_BOOKS = "ACTION_GET_DATA_OF_ALL_BOOKS";
+export const ACTION_GET_AUTHOR_NAME = "ACTION_GET_AUTHOR_NAME"
 
-export const getDataBook = (link_of_book) => {
+export const getDataBook = (token) => {
     return {
         type:ACTION_GET_DATA_OF_BOOK,
-        rest: "/book/link=Hello_world",
+        rest: "/book/"+token,
         method: "GET",
-        query: link_of_book,
+        query: null,
     }
 }
 
@@ -19,9 +19,20 @@ export const getTextOfBook = (link_of_book) => {
     }
 }
 
-// export const changeSecondName = (newSecondName) => {
-//     return {
-//         type:ACTION_CHANGE_SECOND_NAME,
-//         payload: newSecondName,
-//     }
-// }
+export const getAllBooks = (id) => {
+    return {
+        type: ACTION_GET_DATA_OF_ALL_BOOKS,
+        rest: "/books/"+id,
+        method:"GET",
+        query: null,
+    }
+}
+
+export const getAuthorName = (id) => {
+    return {
+        type: ACTION_GET_AUTHOR_NAME,
+        rest: "/book/author_name/"+id,
+        method:"GET",
+        query:null,
+    }
+}

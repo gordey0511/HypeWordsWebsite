@@ -39,13 +39,12 @@ const useStyles = makeStyles({
     }
 });
 
-export const OutlinedCard = ({text,type,year}) => {
+export const OutlinedCard = ({id,text,type,year,link_text}) => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
 
     return (
         <Card className={classes.root} onClick={() => {}}>
-            <Link to={`/book/${text}`} className={classes.link}>
+            <Link to={`/${link_text}/${id}`} className={classes.link}>
                 <CardActionArea>
                     <CardContent>
                         {/*<Typography className={classes.title} color="textSecondary" gutterBottom>*/}

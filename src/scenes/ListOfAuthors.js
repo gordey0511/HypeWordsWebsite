@@ -5,12 +5,15 @@ import {bindActionCreators} from "redux";
 import {update_navbar} from "../store/navbar/actions";
 import {LINES, NAVBAR_TITLE} from "../utils/constants";
 import {Lines} from "../components/molecules/Lines";
+import {getAllAuthors} from "../store/authors/actions";
 
-const ListOfAuthor = ({authors,updateNavbar}) => {
+const ListOfAuthor = ({authors,updateNavbar,getAllAuthors}) => {
 
     useEffect(() => {
+        getAllAuthors(1)
+
         updateNavbar(NAVBAR_TITLE.Authors);
-    })
+    },[])
 
     return (
         <div>
@@ -29,6 +32,7 @@ const putStateToProps = state => {
 const putDispatchToProps = dispatch => {
     return {
         updateNavbar: bindActionCreators(update_navbar,dispatch),
+        getAllAuthors: bindActionCreators(getAllAuthors,dispatch),
     }
 }
 

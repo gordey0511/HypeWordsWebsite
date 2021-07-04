@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "bson": "^1.1.6",
     "cheerio": "*",
     "clsx": "^1.1.1",
     "create-react-class": "^15.7.0",
