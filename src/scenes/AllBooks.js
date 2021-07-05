@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {LinesOfBooks} from "../components/molecules/LinesOfBooks";
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
-import {Lines} from "../components/molecules/Lines";
+import Lines from "../components/molecules/Lines";
 import {LINES} from '../utils/constants';
 import {getAllBooks} from "../store/books/actions";
 
@@ -16,6 +16,8 @@ const AllBooks = ({books,updateNavbar,getAllBooks}) => {
 
         updateNavbar(NAVBAR_TITLE.Books);
     },[])
+
+    console.log(books)
     return (
         <div>
             <Lines array={books} id={LINES.books}/>
