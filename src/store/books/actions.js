@@ -1,8 +1,9 @@
 export const ACTION_GET_DATA_OF_BOOK = "ACTION_GET_DATA_OF_BOOK";
 export const ACTION_GET_TEXT_OF_BOOK = "ACTION_GET_TEXT_OF_BOOK";
 export const ACTION_GET_DATA_OF_ALL_BOOKS = "ACTION_GET_DATA_OF_ALL_BOOKS";
-export const ACTION_GET_AUTHOR_NAME = "ACTION_GET_AUTHOR_NAME"
-export const ACTION_GET_SEARCH_RESULT_BOOK = "ACTION_GET_SEARCH_RESULT_BOOK"
+export const ACTION_GET_AUTHOR_NAME = "ACTION_GET_AUTHOR_NAME";
+export const ACTION_GET_SEARCH_RESULT_BOOK = "ACTION_GET_SEARCH_RESULT_BOOK";
+export const ACTION_GET_UPDATE_SEARCH_RESULT_BOOK = "ACTION_GET_UPDATE_SEARCH_RESULT_BOOK";
 
 export const getDataBook = (token) => {
     return {
@@ -43,6 +44,17 @@ export const getSearchBookResult = (name) => {
         type: ACTION_GET_SEARCH_RESULT_BOOK,
         rest: "/books/s/",
         method:"POST",
-        query:{"name":name},
+        query:{"name": name,
+                "id": 1},
+    }
+}
+
+export const getUpdateSearchBookResult = (name,id) => {
+    return {
+        type: ACTION_GET_UPDATE_SEARCH_RESULT_BOOK,
+        rest: "/books/s/r/",
+        method:"POST",
+        query:{"name": name,
+                "id": id},
     }
 }

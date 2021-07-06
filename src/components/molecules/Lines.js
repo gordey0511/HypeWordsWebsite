@@ -9,19 +9,45 @@ import {OutlinedCard} from "../atoms/OutlinedCard";
 import {bindActionCreators} from "redux";
 import {update_navbar} from "../../store/navbar/actions";
 import {getAllAuthors} from "../../store/authors/actions";
-import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult} from "../../store/books/actions";
+import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookResult} from "../../store/books/actions";
 import {connect} from "react-redux";
 
-const Lines = ({array,id,updateSearch}) => {
+const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     console.log(array)
     const [filter,setFilter] = useState("")
+    let curId = 1;
 
+    useEffect(() => {
+        document.addEventListener('scroll', trackScrolling);
+    },[])
+
+    useEffect(() => {
+        updateSearch(filter);
+        console.log(filter);
+    },[filter])
 
     const handleChange = event => {
         setFilter(event.target.value);
-        updateSearch(event.target.value);
+        curId = 1;
+        console.log(curId);
     };
+
+    function isBottom(el) {
+        // console.log(el.getBoundingClientRect().bottom + " " + window.innerHeight)
+        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
+
+    const trackScrolling = () => {
+        const wrappedElement = document.getElementById('field');
+        if (isBottom(wrappedElement)) {
+            // console.log('header bottom reached');
+            console.log("!"+curId + " " + filter)
+            updateSearchField(filter,curId+1)
+            ++curId;
+        }
+    };
+
 
     // const lowercasedFilter = filter.toLowerCase();
     // Object.values(array).filter(item => {
@@ -34,7 +60,7 @@ const Lines = ({array,id,updateSearch}) => {
 
     return (
         <div className={"middle_block_list"}>
-            <div className={"center_block"}>
+            <div className={"center_block"} id={"field"}>
                 <SearchField value={filter} onChange={handleChange} />
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
@@ -67,6 +93,7 @@ const Lines = ({array,id,updateSearch}) => {
 const putDispatchToProps = dispatch => {
     return {
         updateSearch: bindActionCreators(getSearchBookResult,dispatch),
+        updateSearchField: bindActionCreators(getUpdateSearchBookResult,dispatch),
     }
 }
 
