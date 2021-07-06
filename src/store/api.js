@@ -60,14 +60,6 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
                 type: action.type + '_SUCCESS',
                 prevAction: action,
             })
-        // } else {
-        //     next({
-        //         status: data.status,
-        //         error: data,
-        //         type: action.type + '_FAIL',
-        //         prevAction: action,
-        //     })
-        // }
     }).catch((error) => {
         next({
             status: 500,

@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {update_navbar} from "../store/navbar/actions";
 import {LINES, NAVBAR_TITLE} from "../utils/constants";
-import {Lines} from "../components/molecules/Lines";
+import Lines from "../components/molecules/Lines";
 import {getAllAuthors} from "../store/authors/actions";
 
 const ListOfAuthor = ({authors,updateNavbar,getAllAuthors}) => {
