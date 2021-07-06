@@ -1,8 +1,17 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {AuthorAPI} from "../../services/AuthorApi";
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+    button_navbar:{
+        fontWeight: 600,
+        fontSize: 18,
+    }
+})
 
 export const TabNavbarMain = ({tab_text,current_text,link}) => {
+    const classes = useStyles()
 
     useEffect(() => {
         console.log("TabNavbar "+tab_text+" "+current_text)
@@ -13,19 +22,27 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
         ((tab_text === current_text) ?
             <Link to={link} className={"invested_div"}>
                 <div className={"outer_block_red"}>
-                    <img src="logo.png" className={"img_logo"}/>
-                    <b className={"center_block"}>
-                        {tab_text}
-                    </b>
+                    <Button  className={classes.button_navbar}>
+                        <img src="favicon.svg" className={"img_logo"}/>
+                        <b className={"center_block"}>
+                            <text style={{color:"#2657eb"}}>
+                                {tab_text}
+                            </text>
+                        </b>
+                    </Button>
                 </div>
             </Link>
             :
             <Link to={link} className={"invested_div"}>
                 <div className={"outer_block"}>
-                    <img src="logo.png" className={"img_logo"}/>
-                    <b className={"center_block"}>
-                        {tab_text}
-                    </b>
+                    <Button  className={classes.button_navbar}>
+                        <img src="favicon.svg" className={"img_logo"}/>
+                        <b className={"center_block"}>
+                            <text style={{color:"#2657eb"}}>
+                                {tab_text}
+                            </text>
+                        </b>
+                    </Button>
                 </div>
             </Link>
         )

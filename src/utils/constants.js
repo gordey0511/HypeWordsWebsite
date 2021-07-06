@@ -11,7 +11,8 @@ export const NAVBAR_TITLE = {
 }
 
 export const COLORS = {
-    red: '#e65154',
+    red: '#de6161',
+    blue: '#2657eb',
 }
 
 export const LINES = {

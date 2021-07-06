@@ -33,22 +33,22 @@ const BookPage = ({name,
     return (
         <div className="center_div">
             {
-                (isLoading === true)?
+                // (isLoading === true)?
                     <div className="info">
                         <Link className="unlink_text" to={link_of_text}>
                             <b>{name}</b>
                         </Link>
                         г. {year_published}
                         <br/>
-                        <Link className="unlink_text" to={"/author/"+link_of_author}>
-                            Автор: <b>{authorName}</b>
+                        Автор:<Link className="unlink_text" to={"/author/"+link_of_author}>
+                            <b>{authorName}</b>
                         </Link>
                         <br/>
                         <br/>
                         Разделы: {section}
                     </div>
-                :
-                    <CircularProgress />
+                // :
+                //     <CircularProgress />
             }
         </div>
     )

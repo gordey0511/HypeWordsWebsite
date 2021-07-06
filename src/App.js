@@ -9,8 +9,9 @@ import ListOfAuthor from "./scenes/ListOfAuthors";
 import AnalyzePage from "./scenes/AnalyzePage";
 import AllBooks from "./scenes/AllBooks";
 import BookPage from "./scenes/BookPage";
-import {Login} from "./scenes/Login";
-import {Register} from "./scenes/Register";
+import Login from "./scenes/Login";
+import Register from "./scenes/Register";
+import Profile from "./scenes/Profile";
 
 const App= (props) => {
     const {history} = props;
@@ -27,6 +28,7 @@ const App= (props) => {
             <Route exact path='/book/:id' component={BookPage}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
+            <Route exact path='/profile' component={Profile}/>
         </Switch>
     )
 }

@@ -1,16 +1,38 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {NAVBAR_TITLE} from "../../utils/constants";
 import {Link} from "react-router-dom";
 import './organisms.css'
 import '../../styles/img.css'
 import '../../styles/blocks.css'
 import {connect} from "react-redux";
-import {TabNavbar} from "../atoms/TabNavbar";
+import TabNavbar from "../atoms/TabNavbar";
 import {TabNavbarMain} from "../atoms/TabNavbarMain";
+import {TabNavbarRight} from "../atoms/TabNavbarRight";
+import {bindActionCreators} from "redux";
+import {getDataUser} from "../../store/auth/actions";
 
-const Navbar = ({current_text}) => {
+const Navbar = ({
+    current_text,
+    name,
+    getData
+    // token,
+}) => {
+
+    const [token,setToken] = useState("")
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setToken(localStorage.getItem("token"))
+    },[localStorage.getItem("token")])
+
+    useEffect(() => {
+        if(token!==undefined&&token!==null&&token!==""){
+            getData(token)
+        }
+    },[token])
+
+    useEffect(() => {
+        console.log("CURRENT TEXT "+current_text)
     },[current_text])
 
     return(
@@ -43,6 +65,21 @@ const Navbar = ({current_text}) => {
                 current_text={current_text}
                 link={"/analyze"}
             />
+
+            {
+                (token === null||token === undefined||token === "")?
+                    <TabNavbarRight
+                    tab_text={NAVBAR_TITLE.Login}
+                    current_text={current_text}
+                    link={"/login"}
+                    />
+                :
+                    <TabNavbarRight
+                        tab_text={name}
+                        current_text={current_text}
+                        link={"/profile"}
+                    />
+            }
             {/*<Link className={'invested_div'} to={"/authors"}>*/}
             {/*    <div>*/}
             {/*        {NAVBAR_TITLE.Authors}*/}
@@ -61,8 +98,16 @@ const Navbar = ({current_text}) => {
 const putStateToProps = (state) => {
     return {
         current_text: state.navbar.current_text,
+        name:state.auth.name,
+        // token:state.auth.token,
+    }
+}
+
+const putDispatchToProps = (dispatch) => {
+    return {
+        getData: bindActionCreators(getDataUser,dispatch),
     }
 }
 
 
-export default connect(putStateToProps,null)(Navbar);
+export default connect(putStateToProps,putDispatchToProps)(Navbar);
