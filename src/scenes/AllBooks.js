@@ -12,9 +12,8 @@ const AllBooks = ({books,updateNavbar,getAllBooks}) => {
 
     useEffect(() => {
         console.log("ALLBOKS USE EFFECT")
-        getAllBooks(1)
-
         updateNavbar(NAVBAR_TITLE.Books);
+        getAllBooks(1)
     },[])
     return (
         <div>

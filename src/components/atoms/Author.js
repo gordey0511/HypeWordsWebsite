@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
-import {AuthorAPI} from "../../services/AuthorApi";
 
 export const Author = ({name,index=0}) => {
 

@@ -18,7 +18,6 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
     // if(token) {
         headers = {
             ...headers,
-            // "Access-Control-Allow-Origin": "*",
             // Authorization: `Bearer ${token}`
         }
     // }
@@ -44,6 +43,7 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
                 next({
                     status: response.status,
                     error: response.error,
+                    payload: response.message,
                     type: action.type + '_FAIL',
                     prevAction: action,
                 })

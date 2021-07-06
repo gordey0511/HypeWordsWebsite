@@ -10,9 +10,8 @@ import {getAllAuthors} from "../store/authors/actions";
 const ListOfAuthor = ({authors,updateNavbar,getAllAuthors}) => {
 
     useEffect(() => {
-        getAllAuthors(1)
-
         updateNavbar(NAVBAR_TITLE.Authors);
+        getAllAuthors(1)
     },[])
 
     return (

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {ListOfAuthor} from "./ListOfAuthors";
 import {AddAuthor} from "../components/organisms/AddAuthor";
-import {AuthorAPI} from "../services/AuthorApi";
 import {Link, Switch} from "react-router-dom";
 import {bindActionCreators, createStore} from "redux";
 import {connect, Provider} from "react-redux";
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
 import '../styles/text.css'
+import {Fab} from "../components/atoms/Fab";
 
 const MainPage = ({updateNavbar}) => {
 
@@ -27,11 +27,9 @@ const MainPage = ({updateNavbar}) => {
                     </div>
                 </a>
                 <div>
-                    <Link to={'/analyze'}>
-                        <button style={styles.button_analyze}>
-                            Проанализировать свой текст
-                        </button>
-                    </Link>
+                    {/*<Link to={'/analyze'}>*/}
+                    {/*    <Fab text={"Проанализировать текст"}/>*/}
+                    {/*</Link>*/}
                 </div>
             </header>
         </div>

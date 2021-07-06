@@ -4,7 +4,6 @@ import {
     ACTION_GET_DATA_OF_BOOK,
     ACTION_GET_TEXT_OF_BOOK
 } from "./actions";
-import parse_book from "../../server/parse_book";
 import {ObjectId} from "bson";
 import {FAIL, START, SUCCESS} from "../reducers";
 
@@ -27,7 +26,7 @@ export const booksReducer = (state=initialState,action) => {
     switch(action.type){
         case ACTION_GET_DATA_OF_BOOK+SUCCESS:
             return {...state,
-                isLoading: true,
+                isLoading: false,
                 name:data.name,
                 year_published: data.year_published,
                 link_of_text: data.link,
@@ -36,7 +35,7 @@ export const booksReducer = (state=initialState,action) => {
             }
         case ACTION_GET_DATA_OF_BOOK+START:
             return {...state,
-                isLoading: false,
+                isLoading: true,
                 // name:"",
                 // year_published: "",
                 // link_of_text: "",
@@ -48,11 +47,8 @@ export const booksReducer = (state=initialState,action) => {
             return {...state,
             }
         case ACTION_GET_TEXT_OF_BOOK:
-            const results = parse_book(data);
-
             return {
                 ...state,
-                text_book: results,
             }
         case ACTION_GET_DATA_OF_ALL_BOOKS+SUCCESS:
             return {

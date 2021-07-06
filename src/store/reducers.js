@@ -4,7 +4,7 @@ import {authorsReducer} from "./authors/reducers";
 import {profileReducer} from "./profile/reducers";
 import {analyzeReducer} from "./analyze/reducers";
 import {navbarReducer} from "./navbar/reducers";
-import {loginReducer} from "./login/reducers";
+import {authReducer} from "./auth/reducers";
 
 export const SUCCESS = "_SUCCESS";
 export const FAIL = "_FAIL";
@@ -16,5 +16,5 @@ export default  combineReducers({
     authors: authorsReducer,
     profile: profileReducer,
     navbar: navbarReducer,
-    login: loginReducer,
+    auth: authReducer,
 })
