@@ -1,5 +1,11 @@
 import {FAIL, SUCCESS} from "../reducers";
-import {ACTION_CREATE_USER, ACTION_GET_DATA_USER, ACTION_LOGIN_USER, ACTION_LOGOUT_USER} from "./actions";
+import {
+    ACTION_CREATE_USER,
+    ACTION_GET_DATA_USER,
+    ACTION_GET_FAVORITE_BOOKS,
+    ACTION_LOGIN_USER,
+    ACTION_LOGOUT_USER
+} from "./actions";
 
 const initialState = {
     name: "",
@@ -7,6 +13,9 @@ const initialState = {
     password: "",
     token: "",
     error: "",
+    favorites: [
+        // {name:"Петя",id:"dsdsd"}
+    ],
 };
 
 export const authReducer = (state=initialState,action) => {
@@ -54,6 +63,12 @@ export const authReducer = (state=initialState,action) => {
                 name:data.name,
                 email:data.email,
                 password:data.password,
+                token:data.token,
+            }
+        case ACTION_GET_FAVORITE_BOOKS+SUCCESS:
+            return {
+                ...state,
+                favorites: data,
             }
     }
     return state;

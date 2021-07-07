@@ -91,7 +91,7 @@ const Login = ({
                             />
                         </div>
                     </Card>
-                    Параметры {email} {password}
+                    {/*Параметры {email} {password}*/}
                 </div>
         </div>
     );

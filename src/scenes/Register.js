@@ -103,7 +103,7 @@ const Register = ({
                         <CardActionAuth text={"Уже есть аккаунт"} link={"/login"}/>
                     </div>
                 </Card>
-                {name} {email} {password}
+                {/*{name} {email} {password}*/}
             </div>
         </div>
     );

@@ -56,9 +56,14 @@ export const OutlinedCard = ({id,text,type,year,link_text}) => {
                         <Typography className={classes.pos} color="textSecondary">
                             {type}
                         </Typography>
-                        <Typography variant="body2" component="p">
-                            {year} год
-                        </Typography>
+                        {
+                            (year!==undefined&&year!=="")?
+                                <Typography variant="body2" component="p">
+                                    {year} год
+                                </Typography>
+                            :
+                            <div></div>
+                        }
                     </CardContent>
                 </CardActionArea>
                 <CardActions className={classes.button}>

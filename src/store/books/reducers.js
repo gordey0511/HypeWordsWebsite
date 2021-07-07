@@ -1,8 +1,10 @@
 import {
+    ACTION_ADD_FAVORITE_BOOK,
+    ACTION_DELETE_FAVORITE_BOOK,
     ACTION_GET_AUTHOR_NAME,
     ACTION_GET_DATA_OF_ALL_BOOKS,
     ACTION_GET_DATA_OF_BOOK, ACTION_GET_SEARCH_RESULT_BOOK,
-    ACTION_GET_TEXT_OF_BOOK
+    ACTION_GET_TEXT_OF_BOOK, ACTION_IS_FAVORITE_BOOK
 } from "./actions";
 import {ObjectId} from "bson";
 import {FAIL, START, SUCCESS} from "../reducers";
@@ -14,6 +16,7 @@ const initialState = {
     link_of_author: "",
     year_published: "",
     link_of_text: "",
+    isFavorite: false,
     section: [],
     array_of_words: [],
     books: [],
@@ -46,9 +49,10 @@ export const booksReducer = (state=initialState,action) => {
         case ACTION_GET_DATA_OF_BOOK+FAIL:
             return {...state,
             }
-        case ACTION_GET_TEXT_OF_BOOK:
+        case ACTION_GET_TEXT_OF_BOOK+SUCCESS:
             return {
                 ...state,
+                text_book: data,
             }
         case ACTION_GET_DATA_OF_ALL_BOOKS+SUCCESS:
             return {
@@ -74,6 +78,25 @@ export const booksReducer = (state=initialState,action) => {
                 ...state,
                 isLoading: true,
             }
+
+        case ACTION_IS_FAVORITE_BOOK+SUCCESS:
+            return {
+                ...state,
+                isFavorite: data.isFavorite,
+            }
+
+        case ACTION_ADD_FAVORITE_BOOK+SUCCESS:
+            return {
+                ...state,
+                isFavorite: true,
+            }
+        case ACTION_DELETE_FAVORITE_BOOK+SUCCESS:
+            return {
+                ...state,
+                isFavorite: false,
+            }
+
+
     }
     return state;
 }

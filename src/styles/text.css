@@ -18,3 +18,105 @@
 .main_page_text_color{
     color: #de6161;
 }
+
+.book_title{
+    text-decoration: none;
+    color: #020707;
+    margin-top: 20px;
+    /*margin-left: 30px;*/
+    font-size: 35px;                                ;
+}
+
+.book_title:hover{
+    color: #e65154;
+}
+
+
+.book_author{
+    text-decoration: none;
+    color: #4c4b4b;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*margin-left: 30px;*/
+    font-size: 20px;
+}
+
+.book_author:hover{
+    color: #e65154;
+}
+
+.book_section{
+    text-decoration: none;
+    color: #4c4b4b;
+    /*margin-left: 30px;*/
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.book_bookmark{
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+.book_bookmark:hover{
+    cursor:pointer;
+    color: #e65154;
+}
+
+.book_bookmark_img{
+    display: flex;
+    align-items: flex-end;
+    /*color:#23FF23;*/
+    vertical-align: center;
+
+    margin-top: 1px;
+    /*margin-bottom: 0px;*/
+}
+
+.book_bookmark_text{
+    /*display: inline-block;*/
+}
+
+.book_div_bookmark{
+    display: flex;
+    flex-direction: row;
+    margin-left: 30px;
+}
+
+.button_div{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+.button_read{
+    display: flex;
+    color: #e65154;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.text_book{
+
+    /*margin-left: 20%;*/
+    /*margin-right: 20%;*/
+}
+
+.div_text_book{
+    margin-left: 25%;
+    margin-right: 25%;
+
+}
+
+.text_book_title{
+    text-decoration: none;
+    color: #020707;
+    margin-top: 20px;
+    font-weight: 580;
+    /*margin-left: 30px;*/
+    font-size: 35px;
+    margin-bottom: 20px                                 ;
+}

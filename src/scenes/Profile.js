@@ -2,25 +2,37 @@ import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {ButtonMaterial} from "../components/atoms/ButtonMaterial";
 import {bindActionCreators} from "redux";
-import {logOut} from "../store/auth/actions";
-import {useHistory} from "react-router-dom";
+import {getFavoriteBooks, logOut} from "../store/auth/actions";
+import {Link, useHistory} from "react-router-dom";
 import {update_navbar} from "../store/navbar/actions";
 import Login from "./Login";
 import {NAVBAR_TITLE} from "../utils/constants";
+import "../styles/blocks.css"
+import {LinesBooks} from "../components/molecules/LinesBooks";
+
 
 const Profile = ({
     name,
     token,
     email,
     logout,
+    favorites,
     updateNavbar,
+    getFavoriteBooks,
                  }) => {
     let history = useHistory()
 
     useEffect(() => {
-        console.log("PROFILE NAVBAR "+NAVBAR_TITLE.Profile+" "+name)
+        console.log("PROFILE NAVBAR "+NAVBAR_TITLE.Profile+" "+token)
         updateNavbar(name)
     },[])
+
+    useEffect(() => {
+        if(token!==undefined&&token!==null&&token!==""){
+            console.log("FAVORITE BOOKS "+token)
+            getFavoriteBooks(token)
+        }
+    },[token])
 
     const handleButton = () => {
         logout()
@@ -28,18 +40,26 @@ const Profile = ({
     }
 
     return (
-        <div style={{marginLeft:200,fontSize:22}}>
-            Данные
+        <div className={"block_profile"}>
+            <div className={"profile_name"}>
+                {name}
+            </div>
+            <div className={"profile_email"}>
+                {email}
+            </div>
+            <ButtonMaterial
+                text={"Выйти"}
+                handleClick={handleButton}
+                color={"secondary"}
+            />
+
+
+            <div className={"profile_bookmark"}>
+                Избранные книги
+            </div>
+            <LinesBooks array={favorites}/>
             <br/>
-            {token}
             <br/>
-            {name}
-            <br/>
-            {email}
-            <br/>
-            <br/>
-            <br/>
-            <ButtonMaterial text={"Выйти"} handleClick={handleButton}/>
         </div>
     )
 }
@@ -50,13 +70,15 @@ const putStateToProps = (state) => {
         token: state.auth.token,
         name: state.auth.name,
         email: state.auth.email,
+        favorites: state.auth.favorites,
     }
 }
 
 const putDispatchToProps = (dispatch) => {
     return {
         updateNavbar: bindActionCreators(update_navbar,dispatch),
-        logout: bindActionCreators(logOut,dispatch)
+        logout: bindActionCreators(logOut,dispatch),
+        getFavoriteBooks: bindActionCreators(getFavoriteBooks,dispatch),
     }
 }
 

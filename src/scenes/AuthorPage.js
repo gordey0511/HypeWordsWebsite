@@ -7,6 +7,9 @@ import '../scenes/scenes.css'
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
 import {Link} from "react-router-dom";
+import "../styles/blocks.css"
+import {Typography} from "@material-ui/core";
+import {LinesBooks} from "../components/molecules/LinesBooks";
 
 export const AuthorPage = ({name,
                                about,
@@ -33,43 +36,51 @@ export const AuthorPage = ({name,
 
     return (
         <div className="center_div">
-            <b>{name}</b>
-             {about}
-            <br/>
-            {
-                (date_of_live !== ""
-                &&date_of_live !== null
-                &&date_of_live !== undefined)?
-                    <div>
-                        Годы жизни: <b>{date_of_live}</b>
-                        <br/>
-                    </div>
-                :
-                    <div></div>
-            }
-            {
-                (place_of_live !== ""
-                &&place_of_live !== null
-                    &&place_of_live !== undefined)?
-                    <div>
-                        Место жизни: <b>{place_of_live}</b>
-                        <br/>
-                    </div>
-                    :
-                    <div></div>
-            }
-            Секция: {section}
-            <br/>
-            Его книги
-            {books.map(({name,id}) => (
-                <div>
-                    <Link to={"/book/"+id}>
+            <div className={"block_author"}>
+                <div className={"block_author_2"}>
+                    <Typography variant={"h3"} className={"author_title"}>
                         {name}
-                    </Link>
+                    </Typography>
+
+                    <div className={"author_about"}>
+                        {about}
+                    </div>
                 </div>
-                )
-            )}
-            {/*<LinesOfAuthorsBooks array={books}/>*/}
+                <br/>
+                <div className={"author_title_books"}>
+                    Информация
+                </div>
+                {
+                    (date_of_live !== ""
+                        &&date_of_live !== null
+                        &&date_of_live !== undefined)?
+                        <div>
+                            <div className={"author_inf"}>
+                                Годы жизни <b>{date_of_live}</b>
+                            </div>
+                            <div className={"author_inf"}>
+                                Место жизни { (place_of_live !== ""
+                                &&place_of_live !== null
+                                &&place_of_live !== undefined)?
+                                <b className={"author_inf"}>{place_of_live}</b>
+                                :
+                                <div></div>
+                            }
+                            </div>
+                        </div>
+                        :
+                        <div></div>
+                }
+                Жанр<b className={"author_inf"}>{section}</b>
+                <br/>
+                <div className={"author_title_books"}>
+                    Его книги
+                </div>
+                <LinesBooks array={books}/>
+
+                {/*<LinesOfAuthorsBooks array={books}/>*/}
+
+            </div>
         </div>
     )
 }

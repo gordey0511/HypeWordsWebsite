@@ -12,6 +12,7 @@ import BookPage from "./scenes/BookPage";
 import Login from "./scenes/Login";
 import Register from "./scenes/Register";
 import Profile from "./scenes/Profile";
+import TextBook from "./scenes/TextBook";
 
 const App= (props) => {
     const {history} = props;
@@ -29,6 +30,7 @@ const App= (props) => {
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
             <Route exact path='/profile' component={Profile}/>
+            <Route exact path='/book/text/:token' component={TextBook}/>
         </Switch>
     )
 }

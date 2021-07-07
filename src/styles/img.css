@@ -5,3 +5,11 @@
     margin-bottom: auto;
     vertical-align: center;
 }
+
+.img_book{
+    /*display: flex;*/
+    justify-content: center;
+    width: 360px;
+    height: 500px;
+    /*float: left;*/
+}

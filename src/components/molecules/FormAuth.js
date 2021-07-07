@@ -90,6 +90,7 @@ export const FormAuth = ({
                 <br/>
                 <br/>
                 <ButtonMaterial
+                    color={"primary"}
                     handleClick = {handleButton}
                     text={text_button}
                 />
