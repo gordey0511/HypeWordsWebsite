@@ -19,3 +19,7 @@ export const LINES = {
     authors: 1,
     books: 2,
 }
+
+export const TYPES_OF_BOOKS = {
+
+}

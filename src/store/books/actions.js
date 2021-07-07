@@ -39,22 +39,28 @@ export const getAuthorName = (id) => {
     }
 }
 
-export const getSearchBookResult = (name) => {
+export const getSearchBookResult = (name,year,type) => {
     return {
         type: ACTION_GET_SEARCH_RESULT_BOOK,
         rest: "/books/s/",
         method:"POST",
         query:{"name": name,
-                "id": 1},
+            "id": 1,
+            "year": year,
+            "type": type,
+        },
     }
 }
 
-export const getUpdateSearchBookResult = (name,id) => {
+export const getUpdateSearchBookResult = (name,id,year,type) => {
     return {
         type: ACTION_GET_UPDATE_SEARCH_RESULT_BOOK,
         rest: "/books/s/r/",
         method:"POST",
         query:{"name": name,
-                "id": id},
+                "id": id,
+                "year": year,
+                "type": type,
+        },
     }
 }

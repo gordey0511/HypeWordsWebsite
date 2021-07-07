@@ -11,16 +11,22 @@ import {update_navbar} from "../../store/navbar/actions";
 import {getAllAuthors} from "../../store/authors/actions";
 import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookResult} from "../../store/books/actions";
 import {connect} from "react-redux";
+import {DropDownSeacrh} from "../atoms/DropDownSearch";
 
 const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     console.log(array)
     const [filter,setFilter] = useState("")
-    let curId = 1;
+    const [curId,setCurId] = useState("")
 
     useEffect(() => {
         document.addEventListener('scroll', trackScrolling);
+        return () => {
+            document.removeEventListener("scroll", trackScrolling);
+        }
     },[])
+
+
 
     useEffect(() => {
         updateSearch(filter);
@@ -29,8 +35,12 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     const handleChange = event => {
         setFilter(event.target.value);
-        curId = 1;
+        setCurId(1);
         console.log(curId);
+    };
+
+    const handleClick = event => {
+        console.log("handleClick");
     };
 
     function isBottom(el) {
@@ -38,15 +48,15 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
         return el.getBoundingClientRect().bottom <= window.innerHeight;
     }
 
-    const trackScrolling = () => {
+    function trackScrolling(){
         const wrappedElement = document.getElementById('field');
         if (isBottom(wrappedElement)) {
             // console.log('header bottom reached');
-            console.log("!"+curId + " " + filter)
+            console.log("!"+curId + " ! " + filter + " ! " + filter)
             updateSearchField(filter,curId+1)
-            ++curId;
+            setCurId(curId+1);
         }
-    };
+    }
 
 
     // const lowercasedFilter = filter.toLowerCase();
@@ -61,7 +71,7 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
     return (
         <div className={"middle_block_list"}>
             <div className={"center_block"} id={"field"}>
-                <SearchField value={filter} onChange={handleChange} />
+                <SearchField value={filter} onChange={handleChange} onClickEvent={handleClick}/>
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
                         {(id === LINES.books) ?

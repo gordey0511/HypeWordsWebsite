@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import {Grid} from "@material-ui/core";
+import {FiFilter} from "react-icons/all";
 const useStyles = makeStyles((theme) => ({
     root: {
         width:"100%",
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const InputField = ({value,onChange}) => {
+export const InputField = ({value,onChange,onClickEvent}) => {
     const classes = useStyles();
 
     return(
