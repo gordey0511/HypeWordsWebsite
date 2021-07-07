@@ -38,10 +38,17 @@
 }
 
 .search_field{
-    vertical-align: center;
-    justify-content: center;
     text-align: center;
     margin-top: 10px;
+}
+
+.search_input{
+    vertical-align: center;
+    justify-content: center;
+}
+.search_filter{
+    vertical-align: center;
+    justify-content: left;
 }
 
 .vertical_blocks{

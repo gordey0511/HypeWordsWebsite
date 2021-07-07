@@ -9,19 +9,55 @@ import {OutlinedCard} from "../atoms/OutlinedCard";
 import {bindActionCreators} from "redux";
 import {update_navbar} from "../../store/navbar/actions";
 import {getAllAuthors} from "../../store/authors/actions";
-import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult} from "../../store/books/actions";
+import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookResult} from "../../store/books/actions";
 import {connect} from "react-redux";
+import {DropDownSeacrh} from "../atoms/DropDownSearch";
 
-const Lines = ({array,id,updateSearch}) => {
+const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     console.log(array)
     const [filter,setFilter] = useState("")
+    const [curId,setCurId] = useState("")
 
+    useEffect(() => {
+        document.addEventListener('scroll', trackScrolling);
+        return () => {
+            document.removeEventListener("scroll", trackScrolling);
+        }
+    },[])
+
+
+
+    useEffect(() => {
+        updateSearch(filter);
+        console.log(filter);
+    },[filter])
 
     const handleChange = event => {
         setFilter(event.target.value);
-        updateSearch(event.target.value);
+        setCurId(1);
+        console.log(curId);
     };
+
+    const handleClick = event => {
+        console.log("handleClick");
+    };
+
+    function isBottom(el) {
+        // console.log(el.getBoundingClientRect().bottom + " " + window.innerHeight)
+        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
+
+    function trackScrolling(){
+        const wrappedElement = document.getElementById('field');
+        if (isBottom(wrappedElement)) {
+            // console.log('header bottom reached');
+            console.log("!"+curId + " ! " + filter + " ! " + filter)
+            updateSearchField(filter,curId+1)
+            setCurId(curId+1);
+        }
+    }
+
 
     // const lowercasedFilter = filter.toLowerCase();
     // Object.values(array).filter(item => {
@@ -34,8 +70,8 @@ const Lines = ({array,id,updateSearch}) => {
 
     return (
         <div className={"middle_block_list"}>
-            <div className={"center_block"}>
-                <SearchField value={filter} onChange={handleChange} />
+            <div className={"center_block"} id={"field"}>
+                <SearchField value={filter} onChange={handleChange} onClickEvent={handleClick}/>
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
                         {(id === LINES.books) ?
@@ -67,6 +103,7 @@ const Lines = ({array,id,updateSearch}) => {
 const putDispatchToProps = dispatch => {
     return {
         updateSearch: bindActionCreators(getSearchBookResult,dispatch),
+        updateSearchField: bindActionCreators(getUpdateSearchBookResult,dispatch),
     }
 }
 

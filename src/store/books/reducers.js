@@ -5,6 +5,10 @@ import {
     ACTION_GET_DATA_OF_ALL_BOOKS,
     ACTION_GET_DATA_OF_BOOK, ACTION_GET_SEARCH_RESULT_BOOK,
     ACTION_GET_TEXT_OF_BOOK, ACTION_IS_FAVORITE_BOOK
+    ACTION_GET_DATA_OF_BOOK,
+    ACTION_GET_SEARCH_RESULT_BOOK,
+    ACTION_GET_UPDATE_SEARCH_RESULT_BOOK,
+    ACTION_GET_TEXT_OF_BOOK
 } from "./actions";
 import {ObjectId} from "bson";
 import {FAIL, START, SUCCESS} from "../reducers";
@@ -74,6 +78,20 @@ export const booksReducer = (state=initialState,action) => {
                 ...state,
             }
         case ACTION_GET_SEARCH_RESULT_BOOK+START:
+            return {
+                ...state,
+                isLoading: true,
+            }
+        case ACTION_GET_UPDATE_SEARCH_RESULT_BOOK+SUCCESS:
+            return {
+                ...state,
+                books: state.books.concat(data),
+            }
+        case ACTION_GET_UPDATE_SEARCH_RESULT_BOOK+FAIL:
+            return {
+                ...state,
+            }
+        case ACTION_GET_UPDATE_SEARCH_RESULT_BOOK+START:
             return {
                 ...state,
                 isLoading: true,

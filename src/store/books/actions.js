@@ -7,6 +7,9 @@ export const ACTION_IS_FAVORITE_BOOK = "ACTION_IS_FAVORITE_BOOK"
 export const ACTION_ADD_FAVORITE_BOOK = "ACTION_ADD_FAVORITE_BOOK"
 export const ACTION_DELETE_FAVORITE_BOOK = "ACTION_DELETE_FAVORITE_BOOK"
 
+export const ACTION_GET_AUTHOR_NAME = "ACTION_GET_AUTHOR_NAME";
+export const ACTION_GET_SEARCH_RESULT_BOOK = "ACTION_GET_SEARCH_RESULT_BOOK";
+export const ACTION_GET_UPDATE_SEARCH_RESULT_BOOK = "ACTION_GET_UPDATE_SEARCH_RESULT_BOOK";
 
 export const getDataBook = (token) => {
     return {
@@ -44,12 +47,29 @@ export const getAuthorName = (id) => {
     }
 }
 
-export const getSearchBookResult = (name) => {
+export const getSearchBookResult = (name,year,type) => {
     return {
         type: ACTION_GET_SEARCH_RESULT_BOOK,
         rest: "/books/s/",
         method:"POST",
-        query:{"name":name},
+        query:{"name": name,
+            "id": 1,
+            "year": year,
+            "type": type,
+        },
+    }
+}
+
+export const getUpdateSearchBookResult = (name,id,year,type) => {
+    return {
+        type: ACTION_GET_UPDATE_SEARCH_RESULT_BOOK,
+        rest: "/books/s/r/",
+        method:"POST",
+        query:{"name": name,
+                "id": id,
+                "year": year,
+                "type": type,
+        },
     }
 }
 
