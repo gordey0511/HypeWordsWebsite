@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 export const BASE_URL = "http://127.0.0.1:8000"
 export const NAVBAR_TITLE = {
     Home: "HypeWords",
@@ -21,5 +23,35 @@ export const LINES = {
 }
 
 export const TYPES_OF_BOOKS = {
-
+    Proza: "Проза",
+    Poesia: "Поэзия",
+    Dramaturgia: "Драматургия",
+    Perevodi: "Переводы",
+    Skazki: "Сказки",
+    Detskaya: "Детская",
+    Memuari: "Мемуары",
+    History: "История",
+    Publicistika: "Публицистика",
+    Kritika: "Критика",
+    Philosophy: "Философия",
+    Religion: "Религия",
+    Politics: "Политика",
+    Hist_Proza: "Историческая проза",
+    Biog_Proza: "Биографическая проза",
+    Hum_and_sut: "Юмор И сатира",
+    Trips: "Путешествия",
+    Prevovedenie: "Правоведение",
+    Ethnography: "Этнография",
+    Adventures: "Приключения",
+    Pedagogika: "Педагогика",
+    Psychology: "Психология",
+    Geography: "География",
+    Reference: "Справочная",
+    Anthropology: "Антропология",
+    Philology: "Филология",
+    Zoology: "Зоология",
+    Epistolary: "Эпистолярий",
+    Botanics: "Ботаника",
+    Phantasy: "Фантастика",
+    Polit_economy: "Политэкономия",
 }

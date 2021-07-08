@@ -5,16 +5,11 @@ import "../../styles/img.css";
 import {InputField} from "../atoms/InputField";
 import {DropDownSeacrh} from "../atoms/DropDownSearch";
 
-export const SearchField = ({value,onChange,onClickEvent}) => {
+export const SearchField = ({value,onChange,onClickEvent,handleChange,type}) => {
     return(
         <div className={"search_field"}>
-            <InputField
-                        class={"search_input"}
-                        value={value}
-                        onChange={onChange}
-                        onClickEvent={onClickEvent}
-            />
-            <DropDownSeacrh class={"search_filter"}/>
+            <InputField class={"search_input"} value={value} onChange={onChange} onClickEvent={onClickEvent}/>
+            <DropDownSeacrh class={"search_filter"} handleChange={handleChange} type={type}/>
         </div>
     );
 }
