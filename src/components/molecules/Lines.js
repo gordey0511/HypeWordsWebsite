@@ -101,6 +101,7 @@ const Lines = ({
                     valueSlider={valueSlider}
                     handleChangeSlider={handleChangeSlider}
                 />
+
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
                         {(id === LINES.books) ?
