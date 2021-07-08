@@ -87,7 +87,7 @@ const Lines = ({
     //     );
     // });
 
-    // console.log(array);
+    console.log(array);
 
     return (
         <div className={"middle_block_list"}>
