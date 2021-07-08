@@ -8,7 +8,7 @@ import {Author} from "../atoms/Author";
 import {OutlinedCard} from "../atoms/OutlinedCard";
 import {bindActionCreators} from "redux";
 import {update_navbar} from "../../store/navbar/actions";
-import {getAllAuthors} from "../../store/authors/actions";
+import {getAllAuthors, getSearchAuthorResult, getUpdateSearchAuthorResult} from "../../store/authors/actions";
 import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookResult} from "../../store/books/actions";
 import {connect} from "react-redux";
 import {DropDownSeacrh} from "../atoms/DropDownSearch";
@@ -16,20 +16,25 @@ import {DropDownSeacrh} from "../atoms/DropDownSearch";
 let filter = "";
 let curId = 1;
 let type = "Все";
+let globalId = LINES.books;
 
 const Lines = ({
                    array,
                    id,
                    updateSearch,
-                   updateSearchField
+                   updateSearchField,
+                   updateSearchAuth,
+                   updateSearchFieldAuth
 }) => {
 
     const [valueSlider, setValueSlider] = React.useState([1700, 2021]);
+    globalId = id;
+
 
     const handleChangeSlider = (event, newValue) => {
         setValueSlider(newValue);
         console.log("handleChangeSlider "+valueSlider[0]+" "+valueSlider[1]);
-        updateSearch(filter, valueSlider[0],valueSlider[1],type);
+        updateSearchFun();
     };
 
     useEffect(() => {
@@ -43,7 +48,7 @@ const Lines = ({
         filter = event.target.value;
         curId = 1;
         console.log(curId);
-        updateSearch(filter,valueSlider[0],valueSlider[1],type);
+        updateSearchFun();
     };
 
     const handleClick = event => {
@@ -60,7 +65,12 @@ const Lines = ({
         if (isBottom(wrappedElement)) {
             // console.log('header bottom reached');
             console.log("!"+curId + " ! " + filter + " ! " + type)
-            updateSearchField(filter,curId+1,valueSlider[0],valueSlider[1],type)
+            if(id === LINES.books) {
+                updateSearchField(filter, curId + 1, valueSlider[0], valueSlider[1], type)
+            }
+            else{
+                updateSearchFieldAuth(filter, curId + 1, valueSlider[0], valueSlider[1], type)
+            }
             // setCurId(curId+1);
             curId = curId+1;
         }
@@ -72,8 +82,17 @@ const Lines = ({
         curId = 1;
         type = event.target.value;
         console.log("handleChangeFilterType "+valueSlider[0]+" "+valueSlider[1]);
-        updateSearch(filter, valueSlider[0],valueSlider[1],type);
+        updateSearchFun();
     };
+
+    const updateSearchFun = () => {
+        if(id === LINES.books) {
+            updateSearch(filter, valueSlider[0], valueSlider[1], type);
+        }
+        else{
+            updateSearchAuth(filter, valueSlider[0], valueSlider[1], type);
+        }
+    }
 
 
     // const lowercasedFilter = filter.toLowerCase();
@@ -96,6 +115,7 @@ const Lines = ({
                     type={type}
                     valueSlider={valueSlider}
                     handleChangeSlider={handleChangeSlider}
+                    ids={id}
                 />
 
                 {array.map(item => (
@@ -128,8 +148,10 @@ const Lines = ({
 
 const putDispatchToProps = dispatch => {
     return {
-        updateSearch: bindActionCreators(getSearchBookResult,dispatch),
-        updateSearchField: bindActionCreators(getUpdateSearchBookResult,dispatch),
+        updateSearch: bindActionCreators(getSearchBookResult, dispatch),
+        updateSearchField: bindActionCreators(getUpdateSearchBookResult, dispatch),
+        updateSearchAuth: bindActionCreators(getSearchAuthorResult, dispatch),
+        updateSearchFieldAuth: bindActionCreators(getUpdateSearchAuthorResult, dispatch),
     }
 }
 

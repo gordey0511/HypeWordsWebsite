@@ -55,3 +55,14 @@ export const TYPES_OF_BOOKS = {
     Phantasy: "Фантастика",
     Polit_economy: "Политэкономия",
 }
+
+export const TYPES_OF_AUTHORS = {
+    Rus_20: "Русская литература XX в.",
+    Rus_19: "Русская литература XIX в.",
+    Old_Rus: "Древнерусская литература",
+    English: "Английская литература",
+    German: "Немецкая литература",
+    American: "Американская литература",
+    French: "Французская литература",
+    Special: "Специальные разделы"
+}

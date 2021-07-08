@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
-import {TYPES_OF_BOOKS}  from "../../utils/constants";
+import {LINES, TYPES_OF_AUTHORS, TYPES_OF_BOOKS} from "../../utils/constants";
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -48,12 +48,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const DropDownSeacrh = ({handleChange,type}) => {
+export const DropDownSeacrh = ({handleChange,type,ids}) => {
     const classes = useStyles();
     return (
         <div>
             <FormControl className={classes.margin}>
                 <InputLabel id="demo-customized-select-label">Жанр</InputLabel>
+                {(ids === LINES.books) ?
                 <Select
                     labelId="demo-customized-select-label"
                     id="demo-customized-select"
@@ -61,39 +62,58 @@ export const DropDownSeacrh = ({handleChange,type}) => {
                     onChange={handleChange}
                     input={<BootstrapInput />}
                 >
-                    <MenuItem value={"Все"}>Все</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Proza}>{TYPES_OF_BOOKS.Proza}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Poesia}>{TYPES_OF_BOOKS.Poesia}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Dramaturgia}>{TYPES_OF_BOOKS.Dramaturgia}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Perevodi}>{TYPES_OF_BOOKS.Perevodi}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Skazki}>{TYPES_OF_BOOKS.Skazki}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Detskaya}>{TYPES_OF_BOOKS.Detskaya}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Memuari}>{TYPES_OF_BOOKS.Memuari}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.History}>{TYPES_OF_BOOKS.History}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Publicistika}>{TYPES_OF_BOOKS.Publicistika}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Kritika}>{TYPES_OF_BOOKS.Kritika}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Philosophy}>{TYPES_OF_BOOKS.Philosophy}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Religion}>{TYPES_OF_BOOKS.Religion}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Politics}>{TYPES_OF_BOOKS.Politics}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Hist_Proza}>{TYPES_OF_BOOKS.Hist_Proza}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Biog_Proza}>{TYPES_OF_BOOKS.Biog_Proza}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Hum_and_sut}>{TYPES_OF_BOOKS.Hum_and_sut}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Trips}>{TYPES_OF_BOOKS.Trips}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Prevovedenie}>{TYPES_OF_BOOKS.Prevovedenie}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Ethnography}>{TYPES_OF_BOOKS.Ethnography}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Adventures}>{TYPES_OF_BOOKS.Adventures}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Pedagogika}>{TYPES_OF_BOOKS.Pedagogika}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Psychology}>{TYPES_OF_BOOKS.Psychology}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Geography}>{TYPES_OF_BOOKS.Geography}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Reference}>{TYPES_OF_BOOKS.Reference}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Anthropology}>{TYPES_OF_BOOKS.Anthropology}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Philology}>{TYPES_OF_BOOKS.Philology}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Zoology}>{TYPES_OF_BOOKS.Zoology}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Epistolary}>{TYPES_OF_BOOKS.Epistolary}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Botanics}>{TYPES_OF_BOOKS.Botanics}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Phantasy}>{TYPES_OF_BOOKS.Phantasy}</MenuItem>
-                    <MenuItem value={TYPES_OF_BOOKS.Polit_economy}>{TYPES_OF_BOOKS.Polit_economy}</MenuItem>
+                        <MenuItem value={"Все"}>Все</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Proza}>{TYPES_OF_BOOKS.Proza}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Poesia}>{TYPES_OF_BOOKS.Poesia}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Dramaturgia}>{TYPES_OF_BOOKS.Dramaturgia}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Perevodi}>{TYPES_OF_BOOKS.Perevodi}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Skazki}>{TYPES_OF_BOOKS.Skazki}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Detskaya}>{TYPES_OF_BOOKS.Detskaya}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Memuari}>{TYPES_OF_BOOKS.Memuari}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.History}>{TYPES_OF_BOOKS.History}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Publicistika}>{TYPES_OF_BOOKS.Publicistika}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Kritika}>{TYPES_OF_BOOKS.Kritika}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Philosophy}>{TYPES_OF_BOOKS.Philosophy}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Religion}>{TYPES_OF_BOOKS.Religion}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Politics}>{TYPES_OF_BOOKS.Politics}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Hist_Proza}>{TYPES_OF_BOOKS.Hist_Proza}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Biog_Proza}>{TYPES_OF_BOOKS.Biog_Proza}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Hum_and_sut}>{TYPES_OF_BOOKS.Hum_and_sut}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Trips}>{TYPES_OF_BOOKS.Trips}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Prevovedenie}>{TYPES_OF_BOOKS.Prevovedenie}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Ethnography}>{TYPES_OF_BOOKS.Ethnography}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Adventures}>{TYPES_OF_BOOKS.Adventures}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Pedagogika}>{TYPES_OF_BOOKS.Pedagogika}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Psychology}>{TYPES_OF_BOOKS.Psychology}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Geography}>{TYPES_OF_BOOKS.Geography}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Reference}>{TYPES_OF_BOOKS.Reference}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Anthropology}>{TYPES_OF_BOOKS.Anthropology}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Philology}>{TYPES_OF_BOOKS.Philology}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Zoology}>{TYPES_OF_BOOKS.Zoology}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Epistolary}>{TYPES_OF_BOOKS.Epistolary}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Botanics}>{TYPES_OF_BOOKS.Botanics}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Phantasy}>{TYPES_OF_BOOKS.Phantasy}</MenuItem>
+                        <MenuItem value={TYPES_OF_BOOKS.Polit_economy}>{TYPES_OF_BOOKS.Polit_economy}</MenuItem>
                 </Select>
+                        :
+                    <Select
+                        labelId="demo-customized-select-label"
+                        id="demo-customized-select"
+                        value={type}
+                        onChange={handleChange}
+                        input={<BootstrapInput />}
+                    >
+                        <MenuItem value={"Все"}>Все</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.Rus_20}>{TYPES_OF_AUTHORS.Rus_20}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.Rus_19}>{TYPES_OF_AUTHORS.Rus_19}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.Old_Rus}>{TYPES_OF_AUTHORS.Old_Rus}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.English}>{TYPES_OF_AUTHORS.English}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.German}>{TYPES_OF_AUTHORS.German}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.American}>{TYPES_OF_AUTHORS.American}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.French}>{TYPES_OF_AUTHORS.French}</MenuItem>
+                        <MenuItem value={TYPES_OF_AUTHORS.Special}>{TYPES_OF_AUTHORS.Special}</MenuItem>
+                    </Select>
+                    }
             </FormControl>
         </div>
     )

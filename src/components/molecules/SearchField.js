@@ -5,6 +5,7 @@ import "../../styles/img.css";
 import {InputField} from "../atoms/InputField";
 import {DropDownSeacrh} from "../atoms/DropDownSearch";
 import {Slider} from "@material-ui/core";
+import {LINES} from "../../utils/constants";
 
 export const SearchField = ({
                                 valueSearch,
@@ -14,11 +15,13 @@ export const SearchField = ({
                                 type,
                                 valueSlider,
                                 handleChangeSlider,
+                                ids,
                             }) => {
     return(
         <div className={"search_field"}>
             <InputField class={"search_input"} value={valueSearch} onChange={onChange} onClickEvent={onClickEvent}/>
-            <DropDownSeacrh class={"search_filter"} handleChange={handleChangeSearch} type={type}/>
+            <DropDownSeacrh class={"search_filter"} handleChange={handleChangeSearch} type={type} ids={ids}/>
+            { (ids === LINES.books) ?
             <Slider
                 value={valueSlider}
                 onChange={handleChangeSlider}
@@ -29,6 +32,9 @@ export const SearchField = ({
                 aria-labelledby="range-slider"
                 getAriaValueText={valueSearch}
             />
+                :
+                null
+            }
         </div>
     );
 }
