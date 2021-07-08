@@ -90,7 +90,11 @@ const BookPage = ({name,
                                 </div>
                             </Link>
                             <div className={"book_section"}>
-                                {year_published}, {section}
+                                {year_published}, {section.map((name) => (
+                                    <text>{name} </text>
+                                ))
+
+                                }
                             </div>
                             <div className={"book_words"}>
                                 <div className={"book_words_title"}>

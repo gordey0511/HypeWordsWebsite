@@ -91,7 +91,7 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
                                 id={item._id}
                                 link_text={"book"}
                                 text={item.name}
-                                type={item.section[0]}
+                                type={item.section}
                                 // author_id = {item.author_id}
                                 year={item.year_published}
                             />

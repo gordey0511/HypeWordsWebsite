@@ -54,7 +54,10 @@ export const OutlinedCard = ({id,text,type,year,link_text}) => {
                             {text}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {type}
+                            {type.map((name) => (
+                                <div>{name}</div>
+                            ))
+                            }
                         </Typography>
                         {
                             (year!==undefined&&year!=="")?

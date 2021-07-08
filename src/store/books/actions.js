@@ -48,7 +48,7 @@ export const getAuthorName = (id) => {
 export const getSearchBookResult = (name,year,type) => {
     return {
         type: ACTION_GET_SEARCH_RESULT_BOOK,
-        rest: "/books/s/",
+        rest: "/books/s/r/",
         method:"POST",
         query:{"name": name,
             "id": 1,
