@@ -29,7 +29,7 @@ const Lines = ({
     const handleChangeSlider = (event, newValue) => {
         setValueSlider(newValue);
         console.log("handleChangeSlider "+valueSlider[0]+" "+valueSlider[1]);
-        updateSearchFields()
+        updateSearch(filter, valueSlider[0],valueSlider[1],type);
     };
 
     useEffect(() => {
@@ -72,12 +72,8 @@ const Lines = ({
         curId = 1;
         type = event.target.value;
         console.log("handleChangeFilterType "+valueSlider[0]+" "+valueSlider[1]);
-        updateSearchFields()
-    };
-
-    const updateSearchFields = () => {
         updateSearch(filter, valueSlider[0],valueSlider[1],type);
-    }
+    };
 
 
     // const lowercasedFilter = filter.toLowerCase();
