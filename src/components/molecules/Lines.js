@@ -13,11 +13,16 @@ import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookR
 import {connect} from "react-redux";
 import {DropDownSeacrh} from "../atoms/DropDownSearch";
 
+let filter = "";
+let curId = 1;
+let type = "Все";
+
 const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     console.log(array)
-    const [filter,setFilter] = useState("")
-    const [curId,setCurId] = useState("")
+    // const [filter,setFilter] = React.useState("");
+    // const [curId,setCurId] = React.useState(1);
+    // const [type, setType] = React.useState("Все");
 
     useEffect(() => {
         document.addEventListener('scroll', trackScrolling);
@@ -26,37 +31,44 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
         }
     },[])
 
-
-
-    useEffect(() => {
-        updateSearch(filter);
-        console.log(filter);
-    },[filter])
-
     const handleChange = event => {
-        setFilter(event.target.value);
-        setCurId(1);
+        let new_filter = event.target.value;
+        // setFilter(new_filter);
+        // setCurId(1);
+        filter = new_filter;
+        curId = 1;
         console.log(curId);
+        updateSearch(new_filter,"",type);
     };
 
     const handleClick = event => {
         console.log("handleClick");
     };
 
-    function isBottom(el) {
+    const isBottom = (el) => {
         // console.log(el.getBoundingClientRect().bottom + " " + window.innerHeight)
         return el.getBoundingClientRect().bottom <= window.innerHeight;
     }
 
-    function trackScrolling(){
+    const trackScrolling = () => {
         const wrappedElement = document.getElementById('field');
         if (isBottom(wrappedElement)) {
             // console.log('header bottom reached');
-            console.log("!"+curId + " ! " + filter + " ! " + filter)
-            updateSearchField(filter,curId+1)
-            setCurId(curId+1);
+            console.log("!"+curId + " ! " + filter + " ! " + type)
+            updateSearchField(filter,curId+1,'',type)
+            // setCurId(curId+1);
+            curId = curId+1;
         }
     }
+
+    const handleChangeFilterType = (event) => {
+        // setCurId(1);
+        // setType(event.target.value);
+        curId = 1;
+        type = event.target.value;
+        console.log(event.target.value);
+        updateSearch(filter, '', event.target.value);
+    };
 
 
     // const lowercasedFilter = filter.toLowerCase();
@@ -71,7 +83,7 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
     return (
         <div className={"middle_block_list"}>
             <div className={"center_block"} id={"field"}>
-                <SearchField value={filter} onChange={handleChange} onClickEvent={handleClick}/>
+                <SearchField value={filter} onChange={handleChange} onClickEvent={handleClick} handleChange={handleChangeFilterType} type={type}/>
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
                         {(id === LINES.books) ?
