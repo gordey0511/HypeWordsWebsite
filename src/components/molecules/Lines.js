@@ -20,9 +20,6 @@ let type = "Все";
 const Lines = ({array,id,updateSearch,updateSearchField}) => {
 
     console.log(array)
-    // const [filter,setFilter] = React.useState("");
-    // const [curId,setCurId] = React.useState(1);
-    // const [type, setType] = React.useState("Все");
 
     useEffect(() => {
         document.addEventListener('scroll', trackScrolling);
