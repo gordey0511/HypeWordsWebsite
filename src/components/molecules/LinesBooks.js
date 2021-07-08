@@ -25,7 +25,7 @@ export const LinesBooks = ({array}) => {
                             id={item.id}
                             link_text={"book"}
                             text={item.name}
-                            // type={item.section[0]}
+                            type={[]}
                             // author_id = {item.author_id}
                             // year={item.year_published}
                         />

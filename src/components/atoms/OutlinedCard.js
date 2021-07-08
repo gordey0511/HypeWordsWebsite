@@ -69,9 +69,9 @@ export const OutlinedCard = ({id,text,type,year,link_text}) => {
                         }
                     </CardContent>
                 </CardActionArea>
-                <CardActions className={classes.button}>
-                    <Button size="small" className={classes.button}>Открыть</Button>
-                </CardActions>
+                {/*<CardActions className={classes.button}>*/}
+                {/*    <Button size="small" className={classes.button}>Открыть</Button>*/}
+                {/*</CardActions>*/}
             </Link>
         </Card>
     );

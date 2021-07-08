@@ -17,12 +17,20 @@ let filter = "";
 let curId = 1;
 let type = "Все";
 
-const Lines = ({array,id,updateSearch,updateSearchField}) => {
+const Lines = ({
+                   array,
+                   id,
+                   updateSearch,
+                   updateSearchField
+}) => {
 
-    console.log(array)
-    // const [filter,setFilter] = React.useState("");
-    // const [curId,setCurId] = React.useState(1);
-    // const [type, setType] = React.useState("Все");
+    const [valueSlider, setValueSlider] = React.useState([1700, 2021]);
+
+    const handleChangeSlider = (event, newValue) => {
+        setValueSlider(newValue);
+        console.log("handleChangeSlider "+valueSlider[0]+" "+valueSlider[1]);
+        updateSearchFields()
+    };
 
     useEffect(() => {
         document.addEventListener('scroll', trackScrolling);
@@ -32,13 +40,10 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
     },[])
 
     const handleChange = event => {
-        let new_filter = event.target.value;
-        // setFilter(new_filter);
-        // setCurId(1);
-        filter = new_filter;
+        filter = event.target.value;
         curId = 1;
         console.log(curId);
-        updateSearch(new_filter,"",type);
+        updateSearch(filter,valueSlider[0],valueSlider[1],type);
     };
 
     const handleClick = event => {
@@ -55,7 +60,7 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
         if (isBottom(wrappedElement)) {
             // console.log('header bottom reached');
             console.log("!"+curId + " ! " + filter + " ! " + type)
-            updateSearchField(filter,curId+1,'',type)
+            updateSearchField(filter,curId+1,valueSlider[0],valueSlider[1],type)
             // setCurId(curId+1);
             curId = curId+1;
         }
@@ -66,9 +71,13 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
         // setType(event.target.value);
         curId = 1;
         type = event.target.value;
-        console.log(event.target.value);
-        updateSearch(filter, '', event.target.value);
+        console.log("handleChangeFilterType "+valueSlider[0]+" "+valueSlider[1]);
+        updateSearchFields()
     };
+
+    const updateSearchFields = () => {
+        updateSearch(filter, valueSlider[0],valueSlider[1],type);
+    }
 
 
     // const lowercasedFilter = filter.toLowerCase();
@@ -78,12 +87,20 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
     //     );
     // });
 
-    console.log(array);
+    // console.log(array);
 
     return (
         <div className={"middle_block_list"}>
             <div className={"center_block"} id={"field"}>
-                <SearchField value={filter} onChange={handleChange} onClickEvent={handleClick} handleChange={handleChangeFilterType} type={type}/>
+                <SearchField
+                    value={filter}
+                    onChange={handleChange}
+                    onClickEvent={handleClick}
+                    handleChange={handleChangeFilterType}
+                    type={type}
+                    valueSlider={valueSlider}
+                    handleChangeSlider={handleChangeSlider}
+                />
                 {array.map(item => (
                     <div style={styles.li} key={item._id}>
                         {(id === LINES.books) ?
@@ -100,7 +117,7 @@ const Lines = ({array,id,updateSearch,updateSearchField}) => {
                                 id = {item._id}
                                 link_text={"author"}
                                 text={item.name}
-                                type={item.section}
+                                type={[item.section]}
                                 year={item.date_of_live}
                             />
                         }

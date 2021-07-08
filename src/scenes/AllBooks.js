@@ -11,7 +11,7 @@ import {getAllBooks} from "../store/books/actions";
 const AllBooks = ({books,updateNavbar,getAllBooks}) => {
 
     useEffect(() => {
-        console.log("ALLBOKS USE EFFECT")
+        // console.log("ALLBOKS USE EFFECT")
         updateNavbar(NAVBAR_TITLE.Books);
         getAllBooks(1)
     },[])
