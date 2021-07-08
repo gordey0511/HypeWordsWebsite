@@ -6,9 +6,7 @@ export const ACTION_GET_SEARCH_RESULT_BOOK = "ACTION_GET_SEARCH_RESULT_BOOK"
 export const ACTION_IS_FAVORITE_BOOK = "ACTION_IS_FAVORITE_BOOK"
 export const ACTION_ADD_FAVORITE_BOOK = "ACTION_ADD_FAVORITE_BOOK"
 export const ACTION_DELETE_FAVORITE_BOOK = "ACTION_DELETE_FAVORITE_BOOK"
-
-export const ACTION_GET_AUTHOR_NAME = "ACTION_GET_AUTHOR_NAME";
-export const ACTION_GET_SEARCH_RESULT_BOOK = "ACTION_GET_SEARCH_RESULT_BOOK";
+export const ACTION_GET_WORDS_BOOK = 'ACTION_GET_WORDS_BOOK'
 export const ACTION_GET_UPDATE_SEARCH_RESULT_BOOK = "ACTION_GET_UPDATE_SEARCH_RESULT_BOOK";
 
 export const getDataBook = (token) => {
@@ -98,6 +96,15 @@ export const deleteFavoriteBook = (token,id) => {
         type: ACTION_DELETE_FAVORITE_BOOK,
         rest: "/user/"+token+"/delete_book/"+id,
         method: "GET",
+        query: null,
+    }
+}
+
+export const getWordsBook = (token) => {
+    return {
+        type:ACTION_GET_WORDS_BOOK,
+        rest: '/book/'+token+'/words/',
+        method:"GET",
         query: null,
     }
 }

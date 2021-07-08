@@ -8,8 +8,31 @@ import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
 import '../styles/text.css'
 import {Fab} from "../components/atoms/Fab";
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+    button: {
+        marginLeft:20,
+        marginRight: 20,
+        fontSize:20,
+        textDecoration: "none",
+    },
+
+    link: {
+        textDecoration: "none",
+    },
+
+    left:{
+        float:"left",
+        textAlign:"left",
+        fontSize: 25,
+        // fontWeight: 520,
+    },
+});
 
 const MainPage = ({updateNavbar}) => {
+    const classes  = useStyles();
 
     useEffect(() => {
         updateNavbar(NAVBAR_TITLE.Home)
@@ -26,10 +49,22 @@ const MainPage = ({updateNavbar}) => {
                         <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые слова авторов и разных книг
                     </div>
                 </a>
-                <div>
-                    {/*<Link to={'/analyze'}>*/}
-                    {/*    <Fab text={"Проанализировать текст"}/>*/}
-                    {/*</Link>*/}
+                <div className={"main_div_buttons"}>
+                    <Link className={classes.link} to={"/books/1"}>
+                        <Button variant={"contained"} color={"primary"} className={classes.button}>
+                            Смотреть книги
+                        </Button>
+                    </Link>
+                    <Link className={classes.link} to={"/authors/1"}>
+                        <Button variant={"contained"} color={"primary"} className={classes.button}>
+                            Изучать авторов
+                        </Button>
+                    </Link>
+                    <Link className={classes.link} to={"/analyze"}>
+                        <Button variant={"contained"} color={"secondary"} className={classes.button}>
+                            Анализировать текст
+                        </Button>
+                    </Link>
                 </div>
             </header>
         </div>

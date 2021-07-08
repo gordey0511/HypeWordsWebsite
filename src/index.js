@@ -12,10 +12,19 @@ import {connect, Provider} from "react-redux";
 import rootReducer from "./store/reducers";
 import Navbar from "./components/organisms/Navbar";
 import {api} from "./store/api";
+import {ThemeProvider} from "@material-ui/styles";
+import {createMuiTheme} from "@material-ui/core";
 
 const history = createBrowserHistory()
 
 const store = createStore(rootReducer,applyMiddleware(api));
+
+const theme = createMuiTheme({
+    palette:{
+        // primary: '#de6161',
+        // main: '#de6161',
+    }
+})
 
 const mapStateToProps = (state) => {
     return {
@@ -28,10 +37,13 @@ const  WrappedApp = connect(mapStateToProps)(App);
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter history={history}>
-            <Navbar/>
-            <WrappedApp />
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter history={history}>
+                <Navbar/>
+                <WrappedApp />
+            </BrowserRouter>
+
+        </ThemeProvider>
     </Provider>,
   document.getElementById('root')
 );

@@ -4,6 +4,8 @@ import {getDataBook, getTextOfBook} from "../store/books/actions";
 import {connect} from "react-redux";
 import {Typography} from "@material-ui/core";
 import "../styles/text.css"
+import {Fab} from "../components/atoms/Fab";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 const TextBook = ({
                       textBook,
@@ -38,14 +40,18 @@ const TextBook = ({
             <div className={"text_book_title"}>
                 {name}
             </div>
-            {textBook.map((text) =>
-                <div className={"text_book"}>
-                    <Typography variant={"body1"}>
-                        {text}
-                    </Typography>
-                </div>
-            )
-            }
+            {/*{textBook.map((text) =>*/}
+            {/*    <div className={"text_book"}>*/}
+            {/*        <Typography variant={"body1"}>*/}
+            {/*            {text}*/}
+            {/*        </Typography>*/}
+            {/*    </div>*/}
+            {/*)*/}
+            {/*}*/}
+
+            {/*<Fab color="secondary" size="small" aria-label="scroll back to top">*/}
+            {/*    <KeyboardArrowUpIcon />*/}
+            {/*</Fab>*/}
         </div>
     )
 }

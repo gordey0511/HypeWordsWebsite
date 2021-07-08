@@ -64,9 +64,9 @@ const AnalyzePage = ({text,changeText, updateNavbar}) => {
                 Анализировать
             </Button>
             <br/>
-            <div className={"top_margin"}>
-                Текст из поля: {text}
-            </div>
+                {/*<div className={"top_margin"}>*/}
+                {/*    Текст из поля: {text}*/}
+                {/*</div>*/}
 
             <CustomizedDialog open={open} handleClose={handleClose}/>
         </div>

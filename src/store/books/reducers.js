@@ -4,32 +4,30 @@ import {
     ACTION_GET_AUTHOR_NAME,
     ACTION_GET_DATA_OF_ALL_BOOKS,
     ACTION_GET_DATA_OF_BOOK, ACTION_GET_SEARCH_RESULT_BOOK,
-    ACTION_GET_TEXT_OF_BOOK, ACTION_IS_FAVORITE_BOOK
-    ACTION_GET_DATA_OF_BOOK,
-    ACTION_GET_SEARCH_RESULT_BOOK,
-    ACTION_GET_UPDATE_SEARCH_RESULT_BOOK,
-    ACTION_GET_TEXT_OF_BOOK
+    ACTION_GET_TEXT_OF_BOOK, ACTION_IS_FAVORITE_BOOK,
+    ACTION_GET_UPDATE_SEARCH_RESULT_BOOK, ACTION_GET_WORDS_BOOK,
 } from "./actions";
 import {ObjectId} from "bson";
 import {FAIL, START, SUCCESS} from "../reducers";
 
 const initialState = {
     isLoading: false,
-    name: "test",
+    name: "",
     authorName: "",
     link_of_author: "",
     year_published: "",
     link_of_text: "",
     isFavorite: false,
+    isLoadingWords:false,
     section: [],
-    array_of_words: [],
+    words: [],
     books: [],
     text_book: [],
 };
 
 export const booksReducer = (state=initialState,action) => {
     const data = action.payload;
-    // console.log("BOOKS REDUCER "+action.type+" "+data)
+    console.log("BOOKS REDUCER "+action.type+" "+data)
     switch(action.type){
         case ACTION_GET_DATA_OF_BOOK+SUCCESS:
             return {...state,
@@ -113,7 +111,19 @@ export const booksReducer = (state=initialState,action) => {
                 ...state,
                 isFavorite: false,
             }
-
+        case ACTION_GET_WORDS_BOOK+START:
+            console.log("COMPLETE "+ACTION_GET_WORDS_BOOK+START)
+            return {
+                ...state,
+                isLoadingWords:true,
+                words: [],
+            }
+        case ACTION_GET_WORDS_BOOK+SUCCESS:
+            return {
+                ...state,
+                words: data,
+                isLoadingWords:false,
+            }
 
     }
     return state;

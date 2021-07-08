@@ -3,7 +3,7 @@ import {ACTION_GET_DATA_OF_ALL_AUTHORS} from "./actions";
 import {SUCCESS} from "../reducers";
 
 const initialState = {
-    name : "Test Test Test",
+    name : "",
     about:"",
     profile: null,
     date_of_live: "",

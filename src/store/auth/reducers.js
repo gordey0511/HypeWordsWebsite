@@ -20,7 +20,7 @@ const initialState = {
 
 export const authReducer = (state=initialState,action) => {
     const data = action.payload;
-    console.log("AUTH REDUCER "+action.type+" "+data)
+    // console.log("AUTH REDUCER "+action.type+" "+data)
     switch(action.type){
         case ACTION_CREATE_USER+SUCCESS:
             localStorage.setItem("token",data.token)

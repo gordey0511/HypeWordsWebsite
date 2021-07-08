@@ -84,6 +84,19 @@
     display: flex;
     flex-direction: row;
     margin-left: 30px;
+    margin-bottom: 50px;
+}
+
+.book_words{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.book_words_title{
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
 .button_div{
@@ -118,5 +131,17 @@
     font-weight: 580;
     /*margin-left: 30px;*/
     font-size: 35px;
-    margin-bottom: 20px                                 ;
+    margin-bottom: 20px;
+}
+
+
+.main_div_buttons{
+    margin-top: 50px;
+}
+
+.main_button{
+    display: flex;
+    color: #e65154;
+    margin-left: 20px;
+    margin-right: 20px;
 }
