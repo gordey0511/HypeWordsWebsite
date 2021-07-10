@@ -8,6 +8,8 @@ export const ACTION_ADD_FAVORITE_BOOK = "ACTION_ADD_FAVORITE_BOOK"
 export const ACTION_DELETE_FAVORITE_BOOK = "ACTION_DELETE_FAVORITE_BOOK"
 export const ACTION_GET_WORDS_BOOK = 'ACTION_GET_WORDS_BOOK'
 export const ACTION_GET_UPDATE_SEARCH_RESULT_BOOK = "ACTION_GET_UPDATE_SEARCH_RESULT_BOOK";
+export const ACTION_GET_SIMILAR_AUTHOR = "ACTION_GET_SIMILAR_AUTHOR";
+export const ACTION_GET_WORDS_USER = "ACTION_GET_WORDS_USER";
 
 export const getDataBook = (token) => {
     return {
@@ -108,5 +110,23 @@ export const getWordsBook = (token) => {
         rest: '/book/'+token+'/words/',
         method:"GET",
         query: null,
+    }
+}
+
+export const getSimilarAuthor = (text) => {
+    return {
+        type: ACTION_GET_SIMILAR_AUTHOR,
+        rest: `/similar?text=${text}`,
+        method:"GET",
+        query: null,
+    }
+}
+
+export const getUserWords = (text) => {
+    return {
+        type: ACTION_GET_WORDS_USER,
+        rest: `/user_text`,
+        method:"POST",
+        query: {"text":text},
     }
 }

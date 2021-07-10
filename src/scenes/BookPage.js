@@ -58,7 +58,7 @@ const BookPage = ({name,
     useEffect(() => {
         if(token!==undefined && token!==""){
             getData(token);
-            // getWords(token);
+            getWords(token);
         }
     },[token])
 

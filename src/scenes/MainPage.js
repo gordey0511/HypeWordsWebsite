@@ -44,9 +44,9 @@ const MainPage = ({updateNavbar}) => {
             <header>
                 <a style={styles.block_top}>
                     <div className={"main_page_text"}>
-                        Рады вас видеть на нашем сайте <text className={"main_page_text_color"}>HypeWords.</text>
+                        Рады видеть вас на нашем сайте. <text className={"main_page_text_color"}></text>
                         <br/>
-                        <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые слова авторов и разных книг
+                        <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые слова авторов из разных книг
                     </div>
                 </a>
                 <div className={"main_div_buttons"}>

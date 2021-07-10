@@ -38,7 +38,7 @@ export const TYPES_OF_BOOKS = {
     Politics: "Политика",
     Hist_Proza: "Историческая проза",
     Biog_Proza: "Биографическая проза",
-    Hum_and_sut: "Юмор И сатира",
+    Hum_and_sut: "Юмор и сатира",
     Trips: "Путешествия",
     Prevovedenie: "Правоведение",
     Ethnography: "Этнография",

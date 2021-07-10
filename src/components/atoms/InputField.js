@@ -13,12 +13,19 @@ const useStyles = makeStyles((theme) => ({
     },
 
     icon:{
-        width:"5%",
+        marginBottom:10,
+
+        // width:"10%",
+        // height: "auto",
     },
 
     text_field:{
-        width:"95%",
+        width:"90%",
     },
+
+    resize:{
+        // fontSize:28,
+    }
 }));
 
 export const InputField = ({value,onChange,onClickEvent}) => {
@@ -27,10 +34,23 @@ export const InputField = ({value,onChange,onClickEvent}) => {
     return(
         <Grid className={classes.root} container spacing={1} alignItems="flex-end">
             <Grid item className={classes.icon}>
-                <SearchIcon />
+                <SearchIcon className={"slider_img"}/>
             </Grid>
             <Grid item className={classes.text_field} >
-                <TextField className={classes.root} id="standard-basic" label="Поиск" value={value} onChange={onChange}/>
+                <TextField
+                    className={classes.root}
+                    id="standard-basic"
+                    label="Название книги"
+                    InputProps={{
+                        classes: {
+                            input: classes.resize,
+                        },
+                    }}
+                    margin="normal"
+                    value={value}
+                    onChange={onChange}
+                    // variant={"outlined"}
+                />
             </Grid>
         </Grid>
 
@@ -38,4 +58,20 @@ export const InputField = ({value,onChange,onClickEvent}) => {
     //         <TextField />
     //     </form>
     );
+}
+
+
+const styles = {
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        width: 300,
+        margin: 100,
+    },
+//style for font size
+    resize:{
+        fontSize:50
+    },
 }

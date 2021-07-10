@@ -80,16 +80,6 @@ const Navbar = ({
                         link={"/profile"}
                     />
             }
-            {/*<Link className={'invested_div'} to={"/authors"}>*/}
-            {/*    <div>*/}
-            {/*        {NAVBAR_TITLE.Authors}*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
-            {/*<Link className={'invested_div'} to={"/analyze"}>*/}
-            {/*    <div>*/}
-            {/*        {NAVBAR_TITLE.Analyze}*/}
-            {/*    </div>*/}
-            {/*</Link>*/}
         </div>
     )
 }

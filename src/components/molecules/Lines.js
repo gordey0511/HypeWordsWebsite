@@ -12,10 +12,12 @@ import {getAllAuthors, getSearchAuthorResult, getUpdateSearchAuthorResult} from 
 import {ACTION_GET_SEARCH_RESULT_BOOK, getSearchBookResult, getUpdateSearchBookResult} from "../../store/books/actions";
 import {connect} from "react-redux";
 import {DropDownSeacrh} from "../atoms/DropDownSearch";
+import {CircularProgress} from "@material-ui/core";
 
 let filter = "";
 let curId = 1;
 let type = "Все";
+let valueSlider = [1700,2021];
 let globalId = LINES.books;
 
 const Lines = ({
@@ -23,21 +25,24 @@ const Lines = ({
                    id,
                    updateSearch,
                    updateSearchField,
+                   isLoading,
                    updateSearchAuth,
                    updateSearchFieldAuth
 }) => {
 
-    const [valueSlider, setValueSlider] = React.useState([1700, 2021]);
     globalId = id;
 
 
     const handleChangeSlider = (event, newValue) => {
-        setValueSlider(newValue);
+        valueSlider = newValue;
         console.log("handleChangeSlider "+valueSlider[0]+" "+valueSlider[1]);
         updateSearchFun();
     };
 
     useEffect(() => {
+        filter = ""
+        curId = 1;
+        type = "Все";
         document.addEventListener('scroll', trackScrolling);
         return () => {
             document.removeEventListener("scroll", trackScrolling);
@@ -118,32 +123,45 @@ const Lines = ({
                     ids={id}
                 />
 
-                {array.map(item => (
-                    <div style={styles.li} key={item._id}>
-                        {(id === LINES.books) ?
-                            <OutlinedCard
-                                id={item._id}
-                                link_text={"book"}
-                                text={item.name}
-                                type={item.section}
-                                // author_id = {item.author_id}
-                                year={item.year_published}
-                            />
-                            :
-                            <OutlinedCard
-                                id = {item._id}
-                                link_text={"author"}
-                                text={item.name}
-                                type={[item.section]}
-                                year={item.date_of_live}
-                            />
-                        }
-                    </div>
-                ))
+                {
+                    (!Boolean(isLoading)) ?
+                        <div>
+                            {array.map(item => (
+                                <div style={styles.li} key={item._id}>
+                                    {(id === LINES.books) ?
+                                        <OutlinedCard
+                                            id={item._id}
+                                            link_text={"book"}
+                                            text={item.name}
+                                            type={item.section}
+                                            // author_id = {item.author_id}
+                                            year={item.year_published}
+                                        />
+                                        :
+                                        <OutlinedCard
+                                            id = {item._id}
+                                            link_text={"author"}
+                                            text={item.name}
+                                            type={[item.section]}
+                                            year={item.date_of_live}
+                                        />
+                                    }
+                                </div>
+                            ))
+                            }
+                        </div>
+                        :
+                        <CircularProgress/>
                 }
             </div>
         </div>
     )
+}
+
+const putStateToProps = (state) => {
+    return {
+        isLoading: state.books.isLoading,
+    }
 }
 
 const putDispatchToProps = dispatch => {
@@ -155,7 +173,7 @@ const putDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null,putDispatchToProps)(Lines);
+export default connect(putStateToProps,putDispatchToProps)(Lines);
 
 
 const styles = {

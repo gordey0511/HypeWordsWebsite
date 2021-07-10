@@ -1,0 +1,22 @@
+.vertical_block_analyze{
+    margin-top: 10%;
+}
+
+.title_analyze{
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.text_analyze{
+    font-size: 25px;
+    font-weight: normal;
+    margin-top: 10px;
+    /*text-align: left;*/
+    /*margin-left: 10%;*/
+}
+
+.subtitle_analyze{
+    font-size: 30px;
+    font-weight: normal;
+    margin-top: 20px;
+}

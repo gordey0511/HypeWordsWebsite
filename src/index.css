@@ -4,7 +4,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url("./img/popcat.gif") repeat;
+  /*background: url("./img/popcat.gif") repeat;*/
   min-height: 100vh;
   min-width: 100vw;
   margin: 0;

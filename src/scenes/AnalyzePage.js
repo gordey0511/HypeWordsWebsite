@@ -10,6 +10,8 @@ import Button from "@material-ui/core/Button";
 import {CustomizedDialog} from "../components/atoms/CustomizedDialog";
 import {MultilineText} from "../components/atoms/MultilineText";
 import {makeStyles} from "@material-ui/core/styles";
+import FullWidthAnalyzeResult from "../components/molecules/FullWidthAnalyzeResult";
+import {getSimilarAuthor, getUserWords} from "../store/books/actions";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -29,12 +31,19 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const AnalyzePage = ({text,changeText, updateNavbar}) => {
+const AnalyzePage = ({
+                         text,
+                         changeText,
+                         updateNavbar,
+                         getSimilarAuthor,
+                         getWords,}) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
     const handleClickOpen = () => {
         setOpen(true);
+        getSimilarAuthor(text);
+        getWords(text);
     };
     const handleClose = () => {
         setOpen(false);
@@ -68,7 +77,7 @@ const AnalyzePage = ({text,changeText, updateNavbar}) => {
                 {/*    Текст из поля: {text}*/}
                 {/*</div>*/}
 
-            <CustomizedDialog open={open} handleClose={handleClose}/>
+            <FullWidthAnalyzeResult open={open} handleClose={handleClose}/>
         </div>
     );
 }
@@ -83,6 +92,8 @@ const putDispatchToProps = (dispatch) => {
     return{
         changeText: bindActionCreators(changeText,dispatch),
         updateNavbar: bindActionCreators(update_navbar,dispatch),
+        getSimilarAuthor: bindActionCreators(getSimilarAuthor, dispatch),
+        getWords: bindActionCreators(getUserWords,dispatch),
     }
 }
 

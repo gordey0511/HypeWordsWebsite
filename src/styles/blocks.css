@@ -40,6 +40,13 @@
 .search_field{
     text-align: center;
     margin-top: 10px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    /*border-color: #4c4b4b;*/
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
 }
 
 .search_input{
@@ -49,6 +56,7 @@
 .search_filter{
     vertical-align: center;
     justify-content: left;
+    width: auto;
 }
 
 .vertical_blocks{
