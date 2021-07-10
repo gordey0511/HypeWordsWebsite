@@ -20,10 +20,10 @@ export const getDataBook = (token) => {
     }
 }
 
-export const getTextOfBook = (token) => {
+export const getTextOfBook = (token,id) => {
     return {
         type:ACTION_GET_TEXT_OF_BOOK,
-        rest:"/book/"+token+"/text/",
+        rest:"/book/"+token+"/text/"+id,
         method:"GET",
         query:null,
     }

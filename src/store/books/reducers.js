@@ -55,12 +55,13 @@ export const booksReducer = (state=initialState,action) => {
         case ACTION_GET_TEXT_OF_BOOK+START:
             return {
                 ...state,
+                // text_book: [],
                 isLoading: true,
             }
         case ACTION_GET_TEXT_OF_BOOK+SUCCESS:
             return {
                 ...state,
-                text_book: data,
+                text_book: state.text_book.concat(data),
                 isLoading: false,
             }
         case ACTION_GET_DATA_OF_ALL_BOOKS+SUCCESS:

@@ -50,12 +50,12 @@ const MainPage = ({updateNavbar}) => {
                     </div>
                 </a>
                 <div className={"main_div_buttons"}>
-                    <Link className={classes.link} to={"/books/1"}>
+                    <Link className={classes.link} to={"/books"}>
                         <Button variant={"contained"} color={"primary"} className={classes.button}>
                             Смотреть книги
                         </Button>
                     </Link>
-                    <Link className={classes.link} to={"/authors/1"}>
+                    <Link className={classes.link} to={"/authors"}>
                         <Button variant={"contained"} color={"primary"} className={classes.button}>
                             Изучать авторов
                         </Button>

@@ -60,9 +60,9 @@ const FullWidthAnalyzeResult = ({
 
     const textWord = (cnt) => {
         cnt = Number(cnt)
-        if(cnt>=50000){
+        if(cnt>=80000){
             return <text>Очень часто используете</text>
-        }else if(cnt>=10000){
+        }else if(cnt>=30000){
             return <text>Довольно часто пишите</text>
         }else if(cnt>=1000){
             return <text>Частенько виден в тексте</text>

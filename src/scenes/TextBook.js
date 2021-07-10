@@ -7,6 +7,9 @@ import "../styles/text.css"
 import {Fab} from "../components/atoms/Fab";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Link} from "react-router-dom";
+import {LINES} from "../utils/constants";
+
+let curId = 1;
 
 const TextBook = ({
                       isLoading,
@@ -24,16 +27,20 @@ const TextBook = ({
 
     useEffect(() => {
         getData(token)
-        getText(token);
+        getText(token,curId);
+        curId = 1;
+        document.addEventListener('scroll', trackScrolling);
+        return () => {
+            document.removeEventListener("scroll", trackScrolling);
+        }
     },[])
 
 
-
     // componentDidMount() {
-    //     window.addEventListener('scroll', this.handleScroll);
+    //     window.addEventListener('scroll', handleScroll);
     // }
     //
-    // componentWillUnmount =( ) {
+    // componentWillUnmount() {
     //     window.removeEventListener('scroll', handleScroll);
     // }
     //
@@ -42,6 +49,22 @@ const TextBook = ({
     //         console.log('I need to load some more content here…');
     //     }
     // }
+
+    const isBottom = (el) => {
+        // console.log(el.getBoundingClientRect().bottom + " " + window.innerHeight)
+        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
+
+    const trackScrolling = () => {
+        const wrappedElement = document.getElementById('field');
+        if (isBottom(wrappedElement)) {
+            getText(token,curId+1);
+            // console.log("!"+curId + " ! " + filter + " ! " + type)
+
+            curId = curId+1;
+        }
+    }
+
 
     return (
         <div className={"div_text_book"}>
@@ -67,22 +90,25 @@ const TextBook = ({
                     ))}
                 </div>
             </div>
-            {
-                (Boolean(isLoading))?
-                    <CircularProgress/>
-                    :
-                    <div style={{ maxWidth: '100%', overflow: 'hidden',  }}>
-                        {textBook.map((text) =>
-                            (
-                                <div className={"text_book"}>
-                                    <Typography variant={"body1"}>
-                                        {text}
-                                    </Typography>
-                                </div>
-                            )
-                        )}
-                    </div>
-            }
+            <div id={"field"}>
+                <div style={{ maxWidth: '100%', overflow: 'hidden',  }}>
+                    {textBook.map((text) =>
+                        (
+                            <div className={"text_book"}>
+                                <Typography variant={"body1"}>
+                                    {text}
+                                </Typography>
+                            </div>
+                        )
+                    )}
+                </div>
+                {/*{*/}
+                {/*    (Boolean(isLoading))?*/}
+                {/*        <CircularProgress/>*/}
+                {/*        :*/}
+                {/*        null*/}
+                {/*}*/}
+            </div>
 
             {/*<Fab color="secondary" size="small" aria-label="scroll back to top">*/}
             {/*    <KeyboardArrowUpIcon />*/}
