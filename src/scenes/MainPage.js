@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ListOfAuthor} from "./ListOfAuthors";
+import {ListOfAuthor} from "./author/ListOfAuthors";
 import {AddAuthor} from "../components/organisms/AddAuthor";
 import {Link, Switch} from "react-router-dom";
 import {bindActionCreators, createStore} from "redux";
@@ -7,9 +7,11 @@ import {connect, Provider} from "react-redux";
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
 import '../styles/text.css'
+import '../styles/main.css'
 import {Fab} from "../components/atoms/Fab";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import {LinkButton} from "../components/atoms/Buttons/LinkButton";
 
 const useStyles = makeStyles({
     button: {
@@ -39,34 +41,40 @@ const MainPage = ({updateNavbar}) => {
     })
 
     return (
-        <div className="App">
+        <div className="main_page_div">
 
-            <header>
+            <header className={"main_page_text"}>
                 <a style={styles.block_top}>
-                    <div className={"main_page_text"}>
+                    <div>
                         Рады видеть вас на нашем сайте. <text className={"main_page_text_color"}></text>
                         <br/>
-                        <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые слова авторов из разных книг
+                        <text className={"main_page_text_color"}>HypeWords</text> — сайт про любимые <br/>слова авторов из разных книг.
                     </div>
                 </a>
                 <div className={"main_div_buttons"}>
-                    <Link className={classes.link} to={"/books"}>
-                        <Button variant={"contained"} color={"primary"} className={classes.button}>
-                            Смотреть книги
-                        </Button>
-                    </Link>
-                    <Link className={classes.link} to={"/authors"}>
-                        <Button variant={"contained"} color={"primary"} className={classes.button}>
-                            Изучать авторов
-                        </Button>
-                    </Link>
-                    <Link className={classes.link} to={"/analyze"}>
-                        <Button variant={"contained"} color={"secondary"} className={classes.button}>
-                            Анализировать текст
-                        </Button>
-                    </Link>
+                    <LinkButton
+                        link={"/posts"}
+                        text={"Посты"}
+                    />
+                    <LinkButton
+                        link={"/book"}
+                        text={"Книги"}
+                    />
+                    <LinkButton
+                        link={"/authors"}
+                        text={"Авторы"}
+                    />
+                    <LinkButton
+                        link={"/analyze"}
+                        text={"Анализировать"}
+                        color={"secondary"}
+                    />
                 </div>
             </header>
+            <div>
+                <img className={"main_page_img"}
+                    src={"logo512.png"}/>
+            </div>
         </div>
     );
 }

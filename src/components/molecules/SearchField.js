@@ -11,6 +11,7 @@ import "../../styles/blocks.css"
 import {LINES} from "../../utils/constants";
 import CardContent from "@material-ui/core/CardContent";
 import {Card} from "@material-ui/core";
+import {MainTitle} from "../atoms/Texts/MainTitle";
 
 const useStyles = makeStyles({
     root: {
@@ -48,9 +49,7 @@ export const SearchField = ({
             <CardContent>
 
                 <div className={"search_field"}>
-                    <div className={"slider_title_search"}>
-                        Поиск
-                    </div>
+                    <MainTitle text={"Поиск"}/>
                     <InputField
                         class={"search_input"}
                         value={valueSearch}

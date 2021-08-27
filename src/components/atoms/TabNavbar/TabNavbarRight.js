@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import styles from "../../styles/button.css";
+import styles from "../../../styles/button.css";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -10,8 +10,11 @@ const useStyles = makeStyles({
         fontSize: 18,
     },
 
-    invested_div_right:{
+     invested_div_right:{
         marginLeft: 'auto',
+        right: 0,
+        display: 'flex',
+        flexDirection:'row',
         marginRight: 20,
         marginTop: 10,
         color: '#020707',

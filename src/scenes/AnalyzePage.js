@@ -7,10 +7,9 @@ import "../styles/margins.css"
 import {update_navbar} from "../store/navbar/actions";
 import {NAVBAR_TITLE} from "../utils/constants";
 import Button from "@material-ui/core/Button";
-import {CustomizedDialog} from "../components/atoms/CustomizedDialog";
 import {MultilineText} from "../components/atoms/MultilineText";
 import {makeStyles} from "@material-ui/core/styles";
-import FullWidthAnalyzeResult from "../components/molecules/FullWidthAnalyzeResult";
+import FullWidthAnalyzeResult from "../components/organisms/FullWidthAnalyzeResult";
 import {getSimilarAuthor, getUserWords} from "../store/books/actions";
 
 const useStyles = makeStyles(() => ({

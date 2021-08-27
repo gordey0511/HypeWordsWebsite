@@ -1,0 +1,24 @@
+.main_title{
+    display: flex;
+    margin: 10px 10px 10px 0px;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.main_page_div{
+    display: flex;
+    flex-direction: row;
+}
+
+.main_page_img{
+    display: flex;
+    height: 150px;
+    width: 150px;
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
+    /*margin-top: auto;*/
+    margin-bottom: auto;
+    margin-left: 130px;
+    margin-top: 70%;
+}

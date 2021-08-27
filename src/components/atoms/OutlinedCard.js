@@ -7,49 +7,18 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {CardActionArea} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {styleCard} from "../../styles/style";
 
-const useStyles = makeStyles({
-    root: {
-        minWidth: 275,
-        width:200,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-
-    link:{
-        textDecoration: 'none',
-        color:"#272727",
-        fontSize:25,
-    },
-
-    button:{
-        textAlign: 'right',
-        justifyContent: 'right',
-        float:'right',
-        // fontSize:23,
-    }
-});
+const useStyles = makeStyles(styleCard);
 
 export const OutlinedCard = ({id,text,type,year,link_text}) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root} onClick={() => {}}>
+        <Card className={classes.root}>
             <Link to={`/${link_text}/${id}`} className={classes.link}>
                 <CardActionArea>
                     <CardContent>
-                        {/*<Typography className={classes.title} color="textSecondary" gutterBottom>*/}
-                        {/*    2018 год*/}
-                        {/*</Typography>*/}
                         <Typography variant="h5" component="h2">
                             {text}
                         </Typography>

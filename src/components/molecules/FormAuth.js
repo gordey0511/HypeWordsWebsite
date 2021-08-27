@@ -1,9 +1,10 @@
 import React from "react";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import {TextFieldMaterial} from "../atoms/TextFieldMaterial";
-import {ButtonMaterial} from "../atoms/ButtonMaterial";
+import {TextFieldMaterial} from "../atoms/TextsInput/TextFieldMaterial";
+import {ButtonMaterial} from "../atoms/Buttons/ButtonMaterial";
 import {makeStyles} from "@material-ui/core/styles";
+import {MainTitle} from "../atoms/Texts/MainTitle";
 
 const useStyles = makeStyles({
     root: {
@@ -57,7 +58,7 @@ export const FormAuth = ({
                 <Typography
                     className={classes.left}
                 >
-                    <b>{title}</b>
+                    <MainTitle text={title}/>
                 </Typography>
                 {
                     (name!==undefined)?

@@ -10,6 +10,8 @@ export const NAVBAR_TITLE = {
     Sign_up: "Зарегистрироваться",
     Log_up: "Выйти",
     Profile:"Профиль",
+    Posts: "Посты",
+    CreatePost: "Новый пост",
 }
 
 export const COLORS = {

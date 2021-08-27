@@ -12,7 +12,10 @@
 
 .main_page_text{
     margin-top: 10%;
+    width: auto;
     font-size: 50px;
+    text-align: left;
+    margin-left: 12%;
     font-weight: 450;
 }
 
@@ -150,6 +153,7 @@
 }
 
 .main_div_buttons{
+    text-align: left;
     margin-top: 50px;
 }
 

@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {LinesOfBooks} from "../components/molecules/LinesOfBooks";
-import {update_navbar} from "../store/navbar/actions";
-import {NAVBAR_TITLE} from "../utils/constants";
-import Lines from "../components/molecules/Lines";
-import {LINES} from '../utils/constants';
-import {getAllBooks} from "../store/books/actions";
+import {LinesOfBooks} from "../../components/molecules/LinesOfBooks";
+import {update_navbar} from "../../store/navbar/actions";
+import {NAVBAR_TITLE} from "../../utils/constants";
+import Lines from "../../components/molecules/Lines";
+import {LINES} from '../../utils/constants';
+import {getAllBooks} from "../../store/books/actions";
 
-const AllBooks = ({books,updateNavbar,getAllBooks}) => {
+const Books = ({books,updateNavbar,getAllBooks}) => {
 
     useEffect(() => {
         // console.log("ALLBOKS USE EFFECT")
@@ -20,7 +20,6 @@ const AllBooks = ({books,updateNavbar,getAllBooks}) => {
     return (
         <div>
             <Lines array={books} id={LINES.books}/>
-            {/*<LinesOfBooks array={props.books}/>*/}
         </div>
     )
 }
@@ -38,4 +37,4 @@ const putDispatchToProps = dispatch => {
     }
 }
 
-export default connect(putStateToProps, putDispatchToProps)(AllBooks);
+export default connect(putStateToProps, putDispatchToProps)(Books);

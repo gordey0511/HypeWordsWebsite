@@ -8,17 +8,17 @@ import {
     getDataBook,
     getWordsBook,
     isFavoriteBook
-} from "../store/books/actions";
-import '../scenes/scenes.css'
-import '../styles/text.css'
-import '../styles/blocks.css'
-import {Bookmark} from "../components/atoms/Bookmark";
+} from "../../store/books/actions";
+import '../scenes.css'
+import '../../styles/text.css'
+import '../../styles/blocks.css'
+import {Bookmark} from "../../components/molecules/Bookmark";
 import {Link} from "react-router-dom";
 import {CircularProgress} from "@material-ui/core";
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Button from "@material-ui/core/Button";
-import {ButtonBookPage} from "../components/molecules/ButtonBookPage";
+import {ButtonBookPage} from "../../components/molecules/ButtonBookPage";
 
 const BookPage = ({name,
                       isLoading,
@@ -58,7 +58,7 @@ const BookPage = ({name,
     useEffect(() => {
         if(token!==undefined && token!==""){
             getData(token);
-            getWords(token);
+            // getWords(token);
         }
     },[token])
 

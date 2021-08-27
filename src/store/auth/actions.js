@@ -31,7 +31,7 @@ export const logOut = () => {
     }
 }
 
-export const getDataUser = (token) => {
+export const getUser = (token) => {
     return {
         type: ACTION_GET_DATA_USER,
         rest: "/user/"+token,

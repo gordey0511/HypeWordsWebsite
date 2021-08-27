@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
-import {LinesOfAuthorsBooks} from "../components/molecules/LinesOfAuthorsBooks";
+import {LinesOfAuthorsBooks} from "../../components/molecules/LinesOfAuthorsBooks";
 import {bindActionCreators} from "redux";
-import {getDataAuthor} from "../store/authors/actions";
+import {getDataAuthor} from "../../store/authors/actions";
 import {connect} from "react-redux";
-import '../scenes/scenes.css'
-import {update_navbar} from "../store/navbar/actions";
-import {NAVBAR_TITLE} from "../utils/constants";
+import '../scenes.css'
+import {update_navbar} from "../../store/navbar/actions";
+import {NAVBAR_TITLE} from "../../utils/constants";
 import {Link} from "react-router-dom";
-import "../styles/blocks.css"
+import "../../styles/blocks.css"
 import {Typography} from "@material-ui/core";
-import {LinesBooks} from "../components/molecules/LinesBooks";
+import {LinesBooks} from "../../components/molecules/LinesBooks";
 
 export const AuthorPage = ({name,
                                about,
@@ -78,7 +78,7 @@ export const AuthorPage = ({name,
                 </div>
                 <LinesBooks array={books}/>
 
-                {/*<LinesOfAuthorsBooks array={books}/>*/}
+                {/*<LinesOfAuthorsBooks array={book}/>*/}
 
             </div>
         </div>

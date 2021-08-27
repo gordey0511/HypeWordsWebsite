@@ -1,14 +1,14 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {ButtonMaterial} from "../components/atoms/ButtonMaterial";
+import {ButtonMaterial} from "../../components/atoms/Buttons/ButtonMaterial";
 import {bindActionCreators} from "redux";
-import {getFavoriteBooks, logOut} from "../store/auth/actions";
+import {getFavoriteBooks, logOut} from "../../store/auth/actions";
 import {Link, useHistory} from "react-router-dom";
-import {update_navbar} from "../store/navbar/actions";
+import {update_navbar} from "../../store/navbar/actions";
 import Login from "./Login";
-import {NAVBAR_TITLE} from "../utils/constants";
-import "../styles/blocks.css"
-import {LinesBooks} from "../components/molecules/LinesBooks";
+import {NAVBAR_TITLE} from "../../utils/constants";
+import "../../styles/blocks.css"
+import {LinesBooks} from "../../components/molecules/LinesBooks";
 
 
 const Profile = ({

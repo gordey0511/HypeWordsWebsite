@@ -25,7 +25,7 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
                     <Button  className={classes.button_navbar}>
                         <img src="favicon.svg" className={"img_logo"}/>
                         <b className={"center_block"}>
-                            <text style={{color:"#2657eb"}}>
+                            <text style={{color:"#2657eb", marginLeft: 10,}}>
                                 {tab_text}
                             </text>
                         </b>
@@ -38,7 +38,7 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
                     <Button  className={classes.button_navbar}>
                         <img src="favicon.svg" className={"img_logo"}/>
                         <b className={"center_block"}>
-                            <text style={{color:"#2657eb"}}>
+                            <text style={{color:"#2657eb", marginLeft: 10,}}>
                                 {tab_text}
                             </text>
                         </b>
@@ -48,3 +48,15 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
         )
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+

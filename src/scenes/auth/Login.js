@@ -1,22 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import {TextFieldMaterial} from "../components/atoms/TextFieldMaterial";
-import {ButtonMaterial} from "../components/atoms/ButtonMaterial";
-import "../styles/blocks.css"
+import "../../styles/blocks.css"
 import {bindActionCreators} from "redux";
-import {update_navbar} from "../store/navbar/actions";
-import {getAllBooks} from "../store/books/actions";
+import {update_navbar} from "../../store/navbar/actions";
 import {connect} from "react-redux";
-import {NAVBAR_TITLE} from "../utils/constants";
+import {NAVBAR_TITLE} from "../../utils/constants";
 import {Link, useHistory} from "react-router-dom";
-import {FormAuth} from "../components/molecules/FormAuth";
-import {CardActionAuth} from "../components/atoms/CardActionAuth";
-import {loginUser} from "../store/auth/actions";
+import {FormAuth} from "../../components/molecules/FormAuth";
+import {CardActionAuth} from "../../components/atoms/CardActionAuth";
+import {loginUser} from "../../store/auth/actions";
 
 const useStyles = makeStyles({
     root: {

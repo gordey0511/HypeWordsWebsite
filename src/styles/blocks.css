@@ -2,13 +2,14 @@
     /*display: inline-block;*/
     vertical-align: center;
     justify-content: center;
+    margin-left: auto;
+    display: flex;
+    margin-right: auto;
     text-align: center;
-    margin-left: 10px;
+    flex-direction: column;
 }
 
 .center_block_login{
-    /*width:200px;*/
-    /*margin-left: 30%;*/
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -77,6 +78,14 @@
     width: 70%;
     margin-left: 15%;
     margin-right: 15%;
+    justify-content: center;
+    text-align: center;
+}
+
+.middle_block_post{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
     justify-content: center;
     text-align: center;
 }

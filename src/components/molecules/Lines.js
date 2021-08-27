@@ -99,16 +99,6 @@ const Lines = ({
         }
     }
 
-
-    // const lowercasedFilter = filter.toLowerCase();
-    // Object.values(array).filter(item => {
-    //     return Object.keys(item).some(key =>
-    //         typeof item[key] === "string" && item[key].toLowerCase().includes(lowercasedFilter)
-    //     );
-    // });
-
-    console.log(array);
-
     return (
         <div className={"middle_block_list"}>
             <div className={"center_block"} id={"field"}>

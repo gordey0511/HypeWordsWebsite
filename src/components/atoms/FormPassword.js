@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {FilledInput, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@material-ui/core";
-import {VisibilityPassword} from "./VisibilityPassword";
-import {UnVisibilityPassword} from "./UnVisibilityPassword";
+import {VisibilityPassword} from "./TypePassword/VisibilityPassword";
+import {UnVisibilityPassword} from "./TypePassword/UnVisibilityPassword";
 import {makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
 

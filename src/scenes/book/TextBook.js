@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {bindActionCreators} from "redux";
-import {getDataBook, getTextOfBook} from "../store/books/actions";
+import {getDataBook, getTextOfBook} from "../../store/books/actions";
 import {connect} from "react-redux";
 import {CircularProgress, Typography} from "@material-ui/core";
-import "../styles/text.css"
-import {Fab} from "../components/atoms/Fab";
+import "../../styles/text.css"
+import {Fab} from "../../components/atoms/Fab";
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {Link} from "react-router-dom";
-import {LINES} from "../utils/constants";
+import {LINES} from "../../utils/constants";
 
 let curId = 1;
 
