@@ -13,7 +13,7 @@
 /build
 
 #BASE_URL
-/utils/constants
+/utils
 
 # misc
 .DS_Store
