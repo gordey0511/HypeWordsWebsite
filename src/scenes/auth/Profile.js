@@ -23,7 +23,7 @@ const Profile = ({
     let history = useHistory()
 
     useEffect(() => {
-        console.log("PROFILE NAVBAR "+NAVBAR_TITLE.Profile+" "+token)
+        console.log("PROFILE NAVBAR UP "+NAVBAR_TITLE.Profile+" "+token)
         updateNavbar(name)
     },[])
 
