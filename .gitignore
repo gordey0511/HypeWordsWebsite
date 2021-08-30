@@ -12,6 +12,9 @@
 # production
 /build
 
+#BASE_URL
+/utils/constants.js
+
 # misc
 .DS_Store
 .env.local
