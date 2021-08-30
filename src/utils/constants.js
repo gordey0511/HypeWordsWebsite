@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export const BASE_URL = "/api"
+export const BASE_URL = "http://localhost:8000"
 export const NAVBAR_TITLE = {
     Home: "HypeWords",
     Books: "Книги",
