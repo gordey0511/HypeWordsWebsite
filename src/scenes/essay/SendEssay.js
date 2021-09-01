@@ -8,6 +8,10 @@ import {bindActionCreators} from "redux";
 import {getLesson, getTeacher, sendEssay} from "../../store/lessons/actions";
 import {connect} from "react-redux";
 import {getUser} from "../../store/auth/actions";
+import {DialogSubmittedEssay} from "../../components/molecules/Dialogs/DialogSubmittedEssay";
+import {CustomizedSnackbar, Snackbar} from "../../components/atoms/Snackbars/CustomizedSnackbar";
+import {useHistory} from "react-router-dom";
+import {CommonDialog} from "../../components/molecules/Dialogs/CommonDialog";
 
 const SendEssay = ({
     Title,
@@ -26,9 +30,11 @@ const SendEssay = ({
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const [comment, setComment] = useState("");
+    const [openSubmitted, setOpenSubmitted] = useState(false)
 
     const link = window.location.pathname
     const token = link.substr(12,link.length-12)
+    const history = useHistory()
 
     useEffect(() => {
         console.log(token)
@@ -53,8 +59,14 @@ const SendEssay = ({
         setComment(event.target.value)
     }
 
+    const handleCloseDialogs = () => {
+        setOpenSubmitted(false);
+        history.push("/")
+    };
+
     const handleButton = () => {
         sendEssay(student_id, title, text, comment, token)
+        setOpenSubmitted(true)
     }
 
     return (
@@ -110,6 +122,25 @@ const SendEssay = ({
                 }}
                 color={"primary"}
                 handleClick={handleButton}
+            />
+
+            <CommonDialog
+                open = {openSubmitted}
+                title = {"Вы успешно отправили сочинение!"}
+                text = {"В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой"}
+                handleClose = {handleCloseDialogs}
+                buttons = {
+                    [
+                        {
+                            text: "Закрыть",
+                            handleClick: handleCloseDialogs,
+                        },
+                        {
+                            text: "Посмотреть",
+                            handleClick: handleCloseDialogs,
+                        },
+                    ]
+                }
             />
         </div>
     )

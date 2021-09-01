@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {getAuthorNamePost, getPost} from "../../store/posts/actions";
 import {connect} from "react-redux";
 import {MainTitle} from "../../components/atoms/Texts/MainTitle";
-import {Body} from "../../components/atoms/Texts/Body";
+import {CommonText} from "../../components/atoms/Texts/CommonText";
 import Card from "@material-ui/core/Card";
 import {Link} from "react-router-dom";
 import {CardActionArea, makeStyles} from "@material-ui/core";
@@ -45,10 +45,10 @@ const PostPage = ({
                             <MainTitle
                                 text={title}/>
                             {text.map(({arg}) => (
-                                <Body text={arg}/>
+                                <CommonText text={arg}/>
                             ))
                             }
-                            <Body
+                            <CommonText
                                 body={"h6"}
                                 text={`${likes} лайков`}
                             />

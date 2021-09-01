@@ -18,7 +18,9 @@ import CreatePost from "./scenes/post/CreatePost";
 import PostPage from "./scenes/post/PostPage";
 import SendEssay from "./scenes/essay/SendEssay";
 import CreateTopic from "./scenes/essay/CreateTopic";
-import {CheckEssay} from "./scenes/essay/CheckEssay";
+import {Essay} from "./scenes/essay/Essay";
+import CustomizedSnackbars from "./scenes/Test";
+import {CheckEssays} from "./scenes/essay/CheckEssays";
 
 const App= (props) => {
     const {history} = props;
@@ -27,6 +29,7 @@ const App= (props) => {
     return(
         <Switch>
             <Route exact history={history} path={'/'} component={MainPage}/>
+            <Route exact path='/test' component={CustomizedSnackbars}/>
             <Route exact path={'/aboutme'} component={AboutMe}/>
             <Route exact path='/author/:id' component={AuthorPage}/>
             <Route exact path='/authors' component={ListOfAuthor}/>
@@ -41,8 +44,9 @@ const App= (props) => {
             <Route exact path='/create_post' component={CreatePost}/>
             <Route exact path='/post/:id' component={PostPage}/>
             <Route exact path='/send_essay/:id' component={SendEssay}/>
-            <Route exact path='/check_essay/:id' component={CheckEssay}/>
+            <Route exact path='/check_essay/:id' component={Essay}/>
             <Route exact path='/create_topic' component={CreateTopic}/>
+            <Route exact path='/check_essays' component={CheckEssays}/>
         </Switch>
     )
 }
