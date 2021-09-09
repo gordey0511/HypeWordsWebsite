@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {NAVBAR_TITLE} from "../../utils/constants";
 import {MainTitle} from "../../components/atoms/Texts/MainTitle";
 import {TextFieldMaterial} from "../../components/atoms/TextsInput/TextFieldMaterial";
 import {MultilineTextInput} from "../../components/atoms/TextsInput/MultilineTextInput";
@@ -7,11 +6,9 @@ import {ButtonMaterial} from "../../components/atoms/Buttons/ButtonMaterial";
 import {bindActionCreators} from "redux";
 import {getLesson, getTeacher, sendEssay} from "../../store/lessons/actions";
 import {connect} from "react-redux";
-import {getUser} from "../../store/auth/actions";
-import {DialogSubmittedEssay} from "../../components/molecules/Dialogs/DialogSubmittedEssay";
-import {CustomizedSnackbar, Snackbar} from "../../components/atoms/Snackbars/CustomizedSnackbar";
 import {useHistory} from "react-router-dom";
 import {CommonDialog} from "../../components/molecules/Dialogs/CommonDialog";
+import {TextCKEditor} from "../../components/atoms/TextsInput/TextCKEditor";
 
 const SendEssay = ({
     Title,
@@ -51,8 +48,8 @@ const SendEssay = ({
         setTitle(event.target.value)
     }
 
-    const handleText = (event) => {
-        setText(event.target.value)
+    const handleText = (data) => {
+        setText(data)
     }
 
     const handleComment = (event) => {
@@ -72,9 +69,9 @@ const SendEssay = ({
     return (
         <div className={"center_block"} style={{width: '66%', display: "flex"}}>
             <MainTitle text={Title}/>
-            <text style={{textAlign: "left"}}>
+            <p style={{textAlign: "left"}}>
                 Преподаватель {teacherName}
-            </text>
+            </p>
 
             {
                 (topic.type === "free")?
@@ -94,12 +91,12 @@ const SendEssay = ({
                         changeValue={handleTitle}
                     />
             }
-            <MultilineTextInput
-                styles={{marginBottom: 20,}}
+            <TextCKEditor
+                style={{marginBottom: 20,}}
                 label={"Текст сочинения"}
-                value={text}
-                rows = {30}
-                changeValue={handleText}
+                data={text}
+                rows={30}
+                onChange={handleText}
             />
 
             <MultilineTextInput
