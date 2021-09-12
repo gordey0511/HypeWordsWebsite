@@ -1,44 +1,44 @@
 import React, {useEffect, useState} from "react";
 import {NAVBAR_TITLE} from "../../utils/constants";
-import {Link} from "react-router-dom";
 import './organisms.css'
 import '../../styles/img.css'
 import '../../styles/blocks.css'
 import {connect} from "react-redux";
 import TabNavbar from "../atoms/TabNavbar/TabNavbar";
 import {TabNavbarMain} from "../atoms/TabNavbar/TabNavbarMain";
-import {TabNavbarRight} from "../atoms/TabNavbar/TabNavbarRight";
 import {bindActionCreators} from "redux";
 import {getUser} from "../../store/auth/actions";
 import Button from "@material-ui/core/Button";
 import {MenuNavbar} from "../atoms/Menus/MenuNavbar";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import EditIcon from '@material-ui/icons/Edit';
+import {AppBar, Tab, Toolbar} from "@material-ui/core";
+import Tabs from "@material-ui/core/Tabs";
 
 const Navbar = ({
-    current_text,
-    name,
-    getData
-    // token,
-}) => {
+                    current_text,
+                    name,
+                    getData
+                    // token,
+                }) => {
 
-    const [token,setToken] = useState("")
+    const [token, setToken] = useState("")
     const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setToken(localStorage.getItem("token"))
-    },[localStorage.getItem("token")])
+    }, [localStorage.getItem("token")])
 
     useEffect(() => {
-        if(token!==undefined&&token!==null&&token!==""){
+        if (token !== undefined && token !== null && token !== "") {
             getData(token)
         }
-    },[token])
+    }, [token])
 
     useEffect(() => {
-        console.log("CURRENT TEXT "+current_text)
-    },[current_text])
+        console.log("CURRENT TEXT " + current_text)
+    }, [current_text])
 
     const handleClickNew = (event) => {
         setOpenMenu(event.currentTarget);
@@ -48,93 +48,80 @@ const Navbar = ({
         setOpenMenu(null)
     }
 
-    return(
-        <div className={"main_div"}>
-            <TabNavbarMain
-                tab_text={NAVBAR_TITLE.Home}
-                current_text={current_text}
-                link={"/"}
-            />
-            <TabNavbar
-                tab_text={NAVBAR_TITLE.Posts}
-                current_text={current_text}
-                link={"/posts"}
-            />
-            <TabNavbar
-                tab_text={NAVBAR_TITLE.Books}
-                current_text={current_text}
-                link={"/books"}
-            />
-            <TabNavbar
-                tab_text={NAVBAR_TITLE.Authors}
-                current_text={current_text}
-                link={"/authors"}
-            />
-            <TabNavbar
-                tab_text={NAVBAR_TITLE.Analyze}
-                current_text={current_text}
-                link={"/analyze"}
-            />
-
-            <div style={{
-                marginLeft: 'auto',
-                display: 'flex',
-                flexDirection:'row',
-                marginRight: 0,
-                color: '#020707',
-                justifyContent: 'flex-end',
-                textAlign: 'right',
-                float:'right',
-                textDecoration: 'none',
-                fontSize: 22,
-            }}>
+    return (
+        <AppBar position={"static"} color={"default"} style={{marginBottom: 30}}>
+            <Toolbar>
+                <Tabs variant={"scrollable"} edge={"start"}>
+                    <TabNavbarMain
+                        tab_text={NAVBAR_TITLE.Home}
+                        current_text={current_text}
+                        link={"/"}
+                    />
+                    <TabNavbar
+                        tab_text={NAVBAR_TITLE.Posts}
+                        current_text={current_text}
+                        link={"/posts"}
+                    />
+                    <TabNavbar
+                        tab_text={NAVBAR_TITLE.Books}
+                        current_text={current_text}
+                        link={"/books"}
+                    />
+                    <TabNavbar
+                        tab_text={NAVBAR_TITLE.Authors}
+                        current_text={current_text}
+                        link={"/authors"}
+                    />
+                    <TabNavbar
+                        tab_text={NAVBAR_TITLE.Analyze}
+                        current_text={current_text}
+                        link={"/analyze"}
+                    />
+                </Tabs>
+                <div style={{flexGrow: 1}}/>
                 <Button
-                    // aria-controls="simple-menu"
-                    // aria-haspopup="true"
                     variant="contained"
                     color="primary"
                     onClick={handleClickNew}
+                    size={"large"}
                     style={{
-                        width: 'auto',
-                        height: 'auto',
-                        margin: 20,
-                        marginTop: 15,
-                        fontWeight: 600,
-                        fontSize: 17,
+                        marginTop: 20,
+                        marginBottom: 20,
+                        minWidth: 120,
+                        // fontWeight: "inherit",
+                        // fontSize: 17,
                     }}
                 >
                     Создать
                 </Button>
-
                 <MenuNavbar
                     handleClose={handleCloseNew}
                     arrayButtons={[
                         {
-                            text:"Урок",
-                            link:"/create_topic",
+                            text: "Урок",
+                            link: "/create_topic",
                             icon: <EditIcon
                                 style={{
-                                    height:30,
-                                    width:30,
+                                    height: 30,
+                                    width: 30,
                                 }}
                             />
                         },
                         {
-                            text:"Пост",
-                            link:"/create_post",
+                            text: "Пост",
+                            link: "/create_post",
                             icon: <PostAddIcon
                                 style={{
-                                    height:30,
-                                    width:30,
+                                    height: 30,
+                                    width: 30,
                                 }}
                             />
                         },
                     ]}
-
                     openMenu={openMenu}
                 />
                 {
-                    (token === null||token === undefined||token === "")?
+                    (token === null || token === undefined || token === "") ?
                         <TabNavbar
                             tab_text={NAVBAR_TITLE.Login}
                             current_text={current_text}
@@ -147,9 +134,9 @@ const Navbar = ({
                             link={"/profile"}
                         />
                 }
-            </div>
-
-        </div>
+                {/*</Tabs>*/}
+            </Toolbar>
+        </AppBar>
     )
 }
 
@@ -157,16 +144,16 @@ const Navbar = ({
 const putStateToProps = (state) => {
     return {
         current_text: state.navbar.current_text,
-        name:state.auth.name,
+        name: state.auth.name,
         // token:state.auth.token,
     }
 }
 
 const putDispatchToProps = (dispatch) => {
     return {
-        getData: bindActionCreators(getUser,dispatch),
+        getData: bindActionCreators(getUser, dispatch),
     }
 }
 
 
-export default connect(putStateToProps,putDispatchToProps)(Navbar);
+export default connect(putStateToProps, putDispatchToProps)(Navbar);
