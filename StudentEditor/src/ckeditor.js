@@ -50,13 +50,38 @@ StudentEditor.builtinPlugins = [
     Underline,
     WordCount
 ];
-//
-// StudentEditor.defaultConfig = {
-// 	toolbar: [ 'heading', '|', 'bold', 'italic', '|', 'wordcount'],
-//
-// 	// This value must be kept in sync with the language defined in webpack.config.js.
-// 	language: 'ru'
-// }
+
+StudentEditor.defaultConfig = {
+    toolbar: {
+        items: [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'link',
+            'bulletedList',
+            'numberedList',
+            '|',
+            'indent',
+            'outdent',
+            '|',
+            'blockQuote',
+            'insertTable',
+            'undo',
+            'redo',
+            'word-count',
+        ]
+    },
+    table: {
+        contentToolbar: [
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+        ]
+    },
+    // This value must be kept in sync with the language defined in webpack.config.js.
+    language: 'ru',
+}
 
 class TeacherEditor extends ClassicEditor {
 }

@@ -3,7 +3,7 @@ import '../../../styles/margins.css'
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import editors from 'student-editor';
 import {makeStyles} from "@material-ui/styles";
-// import HighlightPlugin from "./HighlightPlugin";
+import produce from "immer";
 
 const useStyles = makeStyles({
     wrapper: props => ({
@@ -20,6 +20,7 @@ export const EssayCheckingCKEditor = React.memo((
         onChange,
         rows,
         style,
+        placeholder="",
     }) => {
     const classes = useStyles({rows});
     return (
@@ -29,6 +30,9 @@ export const EssayCheckingCKEditor = React.memo((
                 label={label}
                 onChange={(event, editor) => onChange(editor.getData())}
                 editor={editors.TeacherEditor}
+                config={produce(editors.TeacherEditor.defaultConfig, (config) => {
+                    config.placeholder = placeholder
+                })}
             />
         </div>
     )

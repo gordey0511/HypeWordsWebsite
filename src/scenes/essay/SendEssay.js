@@ -97,6 +97,7 @@ const SendEssay = ({
                 data={text}
                 rows={30}
                 onChange={handleText}
+                placeholder={"Напишите сочинение..."}
             />
 
             <MultilineTextInput

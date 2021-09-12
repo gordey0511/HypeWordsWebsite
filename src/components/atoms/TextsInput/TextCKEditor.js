@@ -4,6 +4,7 @@ import {CKEditor} from '@ckeditor/ckeditor5-react'
 import editors from 'student-editor';
 
 import {makeStyles} from "@material-ui/styles";
+import produce from "immer";
 
 const useStyles = makeStyles({
     wrapper: props => ({
@@ -20,6 +21,7 @@ export const TextCKEditor = (
         onChange,
         rows,
         style,
+        placeholder = "",
     }) => {
     const classes = useStyles({rows});
     const [stats, setStats] = useState({words: 0, characters: 0})
@@ -30,40 +32,12 @@ export const TextCKEditor = (
                 label={label}
                 onChange={(event, editor) => onChange(editor.getData())}
                 editor={editors.StudentEditor}
-                config={{
-                    toolbar: {
-                        items: [
-                            'heading',
-                            '|',
-                            'bold',
-                            'italic',
-                            'link',
-                            'bulletedList',
-                            'numberedList',
-                            '|',
-                            'indent',
-                            'outdent',
-                            '|',
-                            'blockQuote',
-                            'insertTable',
-                            'undo',
-                            'redo',
-                            'word-count',
-                        ]
-                    },
-                    table: {
-                        contentToolbar: [
-                            'tableColumn',
-                            'tableRow',
-                            'mergeTableCells'
-                        ]
-                    },
-                    wordCount: {
+                config={produce(editors.StudentEditor.defaultConfig, (config) => {
+                    config.wordCount = {
                         onUpdate: setStats,
-                    },
-                    // This value must be kept in sync with the language defined in webpack.config.js.
-                    language: 'ru',
-                }}
+                    }
+                    config.placeholder = placeholder
+                })}
             />
             <div>
                 <span>Word count: </span><span>{stats.words}</span>
