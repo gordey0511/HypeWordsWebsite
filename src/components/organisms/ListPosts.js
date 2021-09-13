@@ -31,7 +31,7 @@ export const ListPosts = ({array}) => {
                             >
                                 <Post title = {title}
                                       id = {_id}
-                                      text = {text[0].arg}
+                                      text = {text.substr(0,100)}
                                       short_text = {short_text}
                                       author_id = {author_id}
                                       authorName = {authorName}

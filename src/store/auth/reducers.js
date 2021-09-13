@@ -1,8 +1,8 @@
-import {FAIL, SUCCESS} from "../reducers";
+import {FAIL, START, SUCCESS} from "../reducers";
 import {
     ACTION_CREATE_USER,
     ACTION_GET_DATA_USER,
-    ACTION_GET_FAVORITE_BOOKS,
+    ACTION_GET_FAVORITE_BOOKS, ACTION_GET_USER_LIST_ESSAYS,
     ACTION_LOGIN_USER,
     ACTION_LOGOUT_USER
 } from "./actions";
@@ -15,6 +15,10 @@ const initialState = {
     error: "",
     favorites: [
         // {name:"Петя",id:"dsdsd"}
+    ],
+
+    essays: [
+
     ],
 };
 
@@ -69,6 +73,16 @@ export const authReducer = (state=initialState,action) => {
             return {
                 ...state,
                 favorites: data,
+            }
+        case ACTION_GET_USER_LIST_ESSAYS+START:
+            return {
+                ...state,
+                essays: [],
+            }
+        case ACTION_GET_USER_LIST_ESSAYS+SUCCESS:
+            return {
+                ...state,
+                essays: data,
             }
     }
     return state;

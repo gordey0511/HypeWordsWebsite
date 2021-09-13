@@ -40,6 +40,7 @@ export const api = ({dispatch, getState}) => (next) => (action) => {
     })
         .then(response => {
             if(response.status !== 200){
+                console.log("ERROR "+response.error)
                 next({
                     status: response.status,
                     error: response.error,

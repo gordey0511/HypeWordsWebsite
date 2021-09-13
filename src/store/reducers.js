@@ -7,6 +7,7 @@ import {navbarReducer} from "./navbar/reducers";
 import {authReducer} from "./auth/reducers";
 import {postsReducer} from "./posts/reducers";
 import {lessonsReducer} from "./lessons/reducers";
+import {essaysReducer} from "./essays/reducers";
 
 export const SUCCESS = "_SUCCESS";
 export const FAIL = "_FAIL";
@@ -21,4 +22,5 @@ export default  combineReducers({
     posts: postsReducer,
     auth: authReducer,
     lessons: lessonsReducer,
+    essays: essaysReducer,
 })

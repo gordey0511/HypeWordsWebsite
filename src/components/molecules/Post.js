@@ -69,13 +69,10 @@ const Post = ({
 }) => {
     const classes = useStyles();
 
-    useEffect(() => {
-        getAuthorNameListPost(id,author_id);
-    },[])
 
     return (
         // <div className={"center_block"}>
-            <Card className={classes.root} onClick={() => {}}>
+            <Card className={classes.root} onClick={() => {}} variant={"outlined"}>
                 <Link to={`/post/${id}`} className={classes.link}>
                     <CardActionArea>
                         <CardContent className={classes.card_content}>
@@ -109,12 +106,12 @@ const Post = ({
                                 component="h2">
                                 {title}
                             </Typography>
-                            <Typography
-                                variant={"body1"}
-                                color={"textSecondary"}
-                            >
-                                {short_text}
-                            </Typography>
+                            <div
+                                style={{
+                                    fontSize: 16,
+                                    textAlign: 'left',
+                                }}
+                                dangerouslySetInnerHTML={{__html: `${short_text}`}} />
                         </CardContent>
                     </CardActionArea>
                     {/*<CardActions className={classes.button}>*/}

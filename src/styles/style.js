@@ -1,7 +1,7 @@
 export const styleCard = {
     root: {
         // minWidth: 275,
-        width:300,
+        width:285,
     },
 
     bullet: {
@@ -12,11 +12,11 @@ export const styleCard = {
 
     post_page:{
         display: 'block',
-        width: '60%',
+        width: '70%',
         fontSize: 70,
         color: '#dc1a1a',
         justifyContent: 'center',
-        textAlign: 'center',
+        textAlign: 'left',
         marginRight: 'auto',
         marginLeft: 300,
     },

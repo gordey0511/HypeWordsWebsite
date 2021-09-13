@@ -39,8 +39,13 @@ export const TextCKEditor = (
                     config.placeholder = placeholder
                 })}
             />
-            <div>
-                <span>Word count: </span><span>{stats.words}</span>
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'left',
+                    marginTop: 10,
+                }}>
+                <span>{`Количество слов: ${stats.words}`}</span>
             </div>
         </div>
     )

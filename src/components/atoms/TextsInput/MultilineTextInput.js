@@ -9,6 +9,7 @@ export const MultilineTextInput = ({
                                        value,
                                        changeValue,
                                        rows,
+                                       disabled,
                                        styles = null}) => {
     return (
         <TextField
@@ -17,6 +18,7 @@ export const MultilineTextInput = ({
             id="outlined-basic"
             label={label}
             multiline
+            disabled={disabled}
             rows = {rows}
             variant="outlined"
             className={"margin_small"}

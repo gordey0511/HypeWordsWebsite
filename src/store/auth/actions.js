@@ -5,6 +5,7 @@ export const ACTION_LOGIN_USER = 'ACTION_LOGIN_USER';
 export const ACTION_LOGOUT_USER = 'ACTION_LOGOUT_USER';
 export const ACTION_GET_DATA_USER = "ACTION_GET_DATA_USER";
 export const ACTION_GET_FAVORITE_BOOKS = 'ACTION_GET_FAVORITE_BOOKS';
+export const ACTION_GET_USER_LIST_ESSAYS = "ACTION_GET_USER_LIST_ESSAYS"
 
 
 export const createUser = (name,email,password) => {
@@ -46,6 +47,16 @@ export const getFavoriteBooks = (token) => {
         type: ACTION_GET_FAVORITE_BOOKS,
         rest: "/books/favorite/"+token,
         method:"GET",
+        query: null,
+    }
+}
+
+
+export const getUserEssays = (id) => {
+    return {
+        type: ACTION_GET_USER_LIST_ESSAYS,
+        rest: "/get_user_essays/"+id,
+        method: "GET",
         query: null,
     }
 }

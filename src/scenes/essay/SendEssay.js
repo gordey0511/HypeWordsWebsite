@@ -67,9 +67,9 @@ const SendEssay = ({
     }
 
     return (
-        <div className={"center_block"} style={{width: '66%', display: "flex"}}>
+        <div className={"center_block"} style={{width: '60%', display: "flex"}}>
             <MainTitle text={Title}/>
-            <p style={{textAlign: "left"}}>
+            <p style={{textAlign: "left", margin: 0,}}>
                 Преподаватель {teacherName}
             </p>
 
@@ -92,10 +92,12 @@ const SendEssay = ({
                     />
             }
             <TextCKEditor
-                style={{marginBottom: 20,}}
+                style={{
+                    marginBottom: 20,
+                    marginTop:30,}}
                 label={"Текст сочинения"}
                 data={text}
-                rows={30}
+                rows={51}
                 onChange={handleText}
                 placeholder={"Напишите сочинение..."}
             />
@@ -112,7 +114,7 @@ const SendEssay = ({
             <ButtonMaterial
                 text={"Отправить сочинение на проверку"}
                 styles={{marginTop: 20,
-                    marginBottom: 20,
+                    marginBottom: 50,
                     width: '100%',
                     // height: 50,
                     // color: "#ffffff",

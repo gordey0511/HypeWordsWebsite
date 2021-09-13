@@ -28,26 +28,28 @@ const PostPage = ({
         getPost (token);
     }, [])
 
-    useEffect(() => {
-        if(author_id!==undefined){
-            getAuthorName(token,author_id)
-        }
-    },[author_id])
+    // useEffect(() => {
+    //     if(author_id!==undefined){
+    //         getAuthorName(token,author_id)
+    //     }
+    // },[author_id])
 
     return (
         <div className={"middle_block_post"}>
             <div className={"center_block"}>
                 <MainTitle text={authorName}/>
-                <Card className={classes.post_page}>
+                <Card className={classes.post_page} variant={"outlined"}>
                     {/*<Link to={``} className={classes.link}>*/}
                     <CardActionArea>
                         <CardContent>
                             <MainTitle
                                 text={title}/>
-                            {text.map(({arg}) => (
-                                <CommonText text={arg}/>
-                            ))
-                            }
+                            <div
+                                style={{
+                                    fontSize: 16,
+                                    textAlign: 'left',
+                                }}
+                                dangerouslySetInnerHTML={{__html: `${text}`}} />
                             <CommonText
                                 body={"h6"}
                                 text={`${likes} лайков`}

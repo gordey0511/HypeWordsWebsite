@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {Essay} from "../../components/molecules/Essays/Essay";
 import {bindActionCreators} from "redux";
-import {getCheckListEssays, setScoreStudent} from "../../store/lessons/actions";
 import {connect} from "react-redux";
 import EssayTabPanel from "../../components/organisms/EssayTabPanel";
+import {getUserEssays} from "../../store/auth/actions";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -70,22 +70,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CheckEssays = ({
-    check_list_essays,
-    getCheckListEssays,
-    user_id,
-                            }) => {
+const UserEssays = ({
+                         list_essays,
+                         user_id,
+                         getUserEssays,
+                     }) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     useEffect(() => {
         console.log("USER ID "+user_id)
-        getCheckListEssays(user_id)
+        getUserEssays(user_id)
     },[])
 
     useEffect(() => {
-        console.log("check_list_essays "+check_list_essays)
-    },[check_list_essays])
+        console.log("check_list_essays "+list_essays)
+    },[list_essays])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -104,37 +104,37 @@ const CheckEssays = ({
                 className={classes.tabs}
             >
                 {
-                    check_list_essays.map(({
-                                               student_name,
+                    list_essays.map(({
+                                               topic,
                                                check
-                    }) => (
+                                           }) => (
 
                             (check!==undefined&&check === "checked")?
                                 <Tab
-                                    label={student_name}
+                                    label={topic}
                                     className={classes.tab_checked}
                                     style={{
                                         fontWeight: 600,
                                         fontSize: 16,
                                     }}
                                 />
-                            :
+                                :
                                 <Tab
-                                    label={student_name}
+                                    label={topic}
                                     style={{
                                         fontWeight: 600,
                                         fontSize: 16,
                                     }}
                                 />
 
+                        )
                     )
-                )
-            }
+                }
             </Tabs>
 
 
             {
-                check_list_essays.map(({
+                list_essays.map(({
                                            _id,
                                            topic,
                                            student_text,
@@ -144,7 +144,7 @@ const CheckEssays = ({
                                            score,
                                            student_name,
                                        },
-                                       index
+                                 index
                 ) => (
                     <TabPanel
                         value={value}
@@ -173,15 +173,14 @@ const CheckEssays = ({
 const putStateToProps = state => {
     return {
         user_id: state.auth.token,
-        check_list_essays: state.lessons.check_list_essays,
+        list_essays: state.auth.essays,
     }
 }
 
 const putDispatchToProps = dispatch => {
     return {
-        getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
-        setScoreStudent: bindActionCreators(setScoreStudent, dispatch),
+        getUserEssays: bindActionCreators(getUserEssays, dispatch),
     }
 }
 
-export default connect(putStateToProps, putDispatchToProps)(CheckEssays);
+export default connect(putStateToProps, putDispatchToProps)(UserEssays);

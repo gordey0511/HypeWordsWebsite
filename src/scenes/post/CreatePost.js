@@ -12,6 +12,7 @@ import {loginUser} from "../../store/auth/actions";
 import {NAVBAR_TITLE} from "../../utils/constants";
 import { useHistory } from "react-router-dom"
 import {NeedRegistration} from "../../components/molecules/NeedRegistration";
+import {EssayCheckingCKEditor} from "../../components/atoms/TextsInput/EssayCheckingCKEditor";
 
 const CreatePost = ({
                         token,
@@ -36,7 +37,7 @@ const CreatePost = ({
 
     const sendPost = () => {
         console.log("NEW POST INF "+title+" "+text+" ")
-        createPostAction(title, [{"type":"text","arg":text}], token);
+        createPostAction(title, text, token);
         history.push("/posts")
     }
 
@@ -62,12 +63,16 @@ const CreatePost = ({
                         value={title}
                         changeValue={handleTitle}
                     />
-                    <MultilineTextInput
-                        styles={{marginBottom: 0,}}
+                    <EssayCheckingCKEditor
+                        data={text}
+                        onChange={setText}
                         label={"Текст поста"}
-                        value={text}
-                        rows = {30}
-                        changeValue={handleText}
+                        rows = {67}
+                        placeholder={"Текст поста"}
+                        style={{
+                            marginBottom: 0,
+                            marginTop: 20,
+                        }}
                     />
 
                     <ButtonMaterial

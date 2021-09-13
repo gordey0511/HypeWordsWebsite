@@ -57,7 +57,7 @@ const MainPage = ({updateNavbar}) => {
                         text={"Посты"}
                     />
                     <LinkButton
-                        link={"/book"}
+                        link={"/books"}
                         text={"Книги"}
                     />
                     <LinkButton

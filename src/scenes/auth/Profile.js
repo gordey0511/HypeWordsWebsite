@@ -39,6 +39,14 @@ const Profile = ({
         history.push("/")
     }
 
+    const handleButtonCheckEssay = () => {
+        history.push("/check_essays")
+    }
+
+    const handleButtonUserEssay = () => {
+        history.push("/user_essays/"+token)
+    }
+
     return (
         <div className={"block_profile"}>
             <div className={"profile_name"}>
@@ -48,9 +56,35 @@ const Profile = ({
                 {email}
             </div>
             <ButtonMaterial
+                text={"Проверить сочинения"}
+                handleClick={handleButtonCheckEssay}
+                color={"primary"}
+                styles={{
+                    width: 300,
+                    marginTop: 10,
+                    marginBottom: 10,
+                }}
+            />
+
+            <ButtonMaterial
+                text={"Мои сочинения"}
+                handleClick={handleButtonUserEssay}
+                color={"primary"}
+                styles={{
+                    width: 300,
+                    marginTop: 10,
+                    marginBottom: 10,
+                }}
+            />
+
+            <ButtonMaterial
                 text={"Выйти"}
                 handleClick={handleButton}
                 color={"secondary"}
+                styles={{
+                    width: 300,
+                    marginTop: 10,
+                }}
             />
 
 
@@ -58,8 +92,6 @@ const Profile = ({
                 Избранные книги
             </div>
             <LinesBooks array={favorites}/>
-            <br/>
-            <br/>
         </div>
     )
 }

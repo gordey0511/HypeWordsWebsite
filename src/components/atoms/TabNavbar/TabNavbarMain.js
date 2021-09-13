@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import {CardMedia} from "@material-ui/core";
 
 const useStyles = makeStyles({
     button_navbar:{
@@ -19,24 +20,28 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
 
     return (
 
-        ((tab_text === current_text) ?
-            <Link to={link} className={"invested_div"}>
-                <div className={"outer_block_red"}>
-                    <Button  className={classes.button_navbar}>
-                        <img src="favicon.svg" className={"img_logo"}/>
-                        <b className={"center_block"}>
-                            <text style={{color:"#2657eb", marginLeft: 10,}}>
-                                {tab_text}
-                            </text>
-                        </b>
-                    </Button>
-                </div>
-            </Link>
-            :
+        // ((tab_text === current_text) ?
+        //     <Link to={link} className={"invested_div"}>
+        //         <div className={"outer_block_red"}>
+        //             <Button  className={classes.button_navbar}>
+        //                 <CardMedia
+        //                     image={"./logo192.png"}
+        //                     src="./logo192.png" className={"img_logo"}/>
+        //                 <b className={"center_block"}>
+        //                     <text style={{color:"#2657eb", marginLeft: 10,}}>
+        //                         {tab_text}
+        //                     </text>
+        //                 </b>
+        //             </Button>
+        //         </div>
+        //     </Link>
+        //     :
             <Link to={link} className={"invested_div"}>
                 <div className={"outer_block"}>
                     <Button  className={classes.button_navbar}>
-                        <img src="favicon.svg" className={"img_logo"}/>
+                        <CardMedia
+                            image={"..//favicon.svg"}
+                            src="./favicon.svg" className={"img_logo"}/>
                         <b className={"center_block"}>
                             <text style={{color:"#2657eb", marginLeft: 10,}}>
                                 {tab_text}
@@ -45,7 +50,7 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
                     </Button>
                 </div>
             </Link>
-        )
+        // )
     )
 }
 

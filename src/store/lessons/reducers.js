@@ -1,5 +1,10 @@
 import {FAIL, START, SUCCESS} from "../reducers";
-import {ACTION_CREATE_LESSON, ACTION_GET_DATA_TEACHER, ACTION_GET_LESSON} from "./actions";
+import {
+    ACTION_CREATE_LESSON,
+    ACTION_GET_CHECK_LIST_ESSAYS,
+    ACTION_GET_DATA_TEACHER,
+    ACTION_GET_LESSON
+} from "./actions";
 
 const initialState = {
     token_new_lesson: "",
@@ -12,6 +17,7 @@ const initialState = {
     start_time: 0,
     end_time: 0,
     comment: "",
+    check_list_essays: [],
 }
 
 export const lessonsReducer = (state=initialState, action) => {
@@ -59,6 +65,18 @@ export const lessonsReducer = (state=initialState, action) => {
             return {
                 ...state,
                 teacherName: data.name,
+            }
+
+        case ACTION_GET_CHECK_LIST_ESSAYS+START:
+            return {
+                ...state,
+                check_list_essays: [],
+            }
+
+        case ACTION_GET_CHECK_LIST_ESSAYS+SUCCESS:
+            return {
+                ...state,
+                check_list_essays: data,
             }
     }
     return state;

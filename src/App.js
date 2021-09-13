@@ -1,7 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import {Route, Switch} from "react-router-dom";
+import {Route, Switch, Redirect, withRouter, Router} from "react-router-dom";
 import MainPage from "./scenes/MainPage";
 import {AboutMe} from "./scenes/AboutMe";
 import AuthorPage from "./scenes/author/AuthorPage";
@@ -18,10 +18,12 @@ import CreatePost from "./scenes/post/CreatePost";
 import PostPage from "./scenes/post/PostPage";
 import SendEssay from "./scenes/essay/SendEssay";
 import CreateTopic from "./scenes/essay/CreateTopic";
-import {Essay} from "./scenes/essay/Essay";
+import {Essay} from "./components/molecules/Essays/Essay";
 import CustomizedSnackbars from "./scenes/Test";
-import {CheckEssays} from "./scenes/essay/CheckEssays";
 import {EssayChecking,} from "./components/atoms/TextsInput/EssayCheckingCKEditor";
+import CheckEssays from "./scenes/essay/CheckEssays";
+import EssayPage from "./scenes/essay/EssayPage";
+import UserEssays from "./scenes/essay/UserEssays";
 
 const App= (props) => {
     const {history} = props;
@@ -48,7 +50,9 @@ const App= (props) => {
             <Route exact path='/check_essay/:id' component={Essay}/>
             <Route exact path='/create_topic' component={CreateTopic}/>
             <Route exact path='/check_essays' component={CheckEssays}/>
+            <Route exact path='/essay/:id' component={EssayPage}/>
             <Route exact path='/test_check' component={EssayChecking}/>
+            <Route exact path='/user_essays/:id' component={UserEssays}/>
         </Switch>
     )
 }

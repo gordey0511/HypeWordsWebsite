@@ -5,6 +5,8 @@ export const ACTION_CREATE_LESSON = "ACTION_CREATE_LESSON"
 export const ACTION_GET_LESSON = "ACTION_GET_LESSON"
 export const ACTION_GET_DATA_TEACHER = "ACTION_GET_DATA_TEACHER"
 export const ACTION_SEND_ESSAY = "ACTION_SEND_ESSAY"
+export const ACTION_GET_CHECK_LIST_ESSAYS = "ACTION_GET_CHECK_LIST_ESSAYS"
+export const ACTION_SET_SCORE_STUDENT = "ACTION_SET_SCORE_STUDENT"
 
 
 export const createTopic = (
@@ -72,5 +74,34 @@ export const sendEssay = (
             lesson_id: lesson_id,
             comment: comment,
         },
+    }
+}
+
+export const getCheckListEssays = (id) => {
+    return {
+        type: ACTION_GET_CHECK_LIST_ESSAYS,
+        rest: "/get_check_essays/"+id,
+        method:"GET",
+        query: null,
+    }
+}
+
+export const setScoreStudent = (
+    teacher_id,
+    teacher_text,
+    score,
+    essay_id,
+    ) => {
+    return {
+        type: ACTION_SET_SCORE_STUDENT,
+        rest: "/set_score_student/",
+        method: "POST",
+        query: {
+            teacher_id: teacher_id,
+            teacher_text: teacher_text,
+            score: score,
+            essay_id: essay_id,
+            check: "checked",
+        }
     }
 }
