@@ -80,8 +80,10 @@ const CheckEssays = ({
 
     useEffect(() => {
         console.log("USER ID "+user_id)
-        getCheckListEssays(user_id)
-    },[])
+        if(user_id!==undefined&&user_id!==""){
+            getCheckListEssays(user_id)
+        }
+    },[user_id])
 
     useEffect(() => {
         console.log("check_list_essays "+check_list_essays)
@@ -91,6 +93,9 @@ const CheckEssays = ({
         setValue(newValue);
     };
 
+    // componentWillUnmount(){
+    //
+    // }
 
     return (
         <div className={classes.root}>
@@ -143,6 +148,7 @@ const CheckEssays = ({
                                            check,
                                            score,
                                            student_name,
+                                           teacher_text,
                                        },
                                        index
                 ) => (
@@ -154,7 +160,7 @@ const CheckEssays = ({
                         <EssayTabPanel
                             // titleLesson={"Урок"}
                             topicEssay={topic}
-                            textEssay={student_text}
+                            textEssay={(teacher_text!==undefined)?teacher_text:student_text}
                             id_essay={_id}
                             checkEssay = {check}
                             score={score}
@@ -180,7 +186,6 @@ const putStateToProps = state => {
 const putDispatchToProps = dispatch => {
     return {
         getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
-        setScoreStudent: bindActionCreators(setScoreStudent, dispatch),
     }
 }
 

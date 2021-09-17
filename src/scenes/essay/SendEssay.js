@@ -96,9 +96,9 @@ const SendEssay = ({
                     marginBottom: 20,
                     marginTop:30,}}
                 label={"Текст сочинения"}
-                data={text}
+                value={text}
                 rows={51}
-                onChange={handleText}
+                changeValue={handleText}
                 placeholder={"Напишите сочинение..."}
             />
 

@@ -8,10 +8,13 @@ export const EssayScore = ({
     handleClick,
     textButton,
     textSelect,
+    visible,
     disabled=false,
                            }) => {
     return (
-        <div>
+        <div style={{
+            visibility: (visible ?"visible":"hidden"),
+        }}>
             {
                 (disabled!==undefined&&disabled === false) ?
                     <div>

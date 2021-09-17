@@ -80,8 +80,10 @@ const UserEssays = ({
 
     useEffect(() => {
         console.log("USER ID "+user_id)
-        getUserEssays(user_id)
-    },[])
+        if(user_id!==undefined&&user_id!=="") {
+            getUserEssays(user_id)
+        }
+    },[user_id])
 
     useEffect(() => {
         console.log("check_list_essays "+list_essays)
@@ -159,9 +161,7 @@ const UserEssays = ({
                             checkEssay = {check}
                             score={score}
                             studentName={student_name}
-                            // commentEssay={
-                            //     comment !== undefined ? comment : ""
-                            // }
+                            visible = {false}
                         />
                     </TabPanel>
                 ))

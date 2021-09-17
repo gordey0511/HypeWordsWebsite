@@ -7,6 +7,7 @@ export const ACTION_GET_DATA_TEACHER = "ACTION_GET_DATA_TEACHER"
 export const ACTION_SEND_ESSAY = "ACTION_SEND_ESSAY"
 export const ACTION_GET_CHECK_LIST_ESSAYS = "ACTION_GET_CHECK_LIST_ESSAYS"
 export const ACTION_SET_SCORE_STUDENT = "ACTION_SET_SCORE_STUDENT"
+export const ACTION_UPDATE_CHECK_ESSAYS = "ACTION_UPDATE_CHECK_ESSAYS"
 
 
 export const createTopic = (
@@ -102,6 +103,23 @@ export const setScoreStudent = (
             score: score,
             essay_id: essay_id,
             check: "checked",
+        }
+    }
+}
+
+export const updateCheckStudent = (
+    essay_id,
+    teacher_text,
+    score
+) => {
+    return {
+        type: ACTION_UPDATE_CHECK_ESSAYS,
+        rest: false,
+        method: null,
+        payload: {
+            essay_id: essay_id,
+            teacher_text: teacher_text,
+            score: score,
         }
     }
 }

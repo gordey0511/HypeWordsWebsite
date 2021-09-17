@@ -1,7 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import {Route, Switch, Redirect, withRouter, Router} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import MainPage from "./scenes/MainPage";
 import {AboutMe} from "./scenes/AboutMe";
 import AuthorPage from "./scenes/author/AuthorPage";
