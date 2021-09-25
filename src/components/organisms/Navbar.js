@@ -12,8 +12,11 @@ import Button from "@material-ui/core/Button";
 import {MenuNavbar} from "../atoms/Menus/MenuNavbar";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import EditIcon from '@material-ui/icons/Edit';
-import {AppBar, Tab, Toolbar} from "@material-ui/core";
+import {AppBar, Toolbar} from "@material-ui/core";
 import Tabs from "@material-ui/core/Tabs";
+import BSNavbar from "react-bootstrap/Navbar";
+import Container from 'react-bootstrap/Container';
+import Nav from "react-bootstrap/Nav";
 
 const Navbar = ({
                     current_text,
@@ -21,7 +24,6 @@ const Navbar = ({
                     getData
                     // token,
                 }) => {
-
     const [token, setToken] = useState("")
     const [openMenu, setOpenMenu] = useState(false);
 
@@ -49,94 +51,98 @@ const Navbar = ({
     }
 
     return (
-        <AppBar position={"static"} color={"default"} style={{marginBottom: 30}}>
-            <Toolbar>
-                <Tabs variant={"scrollable"} edge={"start"}>
-                    <TabNavbarMain
-                        tab_text={NAVBAR_TITLE.Home}
-                        current_text={current_text}
-                        link={"/"}
-                    />
-                    <TabNavbar
-                        tab_text={NAVBAR_TITLE.Posts}
-                        current_text={current_text}
-                        link={"/posts"}
-                    />
-                    <TabNavbar
-                        tab_text={NAVBAR_TITLE.Books}
-                        current_text={current_text}
-                        link={"/books"}
-                    />
-                    <TabNavbar
-                        tab_text={NAVBAR_TITLE.Authors}
-                        current_text={current_text}
-                        link={"/authors"}
-                    />
-                    <TabNavbar
-                        tab_text={NAVBAR_TITLE.Analyze}
-                        current_text={current_text}
-                        link={"/analyze"}
-                    />
-                </Tabs>
-                <div style={{flexGrow: 1}}/>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClickNew}
-                    size={"large"}
-                    style={{
-                        marginTop: 20,
-                        marginBottom: 20,
-                        minWidth: 120,
-                        // fontWeight: "inherit",
-                        // fontSize: 17,
-                    }}
-                >
-                    Создать
-                </Button>
-                <MenuNavbar
-                    handleClose={handleCloseNew}
-                    arrayButtons={[
-                        {
-                            text: "Урок",
-                            link: "/create_topic",
-                            icon: <EditIcon
-                                style={{
-                                    height: 30,
-                                    width: 30,
-                                }}
-                            />
-                        },
-                        {
-                            text: "Пост",
-                            link: "/create_post",
-                            icon: <PostAddIcon
-                                style={{
-                                    height: 30,
-                                    width: 30,
-                                }}
-                            />
-                        },
-                    ]}
-                    openMenu={openMenu}
+        <BSNavbar expand="lg">
+            <Container fluid>
+                <TabNavbarMain
+                    tab_text={NAVBAR_TITLE.Home}
+                    current_text={current_text}
+                    link={"/"}
                 />
-                {
-                    (token === null || token === undefined || token === "") ?
+                <BSNavbar.Toggle/>
+                <BSNavbar.Collapse>
+                    <Nav>
                         <TabNavbar
-                            tab_text={NAVBAR_TITLE.Login}
+                            tab_text={NAVBAR_TITLE.Posts}
                             current_text={current_text}
-                            link={"/login"}
+                            link={"/posts"}
                         />
-                        :
                         <TabNavbar
-                            tab_text={name}
+                            tab_text={NAVBAR_TITLE.Books}
                             current_text={current_text}
-                            link={"/profile"}
+                            link={"/books"}
                         />
-                }
-                {/*</Tabs>*/}
-            </Toolbar>
-        </AppBar>
+                        <TabNavbar
+                            tab_text={NAVBAR_TITLE.Authors}
+                            current_text={current_text}
+                            link={"/authors"}
+                        />
+                        <TabNavbar
+                            tab_text={NAVBAR_TITLE.Analyze}
+                            current_text={current_text}
+                            link={"/analyze"}
+                        />
+                    </Nav>
+                    <div style={{flexGrow: 1}}/>
+                    <div style={{display: "flex", flexWrap: "wrap"}}>
+                        <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleClickNew}
+                        size={"large"}
+                        style={{
+                            marginTop: 20,
+                            marginBottom: 20,
+                            minWidth: 120,
+                            // fontWeight: "inherit",
+                            // fontSize: 17,
+                        }}
+                    >
+                        Создать
+                    </Button>
+                    <MenuNavbar
+                        handleClose={handleCloseNew}
+                        arrayButtons={[
+                            {
+                                text: "Урок",
+                                link: "/create_topic",
+                                icon: <EditIcon
+                                    style={{
+                                        height: 30,
+                                        width: 30,
+                                    }}
+                                />
+                            },
+                            {
+                                text: "Пост",
+                                link: "/create_post",
+                                icon: <PostAddIcon
+                                    style={{
+                                        height: 30,
+                                        width: 30,
+                                    }}
+                                />
+                            },
+                        ]}
+                        openMenu={openMenu}
+                    />
+                    {
+                        (token === null || token === undefined || token === "") ?
+                            <TabNavbar
+                                tab_text={NAVBAR_TITLE.Login}
+                                current_text={current_text}
+                                link={"/login"}
+                            />
+                            :
+                            <TabNavbar
+                                tab_text={name}
+                                current_text={current_text}
+                                link={"/profile"}
+                            />
+                    }
+                    </div>
+                </BSNavbar.Collapse>
+            </Container>
+        </BSNavbar>
     )
 }
 

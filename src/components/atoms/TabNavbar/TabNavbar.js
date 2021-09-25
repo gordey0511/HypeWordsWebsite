@@ -6,6 +6,7 @@ import styles from "../../../styles/button.css"
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import classnames from "classnames";
 import {Tab} from "@material-ui/core";
+import NavLink from 'react-bootstrap/NavLink'
 
 const useStyles = makeStyles({
     button_navbar: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     },
 
     red_tab_navbar: {
-        color: '#e65154',
+        color: '#e65154 !important',
     },
 
     invested_div: {
@@ -34,15 +35,16 @@ const TabNavbar = ({
                        handleClick,
                    }) => {
     const classes = useStyles();
-
     return (
         <Tab
-            className={classnames(classes.button_navbar, tab_text === current_text && classes.red_tab_navbar)}
             component={Link}
             to={link}
+            className={classnames(classes.button_navbar, tab_text === current_text && classes.red_tab_navbar)}
             label={tab_text}
-        />
-    )
-}
+        >
+            {tab_text}
+        </Tab>
+    );
+};
 
 export default withStyles(styles)(TabNavbar);
