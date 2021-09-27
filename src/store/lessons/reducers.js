@@ -3,7 +3,7 @@ import {
     ACTION_CREATE_LESSON,
     ACTION_GET_CHECK_LIST_ESSAYS,
     ACTION_GET_DATA_TEACHER,
-    ACTION_GET_LESSON, ACTION_UPDATE_CHECK_ESSAYS
+    ACTION_GET_LESSON, ACTION_SET_SCORE_STUDENT, ACTION_UPDATE_CHECK_ESSAYS
 } from "./actions";
 
 const initialState = {
@@ -93,6 +93,22 @@ export const lessonsReducer = (state=initialState, action) => {
             }
 
             return state
+        case ACTION_SET_SCORE_STUDENT + SUCCESS:
+            for(let i = 0;i<state.check_list_essays.length; i++){
+                console.log("CHECK LIST ESSAY "+state.check_list_essays[i]._id)
+                if(state.check_list_essays[i]._id === data._id){
+                    // state.check_list_essays[i].set()
+                    state.check_list_essays[i].teacher_text = data.teacher_text
+                    state.check_list_essays[i].score = data.score
+                    state.check_list_essays[i].check = data.check
+                    state.check_list_essays[i].teacher_id = data.teacher_id
+                    console.log("UPDATE "+state.check_list_essays[i])
+                    break;
+                }
+            }
+
+            return state
+
     }
     return state;
 }

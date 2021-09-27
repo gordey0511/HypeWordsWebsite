@@ -9,6 +9,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import EssayTabPanel from "../../components/organisms/EssayTabPanel";
 import {getUserEssays} from "../../store/auth/actions";
+import {MainTitle} from "../../components/atoms/Texts/MainTitle";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -93,79 +94,105 @@ const UserEssays = ({
         setValue(newValue);
     };
 
+    function getTab(text, check){
+        let classes_tab = {};
+        if(check == "checked"){
+            classes_tab = classes.tab_checked
+        }else if(check == "in_progress"){
+            classes_tab = classes.tab_int_progress
+        }
+
+        return (
+            <Tab
+                label={text}
+                className={classes_tab}
+                style={{
+                    fontWeight: 600,
+                    fontSize: 16,
+                }}
+            />
+        )
+    }
 
     return (
-        <div className={classes.root}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                color={"primary"}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-            >
+        <div>
+            <MainTitle
+                style={{
+                    display: "flex",
+                    textAlign: "center",
+                    justifyContent: 'center',
+                    marginBottom: 20,
+                }}
+                text={"Мои сочинения"}
+            />
+            <div className={classes.root}>
+
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    color={"primary"}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs example"
+                    className={classes.tabs}
+                >
+                    {
+                        list_essays.map(({
+                                             topic,
+                                             check
+                                         }) => (
+
+                                getTab(topic,check)
+
+                            )
+                        )
+                    }
+                </Tabs>
+
+
                 {
                     list_essays.map(({
-                                               topic,
-                                               check
-                                           }) => (
-
-                            (check!==undefined&&check === "checked")?
-                                <Tab
-                                    label={topic}
-                                    className={classes.tab_checked}
-                                    style={{
-                                        fontWeight: 600,
-                                        fontSize: 16,
-                                    }}
-                                />
-                                :
-                                <Tab
-                                    label={topic}
-                                    style={{
-                                        fontWeight: 600,
-                                        fontSize: 16,
-                                    }}
-                                />
-
-                        )
-                    )
+                                         _id,
+                                         topic,
+                                         student_text,
+                                         teacher_text,
+                                         comment,
+                                         student_id,
+                                         check,
+                                         score,
+                                         student_name,
+                                         teacher_name,
+                                     },
+                                     index
+                    ) => (
+                        <TabPanel
+                            value={value}
+                            index={index}
+                            className = {classes.body}
+                        >
+                            <EssayTabPanel
+                                // titleLesson={"Урок"}
+                                topicEssay={topic}
+                                textStudent={student_text}
+                                textTeacher={teacher_text}
+                                id_essay={_id}
+                                checkEssay = {check}
+                                score={score}
+                                studentName={student_name}
+                                teacherName={teacher_name}
+                                visible = {false}
+                                accordion = {
+                                    {
+                                        title: "Сочинение без правок",
+                                        text: student_text,
+                                        visible: ((teacher_text === undefined)?false:true),
+                                    }
+                                }
+                            />
+                        </TabPanel>
+                    ))
                 }
-            </Tabs>
-
-
-            {
-                list_essays.map(({
-                                           _id,
-                                           topic,
-                                           student_text,
-                                           comment,
-                                           student_id,
-                                           check,
-                                           score,
-                                           student_name,
-                                       },
-                                 index
-                ) => (
-                    <TabPanel
-                        value={value}
-                        index={index}
-                        className = {classes.body}
-                    >
-                        <EssayTabPanel
-                            // titleLesson={"Урок"}
-                            topicEssay={topic}
-                            textEssay={student_text}
-                            id_essay={_id}
-                            checkEssay = {check}
-                            score={score}
-                            studentName={student_name}
-                            visible = {false}
-                        />
-                    </TabPanel>
-                ))
-            }
+            </div>
         </div>
     );
 }

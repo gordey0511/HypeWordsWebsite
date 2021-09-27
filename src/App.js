@@ -52,7 +52,7 @@ const App= (props) => {
             <Route exact path='/check_essays' component={CheckEssays}/>
             <Route exact path='/essay/:id' component={EssayPage}/>
             <Route exact path='/test_check' component={EssayChecking}/>
-            <Route exact path='/user_essays/:id' component={UserEssays}/>
+            <Route exact path='/user_essays/' component={UserEssays}/>
         </Switch>
     )
 }

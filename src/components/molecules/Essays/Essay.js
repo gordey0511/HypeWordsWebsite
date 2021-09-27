@@ -9,6 +9,7 @@ import {CommonDialog} from "../Dialogs/CommonDialog";
 import {CommonSelect} from "../../atoms/Selects/CommonSelect";
 import {TextCKEditor} from "../../atoms/TextsInput/TextCKEditor";
 import editors from "student-editor";
+import {CommonAccordion} from "../Accordion/CommonAccordion";
 
 export const Essay = ({
     titleLesson,
@@ -17,6 +18,7 @@ export const Essay = ({
     handleStudentText,
     commentEssay,
       check,
+    accordion,
     disabled = false,
                       }) => {
 
@@ -44,6 +46,19 @@ export const Essay = ({
                 disabled = {disabled}
                 changeValue={handleStudentText}
             />
+
+            <CommonAccordion
+                title = {accordion.title}
+                text = {accordion.text}
+                style = {
+                    {
+                        textAlign: 'left',
+                        marginTop: 10,
+                        display: accordion.visible ? 'block':'none',
+                    }
+                }
+            />
+
         </div>
     )
 }

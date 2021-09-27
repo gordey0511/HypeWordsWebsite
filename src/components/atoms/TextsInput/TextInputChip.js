@@ -2,8 +2,9 @@ import React, {useEffect} from "react";
 import TextField from "@material-ui/core/TextField";
 import '../../../styles/margins.css'
 import {makeStyles} from "@material-ui/styles";
+import {Chip} from "@material-ui/core";
 
-export const TextFieldMaterial = ({
+export const TextInputChip = ({
                                       label,
                                       setLabel,
                                       value,
@@ -13,7 +14,7 @@ export const TextFieldMaterial = ({
                                       type =  "text",
                                       disabled = false,
                                       styles = null
-}) => {
+                                  }) => {
     const classes = makeStyles(styles)
 
     useEffect(() => {
@@ -36,7 +37,14 @@ export const TextFieldMaterial = ({
             className={"margin_small"}
             onChange={changeValue}
             helperText={helperText}
-        />
+        >
+
+            <Chip
+                label="Clickable Deleteable"
+                // onClick={handleClick}
+                // onDelete={handleDelete}
+            />
+        </TextField>
 
     )
 }

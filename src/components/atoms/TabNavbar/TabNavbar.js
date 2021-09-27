@@ -35,15 +35,24 @@ const TabNavbar = ({
                        handleClick,
                    }) => {
     const classes = useStyles();
+
     return (
-        <Tab
-            component={Link}
-            to={link}
-            className={classnames(classes.button_navbar, tab_text === current_text && classes.red_tab_navbar)}
-            label={tab_text}
-        >
-            {tab_text}
-        </Tab>
+        (link!==undefined&&link!=="")?
+
+            <Tab
+                className={classnames(classes.button_navbar, tab_text === current_text && classes.red_tab_navbar)}
+                component={Link}
+                to={link}
+                onClick={handleClick}
+                label={tab_text}
+            />
+            :
+            <Tab
+                className={classnames(classes.button_navbar, tab_text === current_text && classes.red_tab_navbar)}
+                component={Typography}
+                onClick={handleClick}
+                label={tab_text}
+            />
     );
 };
 

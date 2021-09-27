@@ -59,14 +59,22 @@ const Login = ({
     },[])
 
     return (
-        <div className={"block_vertical"}>
-                <div className={"center_block_login"}>
+        <div
+            className={"block_vertical"}
+        >
+                <div
+                    className={"center_block_login"}
+
+                >
                     <Card
                           lassName={classes.root}
                           variant="outlined"
+                          className={"form_auth"}
                           elevation={5}
                     >
-                        <div className={"padding_login"}>
+                        <div
+                            // className={"form_auth"}
+                        >
                             <FormAuth
                                 title={"Вход"}
                                 text1={"Почта"}

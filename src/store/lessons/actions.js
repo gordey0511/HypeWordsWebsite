@@ -63,6 +63,7 @@ export const sendEssay = (
     text,
     comment,
     lesson_id,
+    teacher_id,
 ) => {
     return {
         type: ACTION_SEND_ESSAY,
@@ -74,6 +75,7 @@ export const sendEssay = (
             text:text,
             lesson_id: lesson_id,
             comment: comment,
+            teacher_id: teacher_id,
         },
     }
 }
@@ -92,6 +94,7 @@ export const setScoreStudent = (
     teacher_text,
     score,
     essay_id,
+    check,
     ) => {
     return {
         type: ACTION_SET_SCORE_STUDENT,
@@ -102,24 +105,25 @@ export const setScoreStudent = (
             teacher_text: teacher_text,
             score: score,
             essay_id: essay_id,
-            check: "checked",
+            check: check,
         }
     }
 }
 
-export const updateCheckStudent = (
-    essay_id,
-    teacher_text,
-    score
-) => {
-    return {
-        type: ACTION_UPDATE_CHECK_ESSAYS,
-        rest: false,
-        method: null,
-        payload: {
-            essay_id: essay_id,
-            teacher_text: teacher_text,
-            score: score,
-        }
-    }
-}
+// export const updateCheckStudent = (
+//     essay_id,
+//     teacher_text,
+//     score
+// ) => {
+//     return {
+//         type: ACTION_UPDATE_CHECK_ESSAYS,
+//         rest: "/update_check_essay/",
+//         method: null,
+//         payload: {
+//             essay_id: essay_id,
+//             teacher_text: teacher_text,
+//             score: score,
+//             check: "in_progress",
+//         }
+//     }
+// }

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import {CardMedia} from "@material-ui/core";
+import {NAVBAR_TITLE} from "../../../utils/constants";
 
 const useStyles = makeStyles({
     button_navbar:{
@@ -40,12 +41,27 @@ export const TabNavbarMain = ({tab_text,current_text,link}) => {
                 <div className={"outer_block"}>
                     <Button  className={classes.button_navbar}>
                         <CardMedia
-                            image={"..//favicon.svg"}
-                            src="./favicon.svg" className={"img_logo"}/>
+                            image={"..//logo512.png"}
+                            src="./logo512.png" className={"img_logo"}/>
                         <b className={"center_block"}>
-                            <text style={{color:"#2657eb", marginLeft: 10,}}>
-                                {tab_text}
-                            </text>
+                            {
+                                (tab_text===NAVBAR_TITLE.Home)?
+                                    <div style={{
+                                        display:'flex',
+                                        flexDirection: 'row',
+                                    }}>
+                                        <text style={{color:"#de6161", marginLeft: 10,}}>
+                                            HypePlace
+                                        </text>
+                                        {/*<text style={{color:"#2657eb", marginLeft: 1,}}>*/}
+                                        {/*    Place*/}
+                                        {/*</text>*/}
+                                    </div>
+                                    :
+                                    <text style={{color:"#2657eb", marginLeft: 10,}}>
+                                        {tab_text}
+                                    </text>
+                            }
                         </b>
                     </Button>
                 </div>
