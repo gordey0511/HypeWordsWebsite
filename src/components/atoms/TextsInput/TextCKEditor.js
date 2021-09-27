@@ -5,6 +5,7 @@ import editors from 'student-editor';
 
 import {makeStyles} from "@material-ui/styles";
 import produce from "immer";
+import {BASE_URL} from "../../../utils/constants";
 
 const useStyles = makeStyles({
     wrapper: props => ({
@@ -39,8 +40,8 @@ export const TextCKEditor = (
                 config={produce(editor.defaultConfig, (config) => {
                     config.wordCount = {
                         onUpdate: setStats,
-                    }
-                    config.placeholder = placeholder
+                    };
+                    config.placeholder = placeholder;
                 })}
             />
             <div
