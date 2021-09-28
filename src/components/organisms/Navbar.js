@@ -17,24 +17,30 @@ import Tabs from "@material-ui/core/Tabs";
 
 const Navbar = ({
                     current_text,
-                    name,
+                    userName,
                     getData
                     // token,
                 }) => {
 
     const [token, setToken] = useState("")
+    const [name, setName] = useState("")
     const [openMenu, setOpenMenu] = useState(false);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        setToken(localStorage.getItem("token"))
-    }, [localStorage.getItem("token")])
-
+        setToken(localStorage.getItem("userToken"))
+    }, [localStorage.getItem("userToken")])
     useEffect(() => {
-        if (token !== undefined && token !== null && token !== "") {
-            getData(token)
-        }
-    }, [token])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setName(localStorage.getItem("userName"));
+    }, [localStorage.getItem("userName")])
+    console.log(name + " ! " + userName);
+
+    // useEffect(() => {
+    //     if (token !== undefined && token !== null && token !== "") {
+    //         getData(token)
+    //     }
+    // }, [token])
 
     useEffect(() => {
         console.log("CURRENT TEXT " + current_text)
@@ -131,7 +137,7 @@ const Navbar = ({
                         <TabNavbar
                             tab_text={name}
                             current_text={current_text}
-                            link={"/profile"}
+                            link={"/user/"+token}
                         />
                 }
                 {/*</Tabs>*/}
@@ -142,9 +148,11 @@ const Navbar = ({
 
 
 const putStateToProps = (state) => {
+    state.auth.username = localStorage.getItem("userName")
     return {
         current_text: state.navbar.current_text,
         name: state.auth.name,
+        userName: state.auth.userName,
         // token:state.auth.token,
     }
 }

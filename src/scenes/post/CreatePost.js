@@ -13,6 +13,9 @@ import {NAVBAR_TITLE} from "../../utils/constants";
 import { useHistory } from "react-router-dom"
 import {NeedRegistration} from "../../components/molecules/NeedRegistration";
 import {EssayCheckingCKEditor} from "../../components/atoms/TextsInput/EssayCheckingCKEditor";
+import {CommonText} from "../../components/atoms/Texts/CommonText";
+import Typography from "@material-ui/core/Typography";
+import {SimpleTooltip} from "../../components/atoms/Tooltips/SimpleTooltip";
 
 const CreatePost = ({
                         token,
@@ -21,6 +24,8 @@ const CreatePost = ({
                     }) => {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
+    const [type, setType] = useState("public");
+    const [typex,setTypex] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
@@ -31,13 +36,23 @@ const CreatePost = ({
         setTitle(event.target.value)
     }
 
+    const handleType = ({ target: { checked } }) => {
+        setTypex(checked);
+        if(checked){
+            setType("private")
+        }
+        else{
+            setType("public")
+        }
+    }
+
     const handleText = (event) => {
         setText(event.target.value)
     }
 
     const sendPost = () => {
-        console.log("NEW POST INF "+title+" "+text+" ")
-        createPostAction(title, text, token);
+        console.log("NEW POST INF "+title+" "+text+" "+ " " + type)
+        createPostAction(title, text, token,type);
         history.push("/posts")
     }
 
@@ -74,6 +89,16 @@ const CreatePost = ({
                             marginTop: 20,
                         }}
                     />
+                    <div className={"inline_block"}>
+                        <SimpleTooltip text={"Пост не будет отображаться в общем списке, только в вашем профиле"}>
+                            <Typography>Создать приватный пост? </Typography>
+                        </SimpleTooltip>
+                        <input
+                            type="checkbox"
+                            checked={typex}
+                            onChange={handleType}
+                        />
+                    </div>
 
                     <ButtonMaterial
                         text={"Опубликовать"}
@@ -109,8 +134,9 @@ const CreatePost = ({
 // export default connect(putStateToProps, putDispatchToProps)(CreatePost);
 
 const putStateToProps = state => {
+    state.auth.token = localStorage.getItem("userToken");
     return {
-        token:state.auth.token,
+        token: state.auth.token,
     }
 }
 

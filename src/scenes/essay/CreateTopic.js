@@ -142,6 +142,7 @@ const CreateTopic = ({
 }
 
 const putStateToProps = state => {
+    state.auth.token = localStorage.getItem("userToken")
     return {
         user_id: state.auth.token,
         token_new_lesson: state.lessons.token_new_lesson,

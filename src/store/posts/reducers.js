@@ -1,4 +1,4 @@
-import {ACTION_GET_AUTHOR_NAME_LIST_POST, ACTION_GET_POST, ACTION_GET_POSTS} from "./actions";
+import {ACTION_GET_AUTHOR_NAME_LIST_POST, ACTION_GET_AUTHORS_POSTS, ACTION_GET_POST, ACTION_GET_POSTS} from "./actions";
 import {FAIL, START, SUCCESS} from "../reducers";
 import {ACTION_GET_AUTHOR_NAME} from "../books/actions";
 
@@ -63,6 +63,11 @@ export const postsReducer = (state = initialState, action) => {
                 ...state,
                 posts: new_posts,
             };
+        case ACTION_GET_AUTHORS_POSTS+SUCCESS:
+            return {
+                ...state,
+                posts: data,
+            }
     }
 
     return state;

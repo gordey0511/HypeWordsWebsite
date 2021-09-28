@@ -12,6 +12,10 @@ const initialState = {
     email: "",
     password: "",
     token: "",
+    userToken: "",
+    userName: "",
+    userEmail: "",
+    userPassword: "",
     error: "",
     favorites: [
         // {name:"Петя",id:"dsdsd"}
@@ -27,7 +31,10 @@ export const authReducer = (state=initialState,action) => {
     // console.log("AUTH REDUCER "+action.type+" "+data)
     switch(action.type){
         case ACTION_CREATE_USER+SUCCESS:
-            localStorage.setItem("token",data.token)
+            // localStorage.removeItem("userToken")
+            // localStorage.removeItem("userName")
+            localStorage.setItem("userToken",data.token)
+            localStorage.setItem("userName",data.name)
             return {...state,
             name:data.name,
             email:data.email,
@@ -40,7 +47,10 @@ export const authReducer = (state=initialState,action) => {
             error:action.error,
             }
         case ACTION_LOGIN_USER+SUCCESS:
-            localStorage.setItem("token",data.token)
+            // localStorage.removeItem("userToken")
+            // localStorage.removeItem("userName")
+            localStorage.setItem("userToken",data.token)
+            localStorage.setItem("userName",data.name)
             return {...state,
                 name:data.name,
                 email:data.email,
@@ -53,7 +63,11 @@ export const authReducer = (state=initialState,action) => {
                 error:action.error,
             }
         case ACTION_LOGOUT_USER:
-            localStorage.removeItem("token")
+            localStorage.removeItem("userToken")
+            localStorage.removeItem("userName")
+            // localStorage.setItem("userToken","")
+            // localStorage.setItem("userName","")
+            console.log(localStorage)
             return {
                 token:"",
                 name:"",
@@ -64,10 +78,10 @@ export const authReducer = (state=initialState,action) => {
         case ACTION_GET_DATA_USER+SUCCESS:
             return {
                 ...state,
-                name:data.name,
-                email:data.email,
-                password:data.password,
-                token:data.token,
+                userName:data.name,
+                userEmail:data.email,
+                userPassword:data.password,
+                userToken:data.token,
             }
         case ACTION_GET_FAVORITE_BOOKS+SUCCESS:
             return {

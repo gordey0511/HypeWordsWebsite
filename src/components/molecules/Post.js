@@ -73,51 +73,54 @@ const Post = ({
     return (
         // <div className={"center_block"}>
             <Card className={classes.root} onClick={() => {}} variant={"outlined"}>
-                <Link to={`/post/${id}`} className={classes.link}>
+                {/*<Link to={`/post/${id}`} className={classes.link}>*/}
                     <CardActionArea>
                         <CardContent className={classes.card_content}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    marginBottom: 5,
-                                }}
-                            >
-                                <AccountCircleIcon
+                            <Link to={`/user/${author_id}`} className={classes.link}>
+                                <div
                                     style={{
-                                        verticalAlign: "center",
-                                        paddingTop: 3,
-                                    }}
-                                />
-                                <Typography
-                                    variant={"h6"}
-                                    style={{
-                                        marginLeft: 10,
-                                        verticalAlign: "center",
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        marginBottom: 5,
                                     }}
                                 >
-                                    {authorName}
-                                </Typography>
-                            </div>
+                                    <AccountCircleIcon
+                                        style={{
+                                            verticalAlign: "center",
+                                            paddingTop: 3,
+                                        }}
+                                    />
+                                        <Typography
+                                            variant={"h6"}
+                                            style={{
+                                                marginLeft: 10,
+                                                verticalAlign: "center",
+                                            }}
+                                        >
+                                            {authorName}
+                                        </Typography>
+                                </div>
+                            </Link>
                             {/*<MainTitle text={title}/>*/}
-                            <Typography
-                                style={{fontWeight: 500}}
-                                variant="h5"
-                                component="h2">
-                                {title}
-                            </Typography>
-                            <div
+                            <Link to={`/post/${id}`} className={classes.link}>
+                                <Typography
+                                    style={{fontWeight: 500}}
+                                    variant="h5"
+                                    component="h2">
+                                    {title}
+                                </Typography>
+                                <div
                                 style={{
                                     fontSize: 16,
                                     textAlign: 'left',
                                 }}
                                 dangerouslySetInnerHTML={{__html: `${short_text}`}} />
+                            </Link>
                         </CardContent>
                     </CardActionArea>
                     {/*<CardActions className={classes.button}>*/}
                     {/*    /!*<Button size="small" className={classes.button}>Открыть</Button>*!/*/}
                     {/*</CardActions>*/}
-                </Link>
             </Card>
         // </div>
     )
