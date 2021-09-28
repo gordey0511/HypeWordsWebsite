@@ -50,10 +50,10 @@ const PostPage = ({
                                     textAlign: 'left',
                                 }}
                                 dangerouslySetInnerHTML={{__html: `${text}`}} />
-                            <CommonText
-                                body={"h6"}
-                                text={`${likes} лайков`}
-                            />
+                            {/*<CommonText*/}
+                            {/*    body={"h6"}*/}
+                            {/*    text={`${likes} лайков`}*/}
+                            {/*/>*/}
                         </CardContent>
                     </CardActionArea>
                     {/*</Link>*/}

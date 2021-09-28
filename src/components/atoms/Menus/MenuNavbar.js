@@ -4,35 +4,46 @@ import {Link} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 export const MenuNavbar = ({
-    handleClose,
+    handleClick,
     openMenu,
     arrayButtons
                            }) => {
     return (
-        <div>
-            <Menu
-                id="simple-menu"
-                anchorEl={openMenu}
-                keepMounted
-                open={Boolean(openMenu)}
-                onClose={handleClose}
-            >
+        <Menu
+            id="fade-menu"
+            aria-labelledby="demo-positioned-button"
+            anchorEl={openMenu}
+            keepMounted
+            open={Boolean(openMenu)}
+            onClose={handleClick}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+            }}
+        >
 
-                {
-                    arrayButtons.map(({
-                                          text,
-                                          link,
-                                          icon,
-                                      }) => (
-                        <Link
-                            style={{
-                                textDecoration: 'none',
-                                fontSize: 22,
-                                color:"#323223"
-                            }}
-                            to={link}>
+            {
+                arrayButtons.map(({
+                                      text,
+                                      link,
+                                      icon,
+                                  }) => (
+                      <Link
+                          style = {{
+                              textDecoration: 'none',
+                              color: '#000000',
+                          }}
+                        to={link}
+                      >
                         <MenuItem
-                            onClick={handleClose}
+                            onClick={handleClick}
                             style={{
                                 margin: 5,
                             }}
@@ -46,10 +57,9 @@ export const MenuNavbar = ({
                                 {text}
                             </div>
                         </MenuItem>
-                            </Link>
-                    ))
-                }
-            </Menu>
-        </div>
+                      </Link>
+                ))
+            }
+        </Menu>
     )
 }

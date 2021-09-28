@@ -10,6 +10,10 @@ import {createTopic} from "../../store/lessons/actions";
 import {connect} from "react-redux";
 import {NeedRegistration} from "../../components/molecules/NeedRegistration";
 import {DialogNewLesson} from "../../components/molecules/Dialogs/DialogNewLesson";
+import {CommonDialog} from "../../components/molecules/Dialogs/CommonDialog";
+import {links} from "../../utils/links";
+import {useHistory} from "react-router-dom";
+import {CommonSnackbar} from "../../components/atoms/Snackbars/CommonSnackbar";
 
 const CreateTopic = ({
                          user_id,
@@ -21,6 +25,8 @@ const CreateTopic = ({
     const [comment, setComment] = useState("");
     const  [checked, setChecked] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
         token_new_lesson = ""
@@ -51,6 +57,7 @@ const CreateTopic = ({
 
     const handleClose = () => {
         setOpenDialog(!openDialog)
+        history.push("/profile")
     }
 
     const handleButton = () => {
@@ -66,6 +73,15 @@ const CreateTopic = ({
             date.getSeconds(),
             comment,
         )
+    }
+
+    const handleClick = () => {
+        setOpenSnackbar(true);
+        navigator.clipboard.writeText(`${links.new_lesson}${token_new_lesson}`)
+    }
+
+    const handleClickSnackbar = () => {
+        setOpenSnackbar(false)
     }
 
     return (
@@ -132,11 +148,28 @@ const CreateTopic = ({
                 <NeedRegistration/>
             }
 
-            <DialogNewLesson
+            <CommonDialog
                 open = {openDialog}
-                token = {token_new_lesson}
+                title={"Урок опубликован!"}
+                text = {`Ссылка на урок </br><b><Link onclick={handleClick}>${links.new_lesson}${token_new_lesson}</Link></b></br> Отправьте ее своим ученикам`}
                 handleClose={handleClose}
+                buttons={[
+                    {
+                        text:"Закрыть",
+                        handleClick: handleClose,
+                    },
+                    {
+                        text:"Скопировать",
+                        handleClick: handleClick,
+                    }
+                ]}
             />
+
+            <CommonSnackbar
+                text={"Текст скопирован!"}
+                handleClose={handleClickSnackbar}
+                open={openSnackbar}
+                />
             </div>
     )
 }

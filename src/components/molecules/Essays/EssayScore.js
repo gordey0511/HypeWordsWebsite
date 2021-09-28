@@ -8,10 +8,12 @@ export const EssayScore = ({
     handleClick,
     textButton,
     textSelect,
+    visible,
     disabled=false,
                            }) => {
     return (
-        <div>
+        <div
+        >
             {
                 (disabled!==undefined&&disabled === false) ?
                     <div>
@@ -37,9 +39,9 @@ export const EssayScore = ({
                             ]}
                             handleChange={handleChangeSelect}
                             styles={{
+                                display: (visible ?"flex":"none"),
                                 width: 150,
                                 marginTop: 20,
-                                display: 'flex',
                                 textAlign: 'left',
                                 justifyContent: 'left',
                             }}

@@ -5,6 +5,7 @@ import editors from 'student-editor';
 
 import {makeStyles} from "@material-ui/styles";
 import produce from "immer";
+import {BASE_URL} from "../../../utils/constants";
 
 const useStyles = makeStyles({
     wrapper: props => ({
@@ -17,10 +18,13 @@ const useStyles = makeStyles({
 export const TextCKEditor = (
     {
         label,
-        data,
-        onChange,
+        value,
+        changeValue,
         rows,
         style,
+        editor=editors.StudentEditor,
+        disabled=false,
+        visible_cnt_words = false,
         placeholder = "",
     }) => {
     const classes = useStyles({rows});
@@ -28,23 +32,25 @@ export const TextCKEditor = (
     return (
         <div className={classes.wrapper} style={style}>
             <CKEditor
-                data={data}
+                data={value}
                 label={label}
-                onChange={(event, editor) => onChange(editor.getData())}
-                editor={editors.StudentEditor}
-                config={produce(editors.StudentEditor.defaultConfig, (config) => {
+                disabled = {disabled}
+                onChange={(event, editor) => changeValue(editor.getData())}
+                editor={editor}
+                config={produce(editor.defaultConfig, (config) => {
                     config.wordCount = {
                         onUpdate: setStats,
-                    }
-                    config.placeholder = placeholder
+                    };
+                    config.placeholder = placeholder;
                 })}
             />
             <div
                 style={{
-                    display: 'flex',
                     justifyContent: 'left',
                     marginTop: 10,
-                }}>
+                    display: (visible_cnt_words? "flex":"none"),
+                }}
+            >
                 <span>{`Количество слов: ${stats.words}`}</span>
             </div>
         </div>

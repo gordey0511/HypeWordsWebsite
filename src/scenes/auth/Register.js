@@ -41,6 +41,7 @@ const Register = ({
     let history = useHistory()
 
     const [name,setName] = useState("");
+    const [surname,setSurname] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
@@ -52,6 +53,10 @@ const Register = ({
 
     const changeName = (event) => {
         setName(event.target.value)
+    }
+
+    const changeSurname = (event) => {
+        setSurname(event.target.value)
     }
 
     const changeEmail = (event) => {
@@ -85,22 +90,29 @@ const Register = ({
                     lassName={classes.root}
                     variant="outlined"
                     elevation={5}
+                    className={"form_auth"}
                 >
-                    <div className={"padding_login"}>
+                    <div
+                    >
                         <FormAuth
                             title={"Регистрация"}
                             text1={"Почта"}
                             text2={"Пароль"}
-                            text_button={"зарегистрировать"}
+                            text_button={"зарегистрироваться"}
                             email={email}
                             changeEmail={changeEmail}
                             password={password}
                             changePassword={changePassword}
                             name={name}
                             changeName={changeName}
+                            surname={surname}
+                            changeSurname={changeSurname}
                             handleButton = {handleButton}
                         />
-                        <CardActionAuth text={"Уже есть аккаунт"} link={"/login"}/>
+                        <CardActionAuth
+                            text={"Уже есть аккаунт"}
+                            link={"/login"}
+                        />
                     </div>
                 </Card>
                 {/*{name} {email} {password}*/}

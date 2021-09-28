@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         fontSize: 14,
     },
     margin: {
-        margin: 14,
+        margin: 50,
         padding: 14,
     },
 
@@ -46,20 +46,30 @@ export const FormAuth = ({
                              changePassword,
                              name,
                              changeName,
+                             surname,
+                             changeSurname,
                              handleButton,
                          }) => {
     const classes = useStyles();
 
+    const handleKeyPress = (target) => {
+        if (target.key === 'Enter') {
+            handleButton()
+        }
+    }
+
     return (
-        <CardContent>
+        <CardContent
+            onKeyDown={handleKeyPress}
+        >
             <div
+                onKeyDown={handleKeyPress}
                 className={"center_block_login"}
+                // style={{
+                //     width: 00,
+                // }}
             >
-                <Typography
-                    className={classes.left}
-                >
-                    <MainTitle text={title}/>
-                </Typography>
+                <MainTitle text={title}/>
                 {
                     (name!==undefined)?
                         <div>
@@ -67,31 +77,53 @@ export const FormAuth = ({
                                 className={classes.margin}
                                 value={name}
                                 label={"Имя"}
+                                styles={{
+                                    display: "flex",
+                                }}
                                 changeValue={changeName}
                             />
-                            <br/>
+                            <TextFieldMaterial
+                                className={classes.margin}
+                                value={surname}
+                                label={"Фамилия"}
+                                changeValue={changeSurname}
+                                styles={{
+                                    display: "flex",
+                                    marginTop: 15,
+                                    marginBottom: 15,
+                                }}
+                            />
                         </div>
                     :
-                    <div></div>
+                        null
                 }
-                <br/>
                 <TextFieldMaterial
                     className={classes.margin}
                     value={email}
                     label={text1}
+                    type={"email"}
                     changeValue={changeEmail}
+                    styles={{
+                        display: "flex",
+                    }}
                 />
-                <br/>
                 <TextFieldMaterial
                     className={classes.margin}
+                    styles={{
+                        display: "flex",
+                        marginTop: 15,
+                    }}
                     label={text2}
+                    onKeyDown={handleKeyPress}
+                    type = {"password"}
                     value={password}
                     changeValue={changePassword}
                 />
-                <br/>
-                <br/>
                 <ButtonMaterial
                     color={"primary"}
+                    styles={{
+                        marginTop: 35,
+                    }}
                     handleClick = {handleButton}
                     text={text_button}
                 />

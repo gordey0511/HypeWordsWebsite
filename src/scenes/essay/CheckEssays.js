@@ -9,6 +9,7 @@ import {bindActionCreators} from "redux";
 import {getCheckListEssays, setScoreStudent} from "../../store/lessons/actions";
 import {connect} from "react-redux";
 import EssayTabPanel from "../../components/organisms/EssayTabPanel";
+import {MainTitle} from "../../components/atoms/Texts/MainTitle";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -33,13 +34,6 @@ function TabPanel(props) {
     );
 }
 
-// function a11yProps(index) {
-//     return {
-//         id: `vertical-tab-${index}`,
-//         'aria-controls': `vertical-tabpanel-${index}`,
-//     };
-// }
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -60,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#46d713",
     },
 
-    tab_start_check: {
-        backgroundColor: "#d5d20e",
+    tab_int_progress: {
+        backgroundColor: "#fdf901",
     },
 
     body: {
@@ -80,8 +74,10 @@ const CheckEssays = ({
 
     useEffect(() => {
         console.log("USER ID "+user_id)
-        getCheckListEssays(user_id)
-    },[])
+        if(user_id!==undefined&&user_id!==""){
+            getCheckListEssays(user_id)
+        }
+    },[user_id])
 
     useEffect(() => {
         console.log("check_list_essays "+check_list_essays)
@@ -91,81 +87,104 @@ const CheckEssays = ({
         setValue(newValue);
     };
 
+    function getTab(text, check){
+        let classes_tab = {};
+        if(check == "checked"){
+            classes_tab = classes.tab_checked
+        }else if(check == "in_progress"){
+            classes_tab = classes.tab_int_progress
+        }
+
+        return (
+            <Tab
+                label={text}
+                className={classes_tab}
+                style={{
+                    fontWeight: 600,
+                    fontSize: 16,
+                }}
+            />
+        )
+    }
 
     return (
-        <div className={classes.root}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                color={"primary"}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-            >
+        <div>
+            <MainTitle
+                style={{
+                    display: "flex",
+                    textAlign: "center",
+                    justifyContent: 'center',
+                    marginBottom: 20,
+                }}
+                text={"Проверить сочинения"}
+            />
+            <div className={classes.root}>
+                <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    color={"primary"}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs example"
+                    className={classes.tabs}
+                >
+                    {
+                        check_list_essays.map(({
+                                                   student_name,
+                                                   check
+                                               }) => (
+
+                                   getTab(student_name,check)
+                            )
+                        )
+                    }
+                </Tabs>
+
+
                 {
                     check_list_essays.map(({
+                                               _id,
+                                               topic,
+                                               student_text,
+                                               comment,
+                                               student_id,
+                                               check,
+                                               score,
                                                student_name,
-                                               check
-                    }) => (
-
-                            (check!==undefined&&check === "checked")?
-                                <Tab
-                                    label={student_name}
-                                    className={classes.tab_checked}
-                                    style={{
-                                        fontWeight: 600,
-                                        fontSize: 16,
-                                    }}
-                                />
-                            :
-                                <Tab
-                                    label={student_name}
-                                    style={{
-                                        fontWeight: 600,
-                                        fontSize: 16,
-                                    }}
-                                />
-
-                    )
-                )
-            }
-            </Tabs>
-
-
-            {
-                check_list_essays.map(({
-                                           _id,
-                                           topic,
-                                           student_text,
-                                           comment,
-                                           student_id,
-                                           check,
-                                           score,
-                                           student_name,
-                                       },
-                                       index
-                ) => (
-                    <TabPanel
-                        value={value}
-                        index={index}
-                        className = {classes.body}
-                    >
-                        <EssayTabPanel
-                            // titleLesson={"Урок"}
-                            topicEssay={topic}
-                            textEssay={student_text}
-                            id_essay={_id}
-                            checkEssay = {check}
-                            score={score}
-                            studentName={student_name}
-                            // commentEssay={
-                            //     comment !== undefined ? comment : ""
-                            // }
-                        />
-                    </TabPanel>
-                ))
-            }
+                                               teacher_text,
+                                               teacher_name
+                                           },
+                                           index
+                    ) => (
+                        <TabPanel
+                            value={value}
+                            index={index}
+                            className = {classes.body}
+                        >
+                            <EssayTabPanel
+                                // titleLesson={"Урок"}
+                                topicEssay={topic}
+                                textStudent={(teacher_text!==undefined)?teacher_text:student_text}
+                                id_essay={_id}
+                                checkEssay = {check}
+                                score={score}
+                                studentName={student_name}
+                                teacherName = {teacher_name}
+                                accordion = {
+                                    {
+                                        title: "Текст ученика (без правок)",
+                                        text: student_text,
+                                        visible: true,
+                                    }
+                                }
+                                // commentEssay={
+                                //     comment !== undefined ? comment : ""
+                                // }
+                            />
+                        </TabPanel>
+                    ))
+                }
+            </div>
         </div>
     );
 }
@@ -180,7 +199,6 @@ const putStateToProps = state => {
 const putDispatchToProps = dispatch => {
     return {
         getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
-        setScoreStudent: bindActionCreators(setScoreStudent, dispatch),
     }
 }
 

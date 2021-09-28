@@ -22,7 +22,9 @@ export const CommonDialog = ({
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    {text}
+                    <div dangerouslySetInnerHTML={{__html: `${text}`}}>
+
+                    </div>
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

@@ -7,6 +7,9 @@ import {Typography} from "@material-ui/core";
 import {CommonText} from "../../atoms/Texts/CommonText";
 import {CommonDialog} from "../Dialogs/CommonDialog";
 import {CommonSelect} from "../../atoms/Selects/CommonSelect";
+import {TextCKEditor} from "../../atoms/TextsInput/TextCKEditor";
+import editors from "student-editor";
+import {CommonAccordion} from "../Accordion/CommonAccordion";
 
 export const Essay = ({
     titleLesson,
@@ -14,9 +17,12 @@ export const Essay = ({
     textEssay,
     handleStudentText,
     commentEssay,
-          check,
+      check,
+    accordion,
     disabled = false,
                       }) => {
+
+
 
     return (
         <div className={"center_block"} style={{width: '100%', display: "flex"}}>
@@ -28,14 +34,31 @@ export const Essay = ({
                 weight={600}
                 text={topicEssay}
             />
-            <MultilineTextInput
-                styles={{marginBottom: 20,}}
+            <TextCKEditor
+                style={{
+                    marginBottom: 2,
+                    marginTop: 20,
+                }}
+                editor = {editors.TeacherEditor}
                 label={"Текст сочинения"}
                 value={textEssay}
-                rows = {30}
+                rows = {50}
                 disabled = {disabled}
                 changeValue={handleStudentText}
             />
+
+            <CommonAccordion
+                title = {accordion.title}
+                text = {accordion.text}
+                style = {
+                    {
+                        textAlign: 'left',
+                        marginTop: 10,
+                        display: accordion.visible ? 'block':'none',
+                    }
+                }
+            />
+
         </div>
     )
 }

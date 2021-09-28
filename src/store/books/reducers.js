@@ -51,6 +51,7 @@ export const booksReducer = (state=initialState,action) => {
             }
         case ACTION_GET_DATA_OF_BOOK+FAIL:
             return {...state,
+                isLoading: false,
             }
         case ACTION_GET_TEXT_OF_BOOK+START:
             return {
@@ -67,6 +68,7 @@ export const booksReducer = (state=initialState,action) => {
         case ACTION_GET_DATA_OF_ALL_BOOKS+SUCCESS:
             return {
                 ...state,
+                isLoading: false,
                 books: data,
             }
         case ACTION_GET_AUTHOR_NAME+SUCCESS:

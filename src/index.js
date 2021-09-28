@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {BrowserRouter} from "react-router-dom"
 import {createBrowserHistory} from "history";
-import {MainPage} from "./scenes/MainPage";
 import {applyMiddleware, createStore} from "redux";
 import {connect, Provider} from "react-redux";
 import rootReducer from "./store/reducers";
