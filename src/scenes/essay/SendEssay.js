@@ -41,7 +41,7 @@ const SendEssay = ({
     let dateNow = new Date();
 
     useEffect(() => {
-        console.log(token)
+        console.log("TOKEN "+token)
         getLesson(token)
     },[token])
 
@@ -86,7 +86,7 @@ const SendEssay = ({
     const [errorComponent,setErrorComponent] = useState(null);
     useEffect(() => {
         let timestampNow = Number(Number(dateNow.getTime())/1000);
-        console.log("UPDATE PARAM "+student_id,start_time, timestampNow,end_time)
+        console.log("UPDATE PARAM ",student_id,start_time, timestampNow,end_time)
         if(student_id===undefined||student_id===""){
             setErrorComponent(<NeedRegistration/>)
         }else if(start_time!==undefined&&timestampNow<start_time){
