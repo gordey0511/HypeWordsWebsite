@@ -73,13 +73,26 @@ const EssayTabPanel = ({
     }, []);
 
     const handleSetScore = () => {
-        setScoreStudent(
-            user_id,
-            text,
-            valueSelect,
-            id_essay,
-            "checked",
-        )
+        if(checkEssay===undefined||checkEssay==='in_progress'){
+            setScoreStudent(
+                user_id,
+                text,
+                valueSelect,
+                id_essay,
+                "checked",
+            )
+        }else{
+            checkEssay = "in_progress"
+            setScoreStudent(
+                user_id,
+                text,
+                valueSelect,
+                id_essay,
+                "in_progress",
+            )
+        }
+
+        this.forceUpdate()
     }
 
     // useEffect(() => {

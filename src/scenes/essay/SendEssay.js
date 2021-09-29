@@ -5,11 +5,16 @@ import {MultilineTextInput} from "../../components/atoms/TextsInput/MultilineTex
 import {ButtonMaterial} from "../../components/atoms/Buttons/ButtonMaterial";
 import {bindActionCreators} from "redux";
 import {getLesson, getTeacher, sendEssay} from "../../store/lessons/actions";
+import SimpleDateTime  from 'react-simple-timestamp-to-date';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {CommonDialog} from "../../components/molecules/Dialogs/CommonDialog";
 import {TextCKEditor} from "../../components/atoms/TextsInput/TextCKEditor";
-import {NeedRegistration} from "../../components/molecules/NeedRegistration";
+import {NeedRegistration} from "../../components/molecules/Problems/NeedRegistration";
+import {LessonNotStarted} from "../../components/molecules/Problems/LessonNotStarted";
+import {LessonFinished} from "../../components/molecules/Problems/LessonFinished";
+import {CommonSelect} from "../../components/atoms/Selects/CommonSelect";
+import {CommonSelect2} from "../../components/atoms/Selects/CommonSelect2";
 
 const SendEssay = ({
     Title,
@@ -33,6 +38,7 @@ const SendEssay = ({
     const link = window.location.pathname
     const token = link.substr(12,link.length-12)
     const history = useHistory()
+    let dateNow = new Date();
 
     useEffect(() => {
         console.log(token)
@@ -42,6 +48,12 @@ const SendEssay = ({
     useEffect(() => {
         setText(topic)
     },[topic])
+
+    const getStringDate = (currentTimestamp) => {
+        let dateStr = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(currentTimestamp) // 01/11/2021
+        console.log("UPDATE PARAM 2 "+dateStr)
+        return dateStr
+    }
 
     useEffect(() => {
         if(teacher_id!==undefined && teacher_id !== ""){
@@ -71,33 +83,101 @@ const SendEssay = ({
         setOpenSubmitted(true)
     }
 
+    const [errorComponent,setErrorComponent] = useState(null);
+    useEffect(() => {
+        let timestampNow = Number(Number(dateNow.getTime())/1000);
+        console.log("UPDATE PARAM "+student_id,start_time, timestampNow,end_time)
+        if(student_id===undefined||student_id===""){
+            setErrorComponent(<NeedRegistration/>)
+        }else if(start_time!==undefined&&timestampNow<start_time){
+            setErrorComponent(<LessonNotStarted
+                date={getStringDate(start_time*1000)}
+                name = {Title}
+            />)
+        }
+        else if(end_time!==undefined&&(end_time!==0&&timestampNow>end_time)){
+            setErrorComponent(<LessonFinished
+                date={getStringDate(end_time*1000)}
+                name = {Title}
+            />)
+        }else{
+            setErrorComponent(null)
+        }
+
+    },[student_id,start_time,end_time])
+
+
+    const [choiceTopics, setChoiceTopics] = useState(null)
+    useEffect(() => {
+        if(topic.type !== undefined){
+            console.log("ARRAY "+topic.topics)
+            if(topic.type === "free") {
+                setChoiceTopics(<TextFieldMaterial
+                    styles={{marginBottom: 10, fontSize: 45}}
+                    label={"Тема сочинения"}
+                    disabled={false}
+                    value={title}
+                    changeValue={handleTitle}
+                />)
+            }else if(topic.type === "free"){
+                setChoiceTopics(<TextFieldMaterial
+                        styles={{marginBottom: 10,fontSize: 45}}
+                        label={title}
+                        disabled={true}
+                        value={title}
+                        changeValue={handleTitle}
+                    />
+                )
+            }else{
+                setChoiceTopics(
+                    <CommonSelect2
+                        styles={{marginBottom: 10,fontSize: 45}}
+                        label={"Тема сочинени"}
+                        array={topic.topics}
+                        value={title}
+                        changeValue={handleTitle}
+                    />
+                )
+            }
+        }
+    },[topic])
+
     return (
         <div className={"center_block"} style={{width: '60%', display: "flex"}}>
             {
-                (student_id!==undefined&&student_id!=="")?
-                    <div>
+                (errorComponent === null)?
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: 'column',
+                        }
+                        }
+                    >
                         <MainTitle text={Title}/>
                         <p style={{textAlign: "left", margin: 0,}}>
                             Преподаватель {teacherName}
                         </p>
 
+                        {/*{*/}
+                        {/*    (topic.type === "free")?*/}
+                        {/*        <TextFieldMaterial*/}
+                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
+                        {/*            label={"Тема сочинения"}*/}
+                        {/*            disabled={false}*/}
+                        {/*            value={title}*/}
+                        {/*            changeValue={handleTitle}*/}
+                        {/*        />*/}
+                        {/*        :*/}
+                        {/*        <TextFieldMaterial*/}
+                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
+                        {/*            label={title}*/}
+                        {/*            disabled={true}*/}
+                        {/*            value={title}*/}
+                        {/*            changeValue={handleTitle}*/}
+                        {/*        />*/}
+                        {/*}*/}
                         {
-                            (topic.type === "free")?
-                                <TextFieldMaterial
-                                    styles={{marginBottom: 10,fontSize: 45}}
-                                    label={"Тема сочинения"}
-                                    disabled={false}
-                                    value={title}
-                                    changeValue={handleTitle}
-                                />
-                                :
-                                <TextFieldMaterial
-                                    styles={{marginBottom: 10,fontSize: 45}}
-                                    label={title}
-                                    disabled={true}
-                                    value={title}
-                                    changeValue={handleTitle}
-                                />
+                            choiceTopics
                         }
                         <TextCKEditor
                             style={{
@@ -110,14 +190,14 @@ const SendEssay = ({
                             placeholder={"Напишите сочинение..."}
                         />
 
-                        <MultilineTextInput
-                            styles={{marginBottom: 20,}}
-                            label={"Комментарий учителю"}
-                            value={comment}
-                            rows = {1}
-                            helperText={"Необязательно"}
-                            changeValue={handleComment}
-                        />
+                        {/*<MultilineTextInput*/}
+                        {/*    styles={{marginBottom: 20,}}*/}
+                        {/*    label={"Комментарий учителю"}*/}
+                        {/*    value={comment}*/}
+                        {/*    rows = {1}*/}
+                        {/*    helperText={"Необязательно"}*/}
+                        {/*    changeValue={handleComment}*/}
+                        {/*/>*/}
 
                         <ButtonMaterial
                             text={"Отправить сочинение на проверку"}
@@ -152,7 +232,7 @@ const SendEssay = ({
                         />
                     </div>
                     :
-                    <NeedRegistration/>
+                    errorComponent
             }
         </div>
     )

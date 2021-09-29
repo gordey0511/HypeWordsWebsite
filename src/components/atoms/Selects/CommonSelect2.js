@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {InputLabel, MenuItem, Select} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 
-export const CommonSelect = ({
+export const CommonSelect2 = ({
                            label,
                            value,
                            handleChange,
@@ -27,7 +27,7 @@ export const CommonSelect = ({
                 disabled={disabled}
             >
                 {
-                    array.map(({text}) => (
+                    array.map((text) => (
                         <MenuItem value={text}>
                             {text}
                         </MenuItem>

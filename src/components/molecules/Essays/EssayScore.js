@@ -13,13 +13,18 @@ export const EssayScore = ({
                            }) => {
     return (
         <div
+            style = {
+                {
+                    display: visible?'block':'none',
+                }
+            }
         >
             {
-                (disabled!==undefined&&disabled === false) ?
                     <div>
                         <CommonSelect
                             label={textSelect}
                             value={valueSelect}
+                            disabled={disabled}
                             array={[
                                 {
                                     text: "Единица",
@@ -48,7 +53,7 @@ export const EssayScore = ({
                         />
 
                         <ButtonMaterial
-                            text={textButton}
+                            text={!disabled?textButton:"Изменить результат"}
                             styles={{
                                 marginTop: 20,
                                 marginBottom: 20,
@@ -61,38 +66,6 @@ export const EssayScore = ({
                             handleClick={handleClick}
                         />
                     </div>
-                    :
-                    <CommonSelect
-                        label={textSelect}
-                        value={valueSelect}
-                        disabled={disabled}
-                        array={[
-                            {
-                                text: "Единица",
-                            },
-                            {
-                                text: "Два",
-                            },
-                            {
-                                text: "Три",
-                            },
-                            {
-                                text: "Четыре",
-                            },
-                            {
-                                text: "Пять",
-                            },
-                        ]}
-
-                        handleChange={handleChangeSelect}
-                        styles={{
-                            width: 150,
-                            marginTop: 20,
-                            display: 'flex',
-                            textAlign: 'left',
-                            justifyContent: 'left',
-                        }}
-                    />
             }
         </div>
     )

@@ -29,6 +29,8 @@ export const createTopic = (
             type: type,
             topics: topics,
             comment: comment,
+            start_time: start_time,
+            end_time: end_time,
             teacher_id: teacher_id,
         },
     }
