@@ -61,6 +61,7 @@ export const authReducer = (state=initialState,action) => {
                 password:"",
                 error:"",
             }
+
         case ACTION_GET_DATA_USER+SUCCESS:
             return {
                 ...state,

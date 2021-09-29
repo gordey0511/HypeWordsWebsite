@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import {Essay} from "../../components/molecules/Essays/Essay";
 import {bindActionCreators} from "redux";
 import {getCheckListEssays, setScoreStudent} from "../../store/lessons/actions";
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import EssayTabPanel from "../../components/organisms/EssayTabPanel";
 import {MainTitle} from "../../components/atoms/Texts/MainTitle";
 
@@ -65,13 +65,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CheckEssays = ({
+    check_list_essays,
     getCheckListEssays,
     user_id,
                             }) => {
     const classes = useStyles();
-    const [listEssays, setListEssays] = useState([])
     const [value, setValue] = React.useState(0);
-    const check_list_essays = useSelector((state) => state.lessons.check_list_essays)
 
     useEffect(() => {
         console.log("USER ID "+user_id)
@@ -81,7 +80,6 @@ const CheckEssays = ({
     },[user_id])
 
     useEffect(() => {
-        setListEssays(check_list_essays)
         console.log("check_list_essays "+check_list_essays)
     },[check_list_essays])
 
@@ -109,71 +107,6 @@ const CheckEssays = ({
         )
     }
 
-    const [blockEssays, setBlockEssays] = useState(null);
-    const [TabsEssays, setTabsEssays] = useState(null);
-
-    useEffect(()=>{
-        console.log("check_list_essaysTab "+check_list_essays)
-        setTabsEssays(
-            check_list_essays.map(({
-                                student_name,
-                                check
-                            }) => (
-
-                getTab(student_name,check)
-            )
-            )
-        )
-    },[check_list_essays])
-
-
-    useEffect(()=>{
-        console.log("check_list_essaysPanel "+check_list_essays+" "+value)
-        setBlockEssays(
-            check_list_essays.map(({
-                            _id,
-                            topic,
-                            student_text,
-                            comment,
-                            student_id,
-                            check,
-                            score,
-                            student_name,
-                            teacher_text,
-                            teacher_name
-                        },
-                        index
-        ) => (
-            <TabPanel
-                value={value}
-                index={index}
-                className = {classes.body}
-            >
-                <EssayTabPanel
-                    // titleLesson={"Урок"}
-                    topicEssay={topic}
-                    textStudent={(teacher_text!==undefined)?teacher_text:student_text}
-                    id_essay={_id}
-                    checkEssay = {check}
-                    score={score}
-                    studentName={student_name}
-                    teacherName = {teacher_name}
-                    accordion = {
-                        {
-                            title: "Текст ученика (без правок)",
-                            text: student_text,
-                            visible: true,
-                        }
-                    }
-                    // commentEssay={
-                    //     comment !== undefined ? comment : ""
-                    // }
-                />
-            </TabPanel>
-        )))
-    },[check_list_essays,value])
-
-
     return (
         <div>
             <MainTitle
@@ -198,12 +131,62 @@ const CheckEssays = ({
                     aria-label="Vertical tabs example"
                     className={classes.tabs}
                 >
+                    {
+                        check_list_essays.map(({
+                                                   student_name,
+                                                   check
+                                               }) => (
 
-                    {TabsEssays}
+                                   getTab(student_name,check)
+                            )
+                        )
+                    }
                 </Tabs>
 
-                {blockEssays}
 
+                {
+                    check_list_essays.map(({
+                                               _id,
+                                               topic,
+                                               student_text,
+                                               comment,
+                                               student_id,
+                                               check,
+                                               score,
+                                               student_name,
+                                               teacher_text,
+                                               teacher_name
+                                           },
+                                           index
+                    ) => (
+                        <TabPanel
+                            value={value}
+                            index={index}
+                            className = {classes.body}
+                        >
+                            <EssayTabPanel
+                                // titleLesson={"Урок"}
+                                topicEssay={topic}
+                                textStudent={(teacher_text!==undefined)?teacher_text:student_text}
+                                id_essay={_id}
+                                checkEssay = {check}
+                                score={score}
+                                studentName={student_name}
+                                teacherName = {teacher_name}
+                                accordion = {
+                                    {
+                                        title: "Текст ученика (без правок)",
+                                        text: student_text,
+                                        visible: true,
+                                    }
+                                }
+                                // commentEssay={
+                                //     comment !== undefined ? comment : ""
+                                // }
+                            />
+                        </TabPanel>
+                    ))
+                }
             </div>
         </div>
     );
@@ -211,7 +194,8 @@ const CheckEssays = ({
 
 const putStateToProps = state => {
     return {
-        user_id: state.auth.token,
+        user_id: localStorage.getItem("userToken"),
+        check_list_essays: state.lessons.check_list_essays,
     }
 }
 

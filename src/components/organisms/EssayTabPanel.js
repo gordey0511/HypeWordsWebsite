@@ -91,8 +91,15 @@ const EssayTabPanel = ({
                 "in_progress",
             )
         }
+
+        this.forceUpdate()
     }
 
+    // useEffect(() => {
+    //     if(id_essay!==undefined&&id_essay!==""){
+    //         updateCheckStudent(id_essay, text, valueSelect)
+    //     }
+    // },[text,valueSelect])
 
     let middlePlace = <div></div>;
 

@@ -17,7 +17,6 @@
     "@mui/icons-material": "^5.0.0",
     "@mui/lab": "*",
     "@mui/material": "^5.0.0",
-    "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
@@ -48,6 +47,7 @@
     "react-simple-timestamp-to-date": "^1.0.3",
     "react16": "^1.0.0",
     "redux": "^4.1.0",
+    "sass": "^1.42.1",
     "student-editor": "file:StudentEditor",
     "web-vitals": "^1.1.1"
   },
