@@ -11,7 +11,7 @@ import {update_navbar} from "../../store/navbar/actions";
 import {loginUser} from "../../store/auth/actions";
 import {NAVBAR_TITLE} from "../../utils/constants";
 import { useHistory } from "react-router-dom"
-import {NeedRegistration} from "../../components/molecules/NeedRegistration";
+import {NeedRegistration} from "../../components/molecules/Problems/NeedRegistration";
 import {EssayCheckingCKEditor} from "../../components/atoms/TextsInput/EssayCheckingCKEditor";
 import {CommonText} from "../../components/atoms/Texts/CommonText";
 import Typography from "@material-ui/core/Typography";

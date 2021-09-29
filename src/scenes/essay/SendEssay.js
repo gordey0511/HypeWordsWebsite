@@ -5,10 +5,16 @@ import {MultilineTextInput} from "../../components/atoms/TextsInput/MultilineTex
 import {ButtonMaterial} from "../../components/atoms/Buttons/ButtonMaterial";
 import {bindActionCreators} from "redux";
 import {getLesson, getTeacher, sendEssay} from "../../store/lessons/actions";
+import SimpleDateTime  from 'react-simple-timestamp-to-date';
 import {connect} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {CommonDialog} from "../../components/molecules/Dialogs/CommonDialog";
 import {TextCKEditor} from "../../components/atoms/TextsInput/TextCKEditor";
+import {NeedRegistration} from "../../components/molecules/Problems/NeedRegistration";
+import {LessonNotStarted} from "../../components/molecules/Problems/LessonNotStarted";
+import {LessonFinished} from "../../components/molecules/Problems/LessonFinished";
+import {CommonSelect} from "../../components/atoms/Selects/CommonSelect";
+import {CommonSelect2} from "../../components/atoms/Selects/CommonSelect2";
 
 const SendEssay = ({
     Title,
@@ -32,11 +38,22 @@ const SendEssay = ({
     const link = window.location.pathname
     const token = link.substr(12,link.length-12)
     const history = useHistory()
+    let dateNow = new Date();
 
     useEffect(() => {
         console.log(token)
         getLesson(token)
-    },[])
+    },[token])
+
+    useEffect(() => {
+        setText(topic)
+    },[topic])
+
+    const getStringDate = (currentTimestamp) => {
+        let dateStr = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(currentTimestamp) // 01/11/2021
+        console.log("UPDATE PARAM 2 "+dateStr)
+        return dateStr
+    }
 
     useEffect(() => {
         if(teacher_id!==undefined && teacher_id !== ""){
@@ -62,86 +79,161 @@ const SendEssay = ({
     };
 
     const handleButton = () => {
-        sendEssay(student_id, title, text, comment, token)
+        sendEssay(student_id, title, text, comment, token, teacher_id)
         setOpenSubmitted(true)
     }
 
-    return (
-        <div className={"center_block"} style={{width: '60%', display: "flex"}}>
-            <MainTitle text={Title}/>
-            <p style={{textAlign: "left", margin: 0,}}>
-                Преподаватель {teacherName}
-            </p>
+    const [errorComponent,setErrorComponent] = useState(null);
+    useEffect(() => {
+        let timestampNow = Number(Number(dateNow.getTime())/1000);
+        console.log("UPDATE PARAM "+student_id,start_time, timestampNow,end_time)
+        if(student_id===undefined||student_id===""){
+            setErrorComponent(<NeedRegistration/>)
+        }else if(start_time!==undefined&&timestampNow<start_time){
+            setErrorComponent(<LessonNotStarted
+                date={getStringDate(start_time*1000)}
+                name = {Title}
+            />)
+        }
+        else if(end_time!==undefined&&(end_time!==0&&timestampNow>end_time)){
+            setErrorComponent(<LessonFinished
+                date={getStringDate(end_time*1000)}
+                name = {Title}
+            />)
+        }else{
+            setErrorComponent(null)
+        }
 
-            {
-                (topic.type === "free")?
-                    <TextFieldMaterial
+    },[student_id,start_time,end_time])
+
+
+    const [choiceTopics, setChoiceTopics] = useState(null)
+    useEffect(() => {
+        if(topic.type !== undefined){
+            console.log("ARRAY "+topic.topics)
+            if(topic.type === "free") {
+                setChoiceTopics(<TextFieldMaterial
+                    styles={{marginBottom: 10, fontSize: 45}}
+                    label={"Тема сочинения"}
+                    disabled={false}
+                    value={title}
+                    changeValue={handleTitle}
+                />)
+            }else if(topic.type === "free"){
+                setChoiceTopics(<TextFieldMaterial
                         styles={{marginBottom: 10,fontSize: 45}}
-                        label={"Тема сочинения"}
-                        disabled={false}
-                        value={title}
-                        changeValue={handleTitle}
-                    />
-                :
-                    <TextFieldMaterial
-                        styles={{marginBottom: 10,fontSize: 45}}
-                        label={topic.topics}
+                        label={title}
                         disabled={true}
                         value={title}
                         changeValue={handleTitle}
                     />
+                )
+            }else{
+                setChoiceTopics(
+                    <CommonSelect2
+                        styles={{marginBottom: 10,fontSize: 45}}
+                        label={"Тема сочинени"}
+                        array={topic.topics}
+                        value={title}
+                        changeValue={handleTitle}
+                    />
+                )
             }
-            <TextCKEditor
-                style={{
-                    marginBottom: 20,
-                    marginTop:30,}}
-                label={"Текст сочинения"}
-                data={text}
-                rows={51}
-                onChange={handleText}
-                placeholder={"Напишите сочинение..."}
-            />
+        }
+    },[topic])
 
-            <MultilineTextInput
-                styles={{marginBottom: 20,}}
-                label={"Комментарий учителю"}
-                value={comment}
-                rows = {1}
-                helperText={"Необязательно"}
-                changeValue={handleComment}
-            />
+    return (
+        <div className={"center_block"} style={{width: '60%', display: "flex"}}>
+            {
+                (errorComponent === null)?
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: 'column',
+                        }
+                        }
+                    >
+                        <MainTitle text={Title}/>
+                        <p style={{textAlign: "left", margin: 0,}}>
+                            Преподаватель {teacherName}
+                        </p>
 
-            <ButtonMaterial
-                text={"Отправить сочинение на проверку"}
-                styles={{marginTop: 20,
-                    marginBottom: 50,
-                    width: '100%',
-                    // height: 50,
-                    // color: "#ffffff",
-                    // background: "#d52222",
-                }}
-                color={"primary"}
-                handleClick={handleButton}
-            />
-
-            <CommonDialog
-                open = {openSubmitted}
-                title = {"Вы успешно отправили сочинение!"}
-                text = {"В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой"}
-                handleClose = {handleCloseDialogs}
-                buttons = {
-                    [
+                        {/*{*/}
+                        {/*    (topic.type === "free")?*/}
+                        {/*        <TextFieldMaterial*/}
+                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
+                        {/*            label={"Тема сочинения"}*/}
+                        {/*            disabled={false}*/}
+                        {/*            value={title}*/}
+                        {/*            changeValue={handleTitle}*/}
+                        {/*        />*/}
+                        {/*        :*/}
+                        {/*        <TextFieldMaterial*/}
+                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
+                        {/*            label={title}*/}
+                        {/*            disabled={true}*/}
+                        {/*            value={title}*/}
+                        {/*            changeValue={handleTitle}*/}
+                        {/*        />*/}
+                        {/*}*/}
                         {
-                            text: "Закрыть",
-                            handleClick: handleCloseDialogs,
-                        },
-                        {
-                            text: "Посмотреть",
-                            handleClick: handleCloseDialogs,
-                        },
-                    ]
-                }
-            />
+                            choiceTopics
+                        }
+                        <TextCKEditor
+                            style={{
+                                marginBottom: 20,
+                                marginTop:30,}}
+                            label={"Текст сочинения"}
+                            value={text}
+                            rows={51}
+                            changeValue={handleText}
+                            placeholder={"Напишите сочинение..."}
+                        />
+
+                        {/*<MultilineTextInput*/}
+                        {/*    styles={{marginBottom: 20,}}*/}
+                        {/*    label={"Комментарий учителю"}*/}
+                        {/*    value={comment}*/}
+                        {/*    rows = {1}*/}
+                        {/*    helperText={"Необязательно"}*/}
+                        {/*    changeValue={handleComment}*/}
+                        {/*/>*/}
+
+                        <ButtonMaterial
+                            text={"Отправить сочинение на проверку"}
+                            styles={{marginTop: 20,
+                                marginBottom: 50,
+                                width: '100%',
+                                // height: 50,
+                                // color: "#ffffff",
+                                // background: "#d52222",
+                            }}
+                            color={"primary"}
+                            handleClick={handleButton}
+                        />
+
+                        <CommonDialog
+                            open = {openSubmitted}
+                            title = {"Вы успешно отправили сочинение!"}
+                            text = {"В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой"}
+                            handleClose = {handleCloseDialogs}
+                            buttons = {
+                                [
+                                    {
+                                        text: "Закрыть",
+                                        handleClick: handleCloseDialogs,
+                                    },
+                                    {
+                                        text: "Посмотреть",
+                                        handleClick: handleCloseDialogs,
+                                    },
+                                ]
+                            }
+                        />
+                    </div>
+                    :
+                    errorComponent
+            }
         </div>
     )
 }

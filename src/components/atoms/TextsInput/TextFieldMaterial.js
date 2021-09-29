@@ -8,7 +8,9 @@ export const TextFieldMaterial = ({
                                       setLabel,
                                       value,
                                       helperText,
+                                      onKeyDown,
                                       changeValue,
+                                      type =  "text",
                                       disabled = false,
                                       styles = null
 }) => {
@@ -27,6 +29,8 @@ export const TextFieldMaterial = ({
             style={styles}
             id="outlined-size-normal"
             label={label}
+            type={type}
+            onKeyDown={onKeyDown}
             variant="outlined"
             disabled={disabled}
             className={"margin_small"}

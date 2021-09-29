@@ -15,7 +15,7 @@ export const OutlinedCard = ({id,text,type,year,link_text}) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} variant={"outlined"}>
             <Link to={`/${link_text}/${id}`} className={classes.link}>
                 <CardActionArea>
                     <CardContent>

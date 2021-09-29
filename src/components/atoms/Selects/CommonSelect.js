@@ -11,9 +11,9 @@ export const CommonSelect = ({
                            disabled=false,
                        }) => {
 
-    // useEffect(() => {
-    //     console.log(array)
-    // },[])
+    useEffect(() => {
+        console.log("ARRAY "+array)
+    },[])
 
     return (
         <FormControl variant="outlined" style={styles}>

@@ -1,7 +1,7 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import {Route, Switch, Redirect, withRouter, Router} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import MainPage from "./scenes/MainPage";
 import {AboutMe} from "./scenes/AboutMe";
 import AuthorPage from "./scenes/author/AuthorPage";
@@ -53,7 +53,7 @@ const App= (props) => {
             <Route exact path='/check_essays' component={CheckEssays}/>
             <Route exact path='/essay/:id' component={EssayPage}/>
             <Route exact path='/test_check' component={EssayChecking}/>
-            <Route exact path='/user_essays/:id' component={UserEssays}/>
+            <Route exact path='/user_essays/' component={UserEssays}/>
         </Switch>
     )
 }
