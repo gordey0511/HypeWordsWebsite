@@ -24,31 +24,26 @@ import {NavbarProfile} from "../molecules/NavbarProfile";
 
 const Navbar = ({
                     current_text,
-                    userName,
-                    getData
-                    // token,
+                    name,
+                    getData,
+                    user_id,
                 }) => {
 
-    const [token, setToken] = useState("")
-    const [name, setName] = useState("")
+    const [token, setToken] = useState(undefined)
     const [openMenu, setOpenMenu] = useState(false);
     const [openMenuProfile, setOpenMenuProfile] = useState(false);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        setToken(localStorage.getItem("userToken"))
-    }, [localStorage.getItem("userToken")])
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        setName(localStorage.getItem("userName"));
-    }, [localStorage.getItem("userName")])
-    console.log(name + " ! " + userName);
+        setToken(localStorage.getItem("token"))
+    }, [localStorage.getItem("token")])
 
-    // useEffect(() => {
-    //     if (token !== undefined && token !== null && token !== "") {
-    //         getData(token)
-    //     }
-    // }, [token])
+    useEffect(() => {
+        console.log("TOKEN USER "+token)
+        if (token !== undefined && token !== null && token !== "") {
+            getData(token)
+        }
+    }, [token])
 
     useEffect(() => {
         console.log("CURRENT TEXT " + current_text)
@@ -185,7 +180,7 @@ const putStateToProps = (state) => {
     return {
         current_text: state.navbar.current_text,
         name: state.auth.name,
-        userName: state.auth.userName,
+        user_id: state.auth.token,
         // token:state.auth.token,
     }
 }

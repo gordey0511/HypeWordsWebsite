@@ -199,7 +199,7 @@ const UserEssays = ({
 
 const putStateToProps = state => {
     return {
-        user_id: localStorage.getItem("userToken"),
+        user_id: state.auth.token,
         list_essays: state.auth.essays,
     }
 }

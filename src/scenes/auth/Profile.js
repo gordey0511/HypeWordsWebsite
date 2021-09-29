@@ -55,6 +55,9 @@ const Profile = ({
             <div className={"profile_email"}>
                 {email}
             </div>
+            <div className={"profile_email"}>
+                {token}
+            </div>
             <ButtonMaterial
                 text={"Проверить сочинения"}
                 handleClick={handleButtonCheckEssay}

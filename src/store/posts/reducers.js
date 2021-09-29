@@ -64,11 +64,6 @@ export const postsReducer = (state = initialState, action) => {
                 ...state,
                 posts: new_posts,
             };
-        case ACTION_GET_AUTHORS_POSTS+SUCCESS:
-            return {
-                ...state,
-                posts: data,
-            }
     }
 
     return state;
