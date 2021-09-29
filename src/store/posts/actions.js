@@ -56,7 +56,14 @@ export const getAuthorNamePost = (post_id,id) => {
         query:null,
     }
 }
-
+export const getAuthorPosts = (token) => {
+    return{
+        type: ACTION_GET_AUTHORS_POSTS,
+        rest: "/posts_of_user/"+token,
+        method:"GET",
+        query:null,
+    }
+}
 export const getAuthorNameListPost = (post_id,id) => {
     return{
         type: ACTION_GET_AUTHOR_NAME_LIST_POST,
