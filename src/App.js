@@ -41,8 +41,8 @@ const App= (props) => {
             <Route exact path='/book/:id' component={BookPage}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
-            {/*<Route exact path='/profile' component={Profile}/>*/}
-            <Route exact path='/user/:token' component={Profile}/>
+            <Route exact path='/profile' component={Profile}/>
+            {/*<Route exact path='/user/:token' component={Profile}/>*/}
             <Route exact path='/book/text/:token' component={TextBook}/>
             <Route exact path='/posts/' component={Posts}/>
             <Route exact path='/create_post' component={CreatePost}/>
