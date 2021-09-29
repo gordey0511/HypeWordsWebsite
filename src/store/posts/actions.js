@@ -56,6 +56,7 @@ export const getAuthorNamePost = (post_id,id) => {
         query:null,
     }
 }
+
 export const getAuthorPosts = (token) => {
     return{
         type: ACTION_GET_AUTHORS_POSTS,

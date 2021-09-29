@@ -58,70 +58,70 @@ const useStyles = makeStyles({
 
 
 const Post = ({
-                         title,
-                         authorName,
-                         likes,
-                         author_id,
-                         text,
-                         short_text,
-                         id,
-                         getAuthorNameListPost,
-}) => {
+                  title,
+                  authorName,
+                  likes,
+                  author_id,
+                  text,
+                  short_text,
+                  id,
+                  getAuthorNameListPost,
+              }) => {
     const classes = useStyles();
 
 
     return (
         // <div className={"center_block"}>
-            <Card className={classes.root} onClick={() => {}} variant={"outlined"}>
-                {/*<Link to={`/post/${id}`} className={classes.link}>*/}
-                    <CardActionArea>
-                        <CardContent className={classes.card_content}>
-                            <Link to={`/user/${author_id}`} className={classes.link}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        marginBottom: 5,
-                                    }}
-                                >
-                                    <AccountCircleIcon
-                                        style={{
-                                            verticalAlign: "center",
-                                            paddingTop: 3,
-                                        }}
-                                    />
-                                        <Typography
-                                            variant={"h6"}
-                                            style={{
-                                                marginLeft: 10,
-                                                verticalAlign: "center",
-                                            }}
-                                        >
-                                            {authorName}
-                                        </Typography>
-                                </div>
-                            </Link>
-                            {/*<MainTitle text={title}/>*/}
-                            <Link to={`/post/${id}`} className={classes.link}>
-                                <Typography
-                                    style={{fontWeight: 500}}
-                                    variant="h5"
-                                    component="h2">
-                                    {title}
-                                </Typography>
-                                <div
+        <Card className={classes.root} onClick={() => {}} variant={"outlined"}>
+            {/*<Link to={`/post/${id}`} className={classes.link}>*/}
+            <CardActionArea>
+                <CardContent className={classes.card_content}>
+                    <Link to={`/user/${author_id}`} className={classes.link}>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                marginBottom: 5,
+                            }}
+                        >
+                            <AccountCircleIcon
                                 style={{
-                                    fontSize: 16,
-                                    textAlign: 'left',
+                                    verticalAlign: "center",
+                                    paddingTop: 3,
                                 }}
-                                dangerouslySetInnerHTML={{__html: `${short_text}`}} />
-                            </Link>
-                        </CardContent>
-                    </CardActionArea>
-                    {/*<CardActions className={classes.button}>*/}
-                    {/*    /!*<Button size="small" className={classes.button}>Открыть</Button>*!/*/}
-                    {/*</CardActions>*/}
-            </Card>
+                            />
+                            <Typography
+                                variant={"h6"}
+                                style={{
+                                    marginLeft: 10,
+                                    verticalAlign: "center",
+                                }}
+                            >
+                                {authorName}
+                            </Typography>
+                        </div>
+                    </Link>
+                    {/*<MainTitle text={title}/>*/}
+                    <Link to={`/post/${id}`} className={classes.link}>
+                        <Typography
+                            style={{fontWeight: 500}}
+                            variant="h5"
+                            component="h2">
+                            {title}
+                        </Typography>
+                        <div
+                            style={{
+                                fontSize: 16,
+                                textAlign: 'left',
+                            }}
+                            dangerouslySetInnerHTML={{__html: `${short_text}`}} />
+                    </Link>
+                </CardContent>
+            </CardActionArea>
+            {/*<CardActions className={classes.button}>*/}
+            {/*    /!*<Button size="small" className={classes.button}>Открыть</Button>*!/*/}
+            {/*</CardActions>*/}
+        </Card>
         // </div>
     )
 }

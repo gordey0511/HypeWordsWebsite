@@ -7,10 +7,10 @@ import {update_navbar} from "../../store/navbar/actions";
 import {NAVBAR_TITLE} from "../../utils/constants";
 
 const Posts = ({
-    posts,
-    getPosts,
-    update_navbar
-                      }) => {
+                   posts,
+                   getPosts,
+                   update_navbar
+               }) => {
 
     useEffect(() =>{
         getPosts();
