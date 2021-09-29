@@ -135,7 +135,7 @@ const SendEssay = ({
                         label={"Тема сочинени"}
                         array={topic.topics}
                         value={title}
-                        changeValue={handleTitle}
+                        handleChange={handleTitle}
                     />
                 )
             }
