@@ -24,19 +24,17 @@ import {NavbarProfile} from "../molecules/NavbarProfile";
 
 const Navbar = ({
                     current_text,
-                    name,
                     getData,
-                    user_id,
+                    token,
                 }) => {
-
-    const [token, setToken] = useState(undefined)
     const [openMenu, setOpenMenu] = useState(false);
     const [openMenuProfile, setOpenMenuProfile] = useState(false);
+    const [name, setName] = useState(undefined)
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        setToken(localStorage.getItem("token"))
-    }, [localStorage.getItem("token")])
+        setName(localStorage.getItem("userName"))
+    }, [localStorage.getItem("userName")])
 
     useEffect(() => {
         console.log("TOKEN USER "+token)
@@ -177,11 +175,13 @@ const Navbar = ({
 
 
 const putStateToProps = (state) => {
+    state.auth.token = localStorage.getItem("userToken")
+    state.auth.name = localStorage.getItem("UserName")
     return {
         current_text: state.navbar.current_text,
         name: state.auth.name,
-        user_id: state.auth.token,
-        // token:state.auth.token,
+        // token: state.auth.token,
+        token:state.auth.token,
     }
 }
 

@@ -5,7 +5,7 @@ export const MainTitle = (
     {text,
         style,
     }
-    ) => {
+) => {
     return (
         <div className={"main_title"} style={style}>
             {text}

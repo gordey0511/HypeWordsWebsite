@@ -1,4 +1,5 @@
 import {ACTION_IS_FAVORITE_BOOK} from "../books/actions";
+import {data} from "cheerio/lib/api/attributes";
 
 export const ACTION_CREATE_USER = 'ACTION_REGISTER_USER';
 export const ACTION_LOGIN_USER = 'ACTION_LOGIN_USER';

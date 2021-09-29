@@ -100,6 +100,7 @@ const Login = ({
 
 
 const putStateToProps = state => {
+    state.auth.token = localStorage.getItem("userToken")
     return {
         token:state.auth.token,
     }

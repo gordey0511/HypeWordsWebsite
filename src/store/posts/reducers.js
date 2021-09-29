@@ -14,7 +14,6 @@ const initialState = {
 export const postsReducer = (state = initialState, action) => {
     const data = action.payload;
 
-    // eslint-disable-next-line default-case
     switch (action.type){
         case ACTION_GET_POSTS+SUCCESS:
             return {
@@ -64,6 +63,11 @@ export const postsReducer = (state = initialState, action) => {
                 ...state,
                 posts: new_posts,
             };
+        case ACTION_GET_AUTHORS_POSTS+SUCCESS:
+            return {
+                ...state,
+                posts: data,
+            }
     }
 
     return state;
