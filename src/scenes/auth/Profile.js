@@ -13,15 +13,15 @@ import UserPosts from "../post/UserPosts";
 
 
 const Profile = ({
-    name,
-    mainName,
-    userToken,
-    email,
-    logout,
-    getData,
-    favorites,
-    updateNavbar,
-    getFavoriteBooks,
+                     name,
+                     mainName,
+                     userToken,
+                     email,
+                     logout,
+                     getData,
+                     favorites,
+                     updateNavbar,
+                     getFavoriteBooks,
                  }) => {
     let history = useHistory()
     const link = window.location.pathname
