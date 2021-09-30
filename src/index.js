@@ -1,53 +1,53 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
+import { connect, Provider } from 'react-redux'
+import { ThemeProvider } from '@material-ui/styles'
+import { createMuiTheme } from '@material-ui/core'
 
-import {BrowserRouter} from "react-router-dom"
-import {createBrowserHistory} from "history";
-import {applyMiddleware, createStore} from "redux";
-import {connect, Provider} from "react-redux";
-import rootReducer from "./store/reducers";
-import Navbar from "./components/organisms/Navbar";
-import {api} from "./store/api";
-import {ThemeProvider} from "@material-ui/styles";
-import {createMuiTheme} from "@material-ui/core";
+import { initializeStore } from './store/store'
+import reportWebVitals from './reportWebVitals'
+import Navbar from './components/organisms/Navbar'
+import App from './App'
+
+import './index.scss'
 
 const history = createBrowserHistory()
 
-const store = createStore(rootReducer,applyMiddleware(api));
-
 const theme = createMuiTheme({
-    palette:{
-        // primary: '#de6161',
-        // main: '#de6161',
-    }
+  palette: {
+    // primary: '#de6161',
+    // main: '#de6161',
+  },
 })
 
 const mapStateToProps = (state) => {
-    return {
-        firstName: state.firstName,
-        secondName: state.secondName,
-    }
+  return {
+    firstName: state.firstName,
+    secondName: state.secondName,
+  }
 }
 
-const  WrappedApp = connect(mapStateToProps)(App);
+const WrappedApp = connect(mapStateToProps)(App)
 
-ReactDOM.render(
+const AppContainer = () => {
+  const { store } = initializeStore()
+  return (
     <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <BrowserRouter history={history}>
-                <Navbar/>
-                <WrappedApp />
-            </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter history={history}>
+          <Navbar />
+          <WrappedApp />
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
+  )
+}
 
-        </ThemeProvider>
-    </Provider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<AppContainer />, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()
