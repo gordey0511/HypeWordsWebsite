@@ -4,12 +4,11 @@ import { MainTitle } from '../../atoms/Texts/MainTitle'
 import { ButtonMaterial } from '../../atoms/Buttons/ButtonMaterial'
 import { Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import AccessTimeIcon from '@mui/icons-material/AccessTime'
 
-export const LessonFinished = ({ name, date }) => {
+export const NeedRegistration = () => {
   return (
     <div>
-      <AccessTimeIcon
+      <InputIcon
         style={{
           height: 100,
           width: 100,
@@ -21,10 +20,16 @@ export const LessonFinished = ({ name, date }) => {
           fontSize: 35,
         }}
       >
-        Урок «<b>{name}</b>» закончился.
-        <br />
-        Конец {date}
+        Войдите в аккаунт
       </Typography>
+      <Link
+        to={'/login'}
+        style={{
+          textDecoration: 'none',
+        }}
+      >
+        <ButtonMaterial text={'Войти'} />
+      </Link>
     </div>
   )
 }

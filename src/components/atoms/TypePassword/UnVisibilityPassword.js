@@ -1,24 +1,24 @@
-import React from "react";
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import {makeStyles} from "@material-ui/core/styles";
+import React from 'react'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
     },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
-    },
-}));
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}))
 
 export const UnVisibilityPassword = () => {
-    const classes = useStyles();
+  const classes = useStyles()
 
-    return (
-        <div className={classes.root}>
-            <VisibilityOffIcon/>
-        </div>
-    )
+  return (
+    <div className={classes.root}>
+      <VisibilityOffIcon />
+    </div>
+  )
 }

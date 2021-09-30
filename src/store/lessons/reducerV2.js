@@ -27,6 +27,9 @@ const lessonSlice = createSlice({
   name: 'lesson',
   initialState: lessonInitialState,
   reducers: {
+    increment: (state, action) => {
+      state.title = action.payload.title
+    },
     [ACTION_CREATE_LESSON + START]: (state) => {
       state.token_new_lesson = ''
     },
@@ -34,17 +37,7 @@ const lessonSlice = createSlice({
       state.token_new_lesson = action.payload
     },
     [ACTION_GET_LESSON + START]: (state) => {
-      return {
-        ...state,
-        token: '',
-        teacherName: '',
-        teacher_id: '',
-        title: '',
-        topic: {},
-        start_time: 0,
-        end_time: 0,
-        comment: '',
-      }
+      return lessonInitialState
     },
     [ACTION_GET_LESSON + SUCCESS]: (state, action) => {
       const {
