@@ -1,9 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export const DialogSubmittedEssay = () => {
-    return (
-        <div>
-
-        </div>
-    )
+  return <div></div>
 }

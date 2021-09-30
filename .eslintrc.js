@@ -10,7 +10,7 @@ module.exports = {
   plugins: ['react', 'prettier'],
   extends: ['eslint:recommended', 'plugin:jsx-a11y/recommended', 'plugin:prettier/recommended'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': 'warn',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',

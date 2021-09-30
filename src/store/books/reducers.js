@@ -12,7 +12,6 @@ import {
   ACTION_GET_SIMILAR_AUTHOR,
   ACTION_GET_WORDS_USER,
 } from './actions'
-import { ObjectId } from 'bson'
 import { FAIL, START, SUCCESS } from '../constants'
 
 const initialState = {
