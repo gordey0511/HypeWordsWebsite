@@ -81,33 +81,36 @@ export const lessonsReducer = (state=initialState, action) => {
 
         case ACTION_UPDATE_CHECK_ESSAYS:
             console.log("UPDATE CHECK ESSAYS "+data.essay_id);
+            let new_check_list_essays = state.check_list_essays;
             for(let i = 0;i<state.check_list_essays.length; i++){
                 console.log("CHECK LIST ESSAY "+state.check_list_essays[i]._id)
-                if(state.check_list_essays[i]._id === data.essay_id){
-                    // state.check_list_essays[i].set()
-                    state.check_list_essays[i].teacher_text = data.teacher_text
-                    state.check_list_essays[i].score = data.score
-                //     console.log(state.check_list_essays[i])
+                if(new_check_list_essays[i]._id === data.essay_id){
+                    new_check_list_essays[i].teacher_text = data.teacher_text
+                    new_check_list_essays[i].score = data.score
                     break;
                 }
             }
 
-            return state
+            return {...state,
+                check_list_essays: new_check_list_essays
+            }
         case ACTION_SET_SCORE_STUDENT + SUCCESS:
+            let new_check_list_essays_score = state.check_list_essays;
+
             for(let i = 0;i<state.check_list_essays.length; i++){
                 console.log("CHECK LIST ESSAY "+state.check_list_essays[i]._id)
-                if(state.check_list_essays[i]._id === data._id){
-                    // state.check_list_essays[i].set()
-                    state.check_list_essays[i].teacher_text = data.teacher_text
-                    state.check_list_essays[i].score = data.score
-                    state.check_list_essays[i].check = data.check
-                    state.check_list_essays[i].teacher_id = data.teacher_id
+                if(new_check_list_essays_score[i]._id === data._id){
+                    new_check_list_essays_score[i].teacher_text = data.teacher_text
+                    new_check_list_essays_score[i].score = data.score
+                    new_check_list_essays_score[i].check = data.check
+                    new_check_list_essays_score[i].teacher_id = data.teacher_id
                     console.log("UPDATE "+state.check_list_essays[i])
                     break;
                 }
             }
 
-            return state
+            return {...state,
+                check_list_essays: new_check_list_essays_score}
 
     }
     return state;

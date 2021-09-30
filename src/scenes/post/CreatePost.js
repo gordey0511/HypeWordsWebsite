@@ -134,7 +134,6 @@ const CreatePost = ({
 // export default connect(putStateToProps, putDispatchToProps)(CreatePost);
 
 const putStateToProps = state => {
-    state.auth.token = localStorage.getItem("userToken");
     return {
         token: state.auth.token,
     }

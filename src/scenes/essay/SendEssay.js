@@ -45,9 +45,9 @@ const SendEssay = ({
         getLesson(token)
     },[token])
 
-    useEffect(() => {
-        setText(topic)
-    },[topic])
+    // useEffect(() => {
+    //     setText(topic)
+    // },[topic])
 
     const getStringDate = (currentTimestamp) => {
         let dateStr = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(currentTimestamp) // 01/11/2021
@@ -131,8 +131,15 @@ const SendEssay = ({
             }else{
                 setChoiceTopics(
                     <CommonSelect2
-                        styles={{marginBottom: 10,fontSize: 45}}
-                        label={"Тема сочинени"}
+                        styles={{
+                            marginTop: 20,
+                            marginBottom: 0,
+                            fontSize: 45,
+                            width: 'auto',
+                            justifyContent: 'left',
+                            textAlign: 'center',
+                        }}
+                        label={"Выберете тему сочинения"}
                         array={topic.topics}
                         value={title}
                         handleChange={handleTitle}
@@ -140,7 +147,7 @@ const SendEssay = ({
                 )
             }
         }
-    },[topic])
+    },[topic,title])
 
     return (
         <div className={"center_block"} style={{width: '60%', display: "flex"}}>
@@ -158,24 +165,6 @@ const SendEssay = ({
                             Преподаватель {teacherName}
                         </p>
 
-                        {/*{*/}
-                        {/*    (topic.type === "free")?*/}
-                        {/*        <TextFieldMaterial*/}
-                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
-                        {/*            label={"Тема сочинения"}*/}
-                        {/*            disabled={false}*/}
-                        {/*            value={title}*/}
-                        {/*            changeValue={handleTitle}*/}
-                        {/*        />*/}
-                        {/*        :*/}
-                        {/*        <TextFieldMaterial*/}
-                        {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
-                        {/*            label={title}*/}
-                        {/*            disabled={true}*/}
-                        {/*            value={title}*/}
-                        {/*            changeValue={handleTitle}*/}
-                        {/*        />*/}
-                        {/*}*/}
                         {
                             choiceTopics
                         }
