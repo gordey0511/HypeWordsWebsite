@@ -38,6 +38,7 @@ const BookPage = ({
   addFavoriteBook,
   deleteFavoriteBook,
   getWords,
+  statistic,
 }) => {
   const link = window.location.pathname
   const token = link.substr(6, link.length - 6)
@@ -75,6 +76,16 @@ const BookPage = ({
     deleteFavoriteBook(userToken, token)
   }
 
+  const getDescribeWord = (index) => {
+    if (index <= 10) {
+      return 'Очень часто'
+    } else if (index <= 20) {
+      return 'Популярно'
+    } else {
+      return 'Нередко'
+    }
+  }
+
   return (
     <div className="center_div">
       {
@@ -97,18 +108,18 @@ const BookPage = ({
               <div className={'book_words'}>
                 <div className={'book_words_title'}>Самые любимые слова</div>
 
-                {!isLoadingWords ? (
+                {statistic !== undefined ? (
                   <div>
-                    {words.map(({ name, cnt, rate }) => (
+                    {statistic.map(({ word, frequency }, index) => (
                       <div>
-                        <i>{name}</i> — {cnt}
-                        {String(cnt)[String(cnt).length - 1] === '2' ||
-                        String(cnt)[String(cnt).length - 1] === '3' ||
-                        String(cnt)[String(cnt).length - 1] === '4' ? (
-                          <text> раза</text>
-                        ) : (
-                          <text> раз</text>
-                        )}
+                        <i>{word}</i> — {getDescribeWord(index)}
+                        {/*{String(cnt)[String(cnt).length - 1] === '2' ||*/}
+                        {/*String(cnt)[String(cnt).length - 1] === '3' ||*/}
+                        {/*String(cnt)[String(cnt).length - 1] === '4' ? (*/}
+                        {/*  <text> раза</text>*/}
+                        {/*) : (*/}
+                        {/*  <text> раз</text>*/}
+                        {/*)}*/}
                       </div>
                     ))}
                   </div>
@@ -149,6 +160,7 @@ const putStateToProps = (state) => {
     isFavorite: state.books.isFavorite,
     isLoadingWords: state.books.isLoadingWords,
     userToken: state.auth.token,
+    statistic: state.books.statistic,
   }
 }
 

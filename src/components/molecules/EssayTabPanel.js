@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Essay } from '../molecules/Essays/Essay'
-import { EssayScore } from '../molecules/Essays/EssayScore'
+import { Essay } from './Essays/Essay'
+import { EssayScore } from './Essays/EssayScore'
 import { bindActionCreators } from 'redux'
 import {
   getCheckListEssays,
@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ArrowDropDown'
-import { CommonAccordion } from '../molecules/Accordion/CommonAccordion'
+import { CommonAccordion } from './Accordion/CommonAccordion'
 
 const EssayTabPanel = ({
   titleLesson,
@@ -27,6 +27,7 @@ const EssayTabPanel = ({
   studentName,
   teacherName,
   accordion,
+  typeTabPanel,
   visible = true,
 }) => {
   const [text, setText] = useState(textTeacher !== undefined ? textTeacher : textStudent)
@@ -76,8 +77,6 @@ const EssayTabPanel = ({
       checkEssay = 'in_progress'
       setScoreStudent(user_id, text, valueSelect, id_essay, 'in_progress')
     }
-
-    this.forceUpdate()
   }
 
   // useEffect(() => {
@@ -131,7 +130,11 @@ const EssayTabPanel = ({
           marginTop: 7,
         }}
       >
-        Учитель {teacherName}
+        {typeTabPanel === 'check' ? (
+          <div>Ученик {studentName}</div>
+        ) : (
+          <div>Учитель {teacherName}</div>
+        )}
       </div>
 
       <div

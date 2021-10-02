@@ -3,7 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core
 import ExpandMoreIcon from '@material-ui/icons/ArrowDropDown'
 import Typography from '@material-ui/core/Typography'
 
-export const CommonAccordion = ({ title, text, style }) => {
+export const CommonAccordion = ({ title, children, style }) => {
   return (
     <Accordion style={style} elevation={2}>
       <AccordionSummary
@@ -15,7 +15,8 @@ export const CommonAccordion = ({ title, text, style }) => {
       </AccordionSummary>
       <AccordionDetails>
         <Typography>
-          <div dangerouslySetInnerHTML={{ __html: `${text}` }} />
+          {children}
+          {/*<div dangerouslySetInnerHTML={{ __html: `${children}` }} />*/}
         </Typography>
       </AccordionDetails>
     </Accordion>
