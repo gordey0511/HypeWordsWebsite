@@ -1,6 +1,3 @@
-import { ACTION_GET_AUTHOR_NAME } from '../books/actions'
-import { ACTION_GET_DATA_USER } from '../auth/actions'
-
 export const ACTION_CREATE_LESSON = 'ACTION_CREATE_LESSON'
 export const ACTION_GET_LESSON = 'ACTION_GET_LESSON'
 export const ACTION_GET_DATA_TEACHER = 'ACTION_GET_DATA_TEACHER'
@@ -8,6 +5,7 @@ export const ACTION_SEND_ESSAY = 'ACTION_SEND_ESSAY'
 export const ACTION_GET_CHECK_LIST_ESSAYS = 'ACTION_GET_CHECK_LIST_ESSAYS'
 export const ACTION_SET_SCORE_STUDENT = 'ACTION_SET_SCORE_STUDENT'
 export const ACTION_UPDATE_CHECK_ESSAYS = 'ACTION_UPDATE_CHECK_ESSAYS'
+export const ACTION_GET_LIST_LESSONS_USER = 'ACTION_GET_LIST_LESSONS_USER'
 
 export const createTopic = (title, type, topics, teacher_id, start_time, end_time, comment) => {
   return {
@@ -81,6 +79,15 @@ export const setScoreStudent = (teacher_id, teacher_text, score, essay_id, check
       essay_id: essay_id,
       check: check,
     },
+  }
+}
+
+export const getListLessonsUser = (user_id) => {
+  return {
+    type: ACTION_GET_LIST_LESSONS_USER,
+    rest: '/get_list_user_lessons/' + user_id,
+    method: 'GET',
+    query: null,
   }
 }
 

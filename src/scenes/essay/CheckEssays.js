@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -6,10 +6,15 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import { Essay } from '../../components/molecules/Essays/Essay'
 import { bindActionCreators } from 'redux'
-import { getCheckListEssays, setScoreStudent } from '../../store/lessons/actions'
+import {
+  getCheckListEssays,
+  getListLessonsUser,
+  setScoreStudent,
+} from '../../store/lessons/actions'
 import { connect } from 'react-redux'
-import EssayTabPanel from '../../components/organisms/EssayTabPanel'
+import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
+import EssayTabs from '../../components/organisms/EssayTabs'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -64,108 +69,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const CheckEssays = ({ check_list_essays, getCheckListEssays, user_id }) => {
-  const classes = useStyles()
-  const [value, setValue] = React.useState(0)
-
+const CheckEssays = ({
+  check_list_essays,
+  getCheckListEssays,
+  user_id,
+  getListLessonsUser,
+  list_lessons,
+}) => {
+  const [value, setValue] = useState(0)
   useEffect(() => {
     console.log('USER ID ' + user_id)
     if (user_id !== undefined && user_id !== '') {
-      getCheckListEssays(user_id)
+      getListLessonsUser(user_id)
     }
   }, [user_id])
 
   useEffect(() => {
-    console.log('check_list_essays ' + check_list_essays)
-  }, [check_list_essays])
+    console.log('list_lessons ' + list_lessons)
+  }, [list_lessons])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
-  function getTab(text, check) {
-    let classes_tab = {}
-    if (check == 'checked') {
-      classes_tab = classes.tab_checked
-    } else if (check == 'in_progress') {
-      classes_tab = classes.tab_int_progress
-    }
-
-    return (
-      <Tab
-        label={text}
-        className={classes_tab}
-        style={{
-          fontWeight: 600,
-          fontSize: 16,
-        }}
-      />
-    )
-  }
-
   return (
     <div>
-      <MainTitle
-        style={{
-          display: 'flex',
-          textAlign: 'center',
-          justifyContent: 'center',
-          marginBottom: 20,
-        }}
-        text={'Проверить сочинения'}
-      />
+      <div className={'essay_vertical'}>
+        <div className={'center_block_login'}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            indicatorColor="secondary"
+            textColor="inherit"
+            scrollButtons={false}
+            aria-label="scrollable prevent tabs example"
+          >
+            {list_lessons.map(({ title }, index) => (
+              <Tab label={title} />
+            ))}
+          </Tabs>
+        </div>
+      </div>
 
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          color={'primary'}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
-          {check_list_essays.map(({ student_name, check }) => getTab(student_name, check))}
-        </Tabs>
-
-        {check_list_essays.map(
-          (
-            {
-              _id,
-              topic,
-              student_text,
-              comment,
-              student_id,
-              check,
-              score,
-              student_name,
-              teacher_text,
-              teacher_name,
-            },
-            index
-          ) => (
-            <TabPanel value={value} index={index} className={classes.body}>
-              <EssayTabPanel
-                // titleLesson={"Урок"}
-                topicEssay={topic}
-                textStudent={teacher_text !== undefined ? teacher_text : student_text}
-                id_essay={_id}
-                checkEssay={check}
-                score={score}
-                studentName={student_name}
-                teacherName={teacher_name}
-                accordion={{
-                  title: 'Текст ученика (без правок)',
-                  text: student_text,
-                  visible: true,
-                }}
-                // commentEssay={
-                //     comment !== undefined ? comment : ""
-                // }
-              />
-            </TabPanel>
-          )
-        )}
+      <div className={'essay_vertical'} style={{ marginTop: 20 }}>
+        <div className={'center_block_login'}>
+          {list_lessons !== undefined && list_lessons.length > value ? (
+            <EssayTabs lesson_id={list_lessons[value]._id} />
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     </div>
   )
@@ -175,12 +129,14 @@ const putStateToProps = (state) => {
   return {
     user_id: state.auth.token,
     check_list_essays: state.lessons.check_list_essays,
+    list_lessons: state.lessons.list_lessons,
   }
 }
 
 const putDispatchToProps = (dispatch) => {
   return {
     getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
+    getListLessonsUser: bindActionCreators(getListLessonsUser, dispatch),
   }
 }
 

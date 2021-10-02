@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box'
 import { Essay } from '../../components/molecules/Essays/Essay'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import EssayTabPanel from '../../components/organisms/EssayTabPanel'
+import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { getUserEssays } from '../../store/auth/actions'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
 

@@ -43,13 +43,14 @@ export const Essay = ({
 
       <CommonAccordion
         title={accordion.title}
-        text={accordion.text}
         style={{
           textAlign: 'left',
           marginTop: 10,
           display: accordion.visible ? 'block' : 'none',
         }}
-      />
+      >
+        {accordion.text}
+      </CommonAccordion>
     </div>
   )
 }

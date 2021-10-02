@@ -28,6 +28,7 @@ const initialState = {
   words: [],
   books: [],
   text_book: [],
+  statistic: [],
 }
 
 export const booksReducer = (state = initialState, action) => {
@@ -43,6 +44,7 @@ export const booksReducer = (state = initialState, action) => {
         link_of_text: data.link,
         link_of_author: data.author_id,
         section: data.section,
+        statistic: data.statistic,
       }
     case ACTION_GET_DATA_OF_BOOK + START:
       return {

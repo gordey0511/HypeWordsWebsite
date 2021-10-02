@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import '../../../styles/margins.css'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
-import editors from 'student-editor'
 
 import { makeStyles } from '@material-ui/styles'
 import produce from 'immer'
 import { BASE_URL } from '../../../utils/constants'
+import { StudentEditor } from 'student-editor/build/ckeditor'
 
 const useStyles = makeStyles({
   wrapper: (props) => ({
@@ -21,7 +21,7 @@ export const TextCKEditor = ({
   changeValue,
   rows,
   style,
-  editor = editors.StudentEditor,
+  editor = StudentEditor,
   disabled = false,
   visible_cnt_words = false,
   placeholder = '',
@@ -43,15 +43,15 @@ export const TextCKEditor = ({
           config.placeholder = placeholder
         })}
       />
-      <div
-        style={{
-          justifyContent: 'left',
-          marginTop: 10,
-          display: visible_cnt_words ? 'flex' : 'none',
-        }}
-      >
-        <span>{`Количество слов: ${stats.words}`}</span>
-      </div>
+      {/*<div*/}
+      {/*  style={{*/}
+      {/*    justifyContent: 'left',*/}
+      {/*    marginTop: 10,*/}
+      {/*    display: visible_cnt_words ? 'flex' : 'none',*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <span>{`Количество слов: ${stats.words}`}</span>*/}
+      {/*</div>*/}
     </div>
   )
 }

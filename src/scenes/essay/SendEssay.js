@@ -152,24 +152,6 @@ const SendEssay = ({
           <MainTitle text={Title} />
           <p style={{ textAlign: 'left', margin: 0 }}>Преподаватель {teacherName}</p>
 
-          {/*{*/}
-          {/*    (topic.type === "free")?*/}
-          {/*        <TextFieldMaterial*/}
-          {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
-          {/*            label={"Тема сочинения"}*/}
-          {/*            disabled={false}*/}
-          {/*            value={title}*/}
-          {/*            changeValue={handleTitle}*/}
-          {/*        />*/}
-          {/*        :*/}
-          {/*        <TextFieldMaterial*/}
-          {/*            styles={{marginBottom: 10,fontSize: 45}}*/}
-          {/*            label={title}*/}
-          {/*            disabled={true}*/}
-          {/*            value={title}*/}
-          {/*            changeValue={handleTitle}*/}
-          {/*        />*/}
-          {/*}*/}
           {choiceTopics}
           <TextCKEditor
             style={{
@@ -183,24 +165,12 @@ const SendEssay = ({
             placeholder={'Напишите сочинение...'}
           />
 
-          {/*<MultilineTextInput*/}
-          {/*    styles={{marginBottom: 20,}}*/}
-          {/*    label={"Комментарий учителю"}*/}
-          {/*    value={comment}*/}
-          {/*    rows = {1}*/}
-          {/*    helperText={"Необязательно"}*/}
-          {/*    changeValue={handleComment}*/}
-          {/*/>*/}
-
           <ButtonMaterial
             text={'Отправить сочинение на проверку'}
             styles={{
               marginTop: 20,
               marginBottom: 50,
               width: '100%',
-              // height: 50,
-              // color: "#ffffff",
-              // background: "#d52222",
             }}
             color={'primary'}
             handleClick={handleButton}
