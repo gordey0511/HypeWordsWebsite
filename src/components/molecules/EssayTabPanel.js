@@ -12,6 +12,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ArrowDropDown'
 import { CommonAccordion } from './Accordion/CommonAccordion'
+import { CommonSnackbar } from '../atoms/Snackbars/CommonSnackbar'
 
 const EssayTabPanel = ({
   titleLesson,
@@ -32,6 +33,7 @@ const EssayTabPanel = ({
 }) => {
   const [text, setText] = useState(textTeacher !== undefined ? textTeacher : textStudent)
   const [valueSelect, setValueSelect] = useState(score)
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   useEffect(() => {
     setValueSelect(score)
@@ -71,6 +73,10 @@ const EssayTabPanel = ({
   }, [])
 
   const handleSetScore = () => {
+    if (valueSelect === undefined || valueSelect === '') {
+      setOpenSnackbar(true)
+      return
+    }
     if (checkEssay === undefined || checkEssay === 'in_progress') {
       setScoreStudent(user_id, text, valueSelect, id_essay, 'checked')
     } else {
@@ -156,6 +162,15 @@ const EssayTabPanel = ({
         disabled={Boolean(checkEssay !== undefined && checkEssay === 'checked')}
         textButton={'Завершить проверку'}
         textSelect={'Оценка'}
+      />
+
+      <CommonSnackbar
+        text={'Вы не поставили оценку'}
+        handleClose={() => {
+          setOpenSnackbar(false)
+        }}
+        open={openSnackbar}
+        severity={'error'}
       />
     </div>
   )

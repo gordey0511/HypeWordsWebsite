@@ -48,7 +48,7 @@ export const TabNavbarMain = ({ tab_text, current_text, link }) => {
                   flexDirection: 'row',
                 }}
               >
-                <text style={{ color: '#de6161', marginLeft: 10 }}>HypePlace</text>
+                <text style={{ color: '#de6161', marginLeft: 10 }}>HypeWords</text>
                 {/*<text style={{color:"#2657eb", marginLeft: 1,}}>*/}
                 {/*    Place*/}
                 {/*</text>*/}

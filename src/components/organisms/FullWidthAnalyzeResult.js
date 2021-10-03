@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import '../../styles/analyze.css'
 import { Link } from 'react-router-dom'
 import { getUserWords } from '../../store/books/actions'
+import { OutlinedCard } from '../atoms/OutlinedCard'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,11 +40,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const FullWidthAnalyzeResult = ({
   open,
   handleClose,
-  similarAuthor,
+  similarBooks,
   name,
   getDataAuthor,
   words,
   isLoadingWords,
+  books,
 }) => {
   const classes = useStyles()
 
@@ -51,11 +53,11 @@ const FullWidthAnalyzeResult = ({
     words = []
   }, [])
 
-  useEffect(() => {
-    if (similarAuthor !== '') {
-      getDataAuthor(similarAuthor)
-    }
-  }, [similarAuthor])
+  // useEffect(() => {
+  //   if (similarBooks !== '') {
+  //     getDataAuthor(similarBooks)
+  //   }
+  // }, [similarBooks])
 
   const textWord = (cnt) => {
     cnt = Number(cnt)
@@ -89,11 +91,25 @@ const FullWidthAnalyzeResult = ({
         <div className={'center_block'}>
           <div className={'vertical_block_analyze'}>
             <div className={'title_analyze'}>
-              Ваш стиль написания похож на автора
-              <Link className={'text_link_title'} to={`/author/&${similarAuthor}`}>
-                {' '}
-                {name}
-              </Link>
+              Ваш стиль написания похож на книги
+              {similarBooks !== undefined ? (
+                <div className={'center_block'}>
+                  {similarBooks.map(({ _id, name, authorName, section, year_published }, index) => (
+                    <div style={styles.li} key={_id}>
+                      <OutlinedCard
+                        id={_id}
+                        text={name}
+                        type={section}
+                        authorName={authorName}
+                        year={year_published}
+                        link_text={'book'}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div></div>
+              )}
               <div className={'subtitle_analyze'}>Вам нравятся такие слова</div>
               <div className={'text_analyze'}>
                 {isLoadingWords ? (
@@ -118,7 +134,7 @@ const FullWidthAnalyzeResult = ({
 
 const putStateToProps = (state) => {
   return {
-    similarAuthor: state.books.similarAuthor,
+    similarBooks: state.books.similarBooks,
     name: state.authors.name,
     words: state.books.words,
     isLoadingWords: state.books.isLoadingWords,
@@ -129,6 +145,25 @@ const putDispatchToProps = (dispatch) => {
   return {
     getDataAuthor: bindActionCreators(getDataAuthor, dispatch),
   }
+}
+
+const styles = {
+  block: {
+    position: 'relative',
+    color: '#000000',
+    marginLeft: '20%',
+    marginRight: '20%',
+    backgroundColor: '#404040',
+    borderRadius: 20,
+  },
+
+  li: {
+    display: 'inline-block',
+    listStyleType: 'none',
+    padding: 10,
+    textDecoration: 'none',
+    textAlign: 'center',
+  },
 }
 
 export default connect(putStateToProps, putDispatchToProps)(FullWidthAnalyzeResult)

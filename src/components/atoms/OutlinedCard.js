@@ -11,7 +11,7 @@ import { styleCard } from '../../styles/style'
 
 const useStyles = makeStyles(styleCard)
 
-export const OutlinedCard = ({ id, text, type, year, link_text }) => {
+export const OutlinedCard = ({ id, text, authorName, type, year, link_text }) => {
   const classes = useStyles()
 
   return (
@@ -21,6 +21,9 @@ export const OutlinedCard = ({ id, text, type, year, link_text }) => {
           <CardContent>
             <Typography variant="h5" component="h2">
               {text}
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
+              {authorName}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               {type.map((name) => (

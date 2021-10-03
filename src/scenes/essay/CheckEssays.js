@@ -115,7 +115,13 @@ const CheckEssays = ({
       <div className={'essay_vertical'} style={{ marginTop: 20 }}>
         <div className={'center_block_login'}>
           {list_lessons !== undefined && list_lessons.length > value ? (
-            <EssayTabs lesson_id={list_lessons[value]._id} />
+            <EssayTabs
+              title={list_lessons[value].title}
+              lesson_id={list_lessons[value]._id}
+              start_time={list_lessons[value].start_time}
+              end_time={list_lessons[value].end_time}
+              comment={list_lessons[value].comment}
+            />
           ) : (
             <div></div>
           )}
