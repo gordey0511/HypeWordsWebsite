@@ -10,6 +10,7 @@ export const ACTION_GET_WORDS_BOOK = 'ACTION_GET_WORDS_BOOK'
 export const ACTION_GET_UPDATE_SEARCH_RESULT_BOOK = 'ACTION_GET_UPDATE_SEARCH_RESULT_BOOK'
 export const ACTION_GET_SIMILAR_AUTHOR = 'ACTION_GET_SIMILAR_AUTHOR'
 export const ACTION_GET_WORDS_USER = 'ACTION_GET_WORDS_USER'
+export const ACTION_GET_SIMILAR_BOOKS = 'ACTION_GET_SIMILAR_BOOKS'
 
 export const getDataBook = (token) => {
   return {
@@ -106,6 +107,15 @@ export const getSimilarAuthor = (text) => {
     type: ACTION_GET_SIMILAR_AUTHOR,
     rest: `/similar?text=${text}`,
     method: 'GET',
+    query: null,
+  }
+}
+
+export const getSimilarBooks = (text) => {
+  return {
+    type: ACTION_GET_SIMILAR_BOOKS,
+    rest: `/similar_books?text=${text}`,
+    method: 'POST',
     query: null,
   }
 }

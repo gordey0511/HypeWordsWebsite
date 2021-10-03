@@ -15,6 +15,18 @@ import { LessonNotStarted } from '../../components/molecules/Problems/LessonNotS
 import { LessonFinished } from '../../components/molecules/Problems/LessonFinished'
 import { CommonSelect } from '../../components/atoms/Selects/CommonSelect'
 import { CommonSelect2 } from '../../components/atoms/Selects/CommonSelect2'
+import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCheckingCKEditor'
+import { Typography } from '@mui/material'
+
+export const getStringDate = (currentTimestamp) => {
+  let dateStr = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(currentTimestamp) // 01/11/2021
+  console.log('UPDATE PARAM 2 ' + dateStr)
+  return dateStr
+}
 
 const SendEssay = ({
   Title,
@@ -30,7 +42,7 @@ const SendEssay = ({
   getTeacher,
   sendEssay,
 }) => {
-  const [title, setTitle] = useState('')
+  const [topicUser, setTopicUser] = useState('Тема1')
   const [text, setText] = useState('')
   const [comment, setComment] = useState('')
   const [openSubmitted, setOpenSubmitted] = useState(false)
@@ -45,19 +57,9 @@ const SendEssay = ({
     getLesson(token)
   }, [token])
 
-  useEffect(() => {
-    setText(topic)
-  }, [topic])
-
-  const getStringDate = (currentTimestamp) => {
-    let dateStr = new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    }).format(currentTimestamp) // 01/11/2021
-    console.log('UPDATE PARAM 2 ' + dateStr)
-    return dateStr
-  }
+  // useEffect(() => {
+  //   setTopicUser(topicUser)
+  // }, [topicUser])
 
   useEffect(() => {
     if (teacher_id !== undefined && teacher_id !== '') {
@@ -65,12 +67,8 @@ const SendEssay = ({
     }
   }, [teacher_id])
 
-  const handleTitle = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const handleText = (data) => {
-    setText(data)
+  const handleTopicUser = (event) => {
+    setTopicUser(event.target.value)
   }
 
   const handleComment = (event) => {
@@ -83,7 +81,7 @@ const SendEssay = ({
   }
 
   const handleButton = () => {
-    sendEssay(student_id, title, text, comment, token, teacher_id)
+    sendEssay(student_id, topicUser, text, comment, token, teacher_id)
     setOpenSubmitted(true)
   }
 
@@ -109,36 +107,48 @@ const SendEssay = ({
       if (topic.type === 'free') {
         setChoiceTopics(
           <TextFieldMaterial
-            styles={{ marginBottom: 10, fontSize: 45 }}
+            styles={{
+              marginTop: 20,
+              marginBottom: 0,
+              fontSize: 45,
+            }}
             label={'Тема сочинения'}
             disabled={false}
-            value={title}
-            changeValue={handleTitle}
+            value={topicUser}
+            changeValue={handleTopicUser}
           />
         )
       } else if (topic.type === 'common') {
         setChoiceTopics(
           <TextFieldMaterial
-            styles={{ marginBottom: 10, fontSize: 45 }}
-            label={title}
+            styles={{
+              marginTop: 20,
+              marginBottom: 0,
+              fontSize: 45,
+            }}
+            label={topic.topics}
             disabled={true}
-            value={title}
-            changeValue={handleTitle}
+            value={topicUser}
+            changeValue={handleTopicUser}
           />
         )
       } else {
         setChoiceTopics(
           <CommonSelect2
-            styles={{ marginBottom: 10, fontSize: 45 }}
+            styles={{
+              marginTop: 20,
+              marginBottom: 0,
+              fontSize: 45,
+            }}
             label={'Тема сочинени'}
             array={topic.topics}
-            value={title}
-            changeValue={handleTitle}
+            value={topicUser}
+            handleChange={handleTopicUser}
           />
         )
       }
     }
-  }, [topic])
+  }, [topic, topicUser])
 
   return (
     <div className={'center_block'} style={{ width: '60%', display: 'flex' }}>
@@ -150,19 +160,28 @@ const SendEssay = ({
           }}
         >
           <MainTitle text={Title} />
-          <p style={{ textAlign: 'left', margin: 0 }}>Преподаватель {teacherName}</p>
+          <p style={{ textAlign: 'left', margin: 0 }}>
+            <b>Преподаватель</b> {teacherName}
+          </p>
+
+          {commentTeacher !== undefined && commentTeacher !== '' ? (
+            <Typography variant={'body1'} style={{ textAlign: 'left' }}>
+              <b>Комментарий </b>
+              {commentTeacher}
+            </Typography>
+          ) : null}
 
           {choiceTopics}
           <TextCKEditor
+            label={'Текст сочинения'}
+            value={text}
+            rows={51}
+            changeValue={setText}
+            placeholder={'Напишите сочинение...'}
             style={{
               marginBottom: 20,
               marginTop: 30,
             }}
-            label={'Текст сочинения'}
-            value={text}
-            rows={51}
-            changeValue={handleText}
-            placeholder={'Напишите сочинение...'}
           />
 
           <ButtonMaterial
@@ -207,7 +226,7 @@ const putStateToProps = (state) => {
     topic: state.lessons.topic,
     start_time: state.lessons.start_time,
     end_time: state.lessons.end_time,
-    teacherName: state.lessons.teacherName,
+    teacherName: state.lessons.teacher_name,
     Title: state.lessons.title,
     commentTeacher: state.lessons.comment,
   }

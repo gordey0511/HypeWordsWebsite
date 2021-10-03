@@ -49,7 +49,7 @@ export const Essay = ({
           display: accordion.visible ? 'block' : 'none',
         }}
       >
-        {accordion.text}
+        <div dangerouslySetInnerHTML={{ __html: accordion.text }} />
       </CommonAccordion>
     </div>
   )

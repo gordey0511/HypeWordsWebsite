@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button'
 import { MultilineText } from '../components/atoms/MultilineText'
 import { makeStyles } from '@material-ui/core/styles'
 import FullWidthAnalyzeResult from '../components/organisms/FullWidthAnalyzeResult'
-import { getSimilarAuthor, getUserWords } from '../store/books/actions'
+import { getSimilarAuthor, getSimilarBooks, getUserWords } from '../store/books/actions'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,13 +30,13 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const AnalyzePage = ({ text, changeText, updateNavbar, getSimilarAuthor, getWords }) => {
+const AnalyzePage = ({ text, changeText, updateNavbar, getSimilarBooks, getWords }) => {
   const [open, setOpen] = React.useState(false)
   const classes = useStyles()
 
   const handleClickOpen = () => {
     setOpen(true)
-    getSimilarAuthor(text)
+    getSimilarBooks(text)
     getWords(text)
   }
   const handleClose = () => {
@@ -85,7 +85,7 @@ const putDispatchToProps = (dispatch) => {
   return {
     changeText: bindActionCreators(changeText, dispatch),
     updateNavbar: bindActionCreators(update_navbar, dispatch),
-    getSimilarAuthor: bindActionCreators(getSimilarAuthor, dispatch),
+    getSimilarBooks: bindActionCreators(getSimilarBooks, dispatch),
     getWords: bindActionCreators(getUserWords, dispatch),
   }
 }

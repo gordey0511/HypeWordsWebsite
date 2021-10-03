@@ -11,6 +11,7 @@ import {
   ACTION_GET_WORDS_BOOK,
   ACTION_GET_SIMILAR_AUTHOR,
   ACTION_GET_WORDS_USER,
+  ACTION_GET_SIMILAR_BOOKS,
 } from './actions'
 import { FAIL, START, SUCCESS } from '../constants'
 
@@ -24,6 +25,7 @@ const initialState = {
   isFavorite: false,
   isLoadingWords: false,
   similarAuthor: '',
+  similarBooks: [],
   section: [],
   words: [],
   books: [],
@@ -146,6 +148,11 @@ export const booksReducer = (state = initialState, action) => {
       return {
         ...state,
         similarAuthor: data,
+      }
+    case ACTION_GET_SIMILAR_BOOKS + SUCCESS:
+      return {
+        ...state,
+        similarBooks: data,
       }
     case ACTION_GET_WORDS_USER + SUCCESS:
       return {

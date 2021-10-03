@@ -24,6 +24,7 @@ export const LinesBooks = ({ array }) => {
         <div style={styles.li} key={item.id}>
           <OutlinedCard
             id={item.id}
+            authorName={item.authorName}
             link_text={'book'}
             text={item.name}
             type={[]}

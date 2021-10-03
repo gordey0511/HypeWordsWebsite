@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -14,7 +14,11 @@ import { EmptyPage } from '../molecules/Problems/EmptyPage'
 import { Loading } from '../molecules/Problems/Loading'
 import { CommonAccordion } from '../molecules/Accordion/CommonAccordion'
 import { WEBSITE_URL } from '../../utils/constants'
-import { Link } from '@mui/material'
+import { Button, Link } from '@mui/material'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { links } from '../../utils/links'
+import { CommonSnackbar } from '../atoms/Snackbars/CommonSnackbar'
+import { getStringDate } from '../../scenes/essay/SendEssay'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -69,9 +73,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const EssayTabs = ({ check_list_essays, getCheckListEssays, lesson_id, isLoading }) => {
+const EssayTabs = ({
+  check_list_essays,
+  getCheckListEssays,
+  lesson_id,
+  isLoading,
+  start_time,
+  end_time,
+  comment,
+  title,
+}) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
+  const [snackbar, setSnackbar] = useState(false)
 
   useEffect(() => {
     console.log('USER ID ' + lesson_id)
@@ -86,6 +100,15 @@ const EssayTabs = ({ check_list_essays, getCheckListEssays, lesson_id, isLoading
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
+  }
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(`${WEBSITE_URL}/send_essay/${lesson_id}`)
+    setSnackbar(true)
+  }
+
+  const handleCloseSnackbar = () => {
+    setSnackbar(false)
   }
 
   function getTab(text, check) {
@@ -116,8 +139,31 @@ const EssayTabs = ({ check_list_essays, getCheckListEssays, lesson_id, isLoading
           marginBottom: 10,
         }}
       >
-        <div>
-          <Link href={WEBSITE_URL + '/send_essay/' + lesson_id}>ссылка на урок</Link>
+        <div style={{ textAlign: 'left' }}>
+          <Button onClick={handleClick} style={{ marginBottom: 15 }}>
+            <ContentCopyIcon style={{ marginRight: 10 }} />
+            Ссылка на урок
+          </Button>
+          <div>
+            <b>Название:</b> {title}
+          </div>
+          {start_time !== undefined ? (
+            <div>
+              <b>Время начала:</b> {getStringDate(start_time)}
+            </div>
+          ) : null}
+          {end_time !== undefined ? (
+            <div>
+              <b>Время окончания:</b> {getStringDate(end_time)}
+            </div>
+          ) : null}
+          {comment !== undefined ? (
+            <div>
+              <b>Комментарий:</b> {comment}
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </CommonAccordion>
 
@@ -180,6 +226,12 @@ const EssayTabs = ({ check_list_essays, getCheckListEssays, lesson_id, isLoading
       ) : (
         <EmptyPage />
       )}
+
+      <CommonSnackbar
+        text={'Ссылка скопирована'}
+        handleClose={handleCloseSnackbar}
+        open={snackbar}
+      />
     </div>
   )
 }

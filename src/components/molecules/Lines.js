@@ -125,6 +125,7 @@ const Lines = ({
                   <OutlinedCard
                     id={item._id}
                     link_text={'book'}
+                    authorName={item.authorName}
                     text={item.name}
                     type={item.section}
                     // author_id = {item.author_id}
