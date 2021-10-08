@@ -54,7 +54,9 @@ const BookPage = ({
   }, [])
 
   useEffect(() => {
-    getAuthorName(link_of_author)
+    if (link_of_author !== undefined && link_of_author !== '') {
+      getAuthorName(link_of_author)
+    }
   }, [link_of_author])
 
   useEffect(() => {
@@ -77,10 +79,10 @@ const BookPage = ({
   }
 
   const getDescribeWord = (index) => {
-    if (index <= 10) {
-      return 'Очень часто'
-    } else if (index <= 20) {
+    if (index <= 4) {
       return 'Популярно'
+    } else if (index <= 10) {
+      return 'Любимо'
     } else {
       return 'Нередко'
     }
@@ -139,7 +141,7 @@ const BookPage = ({
               />
             </div>
             {/* eslint-disable-next-line jsx-a11y/alt-text */}
-            <img className={'img_book'} src={'/book.jpg'} />
+            <img className={'img_book'} src={'/book.png'} />
           </div>
         </div>
       }

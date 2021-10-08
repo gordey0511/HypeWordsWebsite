@@ -6,6 +6,7 @@ export const ACTION_LOGOUT_USER = 'ACTION_LOGOUT_USER'
 export const ACTION_GET_DATA_USER = 'ACTION_GET_DATA_USER'
 export const ACTION_GET_FAVORITE_BOOKS = 'ACTION_GET_FAVORITE_BOOKS'
 export const ACTION_GET_USER_LIST_ESSAYS = 'ACTION_GET_USER_LIST_ESSAYS'
+export const ACTION_GET_DATA_USER_INF = 'ACTION_GET_DATA_USER_INF'
 
 export const createUser = (name, email, password) => {
   return {
@@ -34,6 +35,15 @@ export const logOut = () => {
 export const getUser = (token) => {
   return {
     type: ACTION_GET_DATA_USER,
+    rest: '/user/' + token,
+    method: 'GET',
+    query: null,
+  }
+}
+
+export const getUserInf = (token) => {
+  return {
+    type: ACTION_GET_DATA_USER_INF,
     rest: '/user/' + token,
     method: 'GET',
     query: null,

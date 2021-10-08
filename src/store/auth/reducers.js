@@ -2,6 +2,7 @@ import { FAIL, START, SUCCESS } from '../constants'
 import {
   ACTION_CREATE_USER,
   ACTION_GET_DATA_USER,
+  ACTION_GET_DATA_USER_INF,
   ACTION_GET_FAVORITE_BOOKS,
   ACTION_GET_USER_LIST_ESSAYS,
   ACTION_LOGIN_USER,
@@ -73,12 +74,14 @@ export const authReducer = (state = initialState, action) => {
         error: '',
       }
     case ACTION_GET_DATA_USER + SUCCESS:
+      console.log('GET DATA USER ' + data.name)
       return {
         ...state,
+        name: data.name,
         userName: data.name,
-        userEmail: data.email,
-        userPassword: data.password,
-        userToken: data.token,
+        email: data.email,
+        password: data.password,
+        token: data.token,
       }
     case ACTION_GET_FAVORITE_BOOKS + SUCCESS:
       return {
@@ -94,6 +97,14 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         essays: data,
+      }
+    case ACTION_GET_DATA_USER_INF + SUCCESS:
+      return {
+        ...state,
+        userName: data.name,
+        userEmail: data.email,
+        userPassword: data.password,
+        userToken: data.token,
       }
   }
   return state

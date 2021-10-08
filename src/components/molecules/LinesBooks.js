@@ -14,12 +14,9 @@ import { connect } from 'react-redux'
 
 export const LinesBooks = ({ array }) => {
   console.log(array)
-  if (array === undefined) {
-    return <div></div>
-  }
   return (
     // <div className={"middle_block_list"}>
-    <div className={'center_block'}>
+    <div className={'center_block_books'}>
       {array.map((item) => (
         <div style={styles.li} key={item.id}>
           <OutlinedCard

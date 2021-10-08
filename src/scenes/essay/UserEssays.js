@@ -75,12 +75,24 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
+  const link = window.location.pathname
+  const token = link.substr(13, link.length - 6)
+
   useEffect(() => {
     console.log('USER ID ' + user_id)
     if (user_id !== undefined && user_id !== '') {
       getUserEssays(user_id)
     }
   }, [user_id])
+
+  useEffect(() => {
+    list_essays.map(({ _id }, index) => {
+      if (_id == token) {
+        setValue(index)
+        return
+      }
+    })
+  }, [list_essays])
 
   useEffect(() => {
     console.log('check_list_essays ' + list_essays)

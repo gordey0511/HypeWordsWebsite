@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import '../../styles/blocks.css'
 import { Typography } from '@material-ui/core'
 import { LinesBooks } from '../../components/molecules/LinesBooks'
+import { Loading } from '../../components/molecules/Problems/Loading'
 
 export const AuthorPage = ({
   name,
@@ -18,7 +19,7 @@ export const AuthorPage = ({
   section,
   date_of_live,
   place_of_live,
-  array_of_words,
+  statistic,
   getDataAuthor,
   updateNavbar,
 }) => {
@@ -35,41 +36,71 @@ export const AuthorPage = ({
     console.log('AUTHOR PAGE BOOKS ' + books)
   }, [books])
 
+  const getDescribeWord = (index) => {
+    if (index <= 3) {
+      return 'очень часто'
+    } else if (index <= 6) {
+      return 'популярно'
+    } else {
+      return 'нередко'
+    }
+  }
+
   return (
     <div className="center_div">
-      <div className={'block_author'}>
-        <div className={'block_author_2'}>
-          <Typography variant={'h3'} className={'author_title'}>
-            {name}
-          </Typography>
+      {name !== undefined && name !== '' ? (
+        <div className={'block_author'}>
+          <div className={'block_author_2'}>
+            <Typography variant={'h3'} className={'author_title'}>
+              {name}
+            </Typography>
 
-          <div className={'author_about'}>{about}</div>
-        </div>
-        <br />
-        <div className={'author_title_books'}>Информация</div>
-        {date_of_live !== '' && date_of_live !== null && date_of_live !== undefined ? (
-          <div>
-            <div className={'author_inf'}>
-              Годы жизни <b>{date_of_live}</b>
-            </div>
-            <div className={'author_inf'}>
-              Место жизни{' '}
-              {place_of_live !== '' && place_of_live !== null && place_of_live !== undefined ? (
-                <b className={'author_inf'}>{place_of_live}</b>
-              ) : (
-                <div></div>
-              )}
-            </div>
+            <div className={'author_about'}>{about}</div>
           </div>
-        ) : (
-          <div></div>
-        )}
-        Жанр<b className={'author_inf'}>{section}</b>
-        <br />
-        <div className={'author_title_books'}>Его книги</div>
-        <LinesBooks array={books} />
-        {/*<LinesOfAuthorsBooks array={book}/>*/}
-      </div>
+          <br />
+          <div className={'author_title_books'}>Информация</div>
+          {date_of_live !== '' && date_of_live !== null && date_of_live !== undefined ? (
+            <div>
+              <div className={'author_inf'}>
+                Годы жизни <b>{date_of_live}</b>
+              </div>
+              <div className={'author_inf'}>
+                {place_of_live !== '' && place_of_live !== null && place_of_live !== undefined ? (
+                  <div>
+                    Место жизни <b className={'author_inf'}>{place_of_live}</b>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          Жанр<b className={'author_inf'}>{section}</b>
+          {statistic !== undefined && statistic.length > 0 ? (
+            <div>
+              <div className={'author_title_books'}>Любимые слова</div>
+              {statistic.map(({ word, frequency }, index) => (
+                <div
+                  style={{
+                    marginTop: 9,
+                    fontSize: 21,
+                  }}
+                >
+                  {word} — {getDescribeWord(index)}
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <br />
+          <div className={'author_title_books'}>Его книги</div>
+          <LinesBooks array={books} />
+          {/*<LinesOfAuthorsBooks array={book}/>*/}
+        </div>
+      ) : (
+        <Loading />
+      )}
     </div>
   )
 }
@@ -81,6 +112,7 @@ const putStateToProps = (state) => {
     section: state.authors.section,
     date_of_live: state.authors.date_of_live,
     place_of_live: state.authors.place_of_live,
+    statistic: state.authors.statistic,
     books: state.authors.books,
   }
 }

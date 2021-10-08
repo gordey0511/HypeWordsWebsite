@@ -22,6 +22,7 @@ import '../../styles/analyze.css'
 import { Link } from 'react-router-dom'
 import { getUserWords } from '../../store/books/actions'
 import { OutlinedCard } from '../atoms/OutlinedCard'
+import { Loading } from '../molecules/Problems/Loading'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -44,7 +45,7 @@ const FullWidthAnalyzeResult = ({
   name,
   getDataAuthor,
   words,
-  isLoadingWords,
+  isLoading,
   books,
 }) => {
   const classes = useStyles()
@@ -52,6 +53,10 @@ const FullWidthAnalyzeResult = ({
   useEffect(() => {
     words = []
   }, [])
+
+  useEffect(() => {
+    console.log('LOADING ' + isLoading)
+  }, [isLoading])
 
   // useEffect(() => {
   //   if (similarBooks !== '') {
@@ -88,33 +93,33 @@ const FullWidthAnalyzeResult = ({
         </Toolbar>
       </AppBar>
       <List>
-        <div className={'center_block'}>
-          <div className={'vertical_block_analyze'}>
-            <div className={'title_analyze'}>
-              Ваш стиль написания похож на книги
-              {similarBooks !== undefined ? (
-                <div className={'center_block'}>
-                  {similarBooks.map(({ _id, name, authorName, section, year_published }, index) => (
-                    <div style={styles.li} key={_id}>
-                      <OutlinedCard
-                        id={_id}
-                        text={name}
-                        type={section}
-                        authorName={authorName}
-                        year={year_published}
-                        link_text={'book'}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div></div>
-              )}
-              <div className={'subtitle_analyze'}>Вам нравятся такие слова</div>
-              <div className={'text_analyze'}>
-                {isLoadingWords ? (
-                  <CircularProgress />
+        {!isLoading ? (
+          <div className={'center_block'}>
+            <div className={'vertical_block_analyze'}>
+              <div className={'title_analyze'}>
+                Ваш стиль написания похож на книги
+                {similarBooks !== undefined ? (
+                  <div className={'center_block'}>
+                    {similarBooks.map(
+                      ({ _id, name, authorName, section, year_published }, index) => (
+                        <div style={styles.li} key={_id}>
+                          <OutlinedCard
+                            id={_id}
+                            text={name}
+                            type={section}
+                            authorName={authorName}
+                            year={year_published}
+                            link_text={'book'}
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
                 ) : (
+                  <div></div>
+                )}
+                <div className={'subtitle_analyze'}>Вам нравятся такие слова</div>
+                <div className={'text_analyze'}>
                   <div>
                     {words.map(({ name, cnt, rate }) => (
                       <div>
@@ -122,11 +127,23 @@ const FullWidthAnalyzeResult = ({
                       </div>
                     ))}
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <Loading
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: '10%',
+              justifyContent: 'center',
+              verticalAlign: 'center',
+              textAlign: 'center',
+            }}
+          />
+        )}
       </List>
     </Dialog>
   )
@@ -137,7 +154,7 @@ const putStateToProps = (state) => {
     similarBooks: state.books.similarBooks,
     name: state.authors.name,
     words: state.books.words,
-    isLoadingWords: state.books.isLoadingWords,
+    isLoading: state.books.isLoading,
   }
 }
 

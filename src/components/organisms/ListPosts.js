@@ -8,12 +8,15 @@ export const ListPosts = ({ array }) => {
   }, [array])
 
   return (
-    <div className={'middle_block_list'}>
+    <div className={'middle_block_list_posts_user'}>
       <div className={'center_block'} id={'field'}>
         {array.map(({ title, authorName, likes, _id, text, author_id, short_text }) => (
           // <div className={"center_block"}>
           <div
             style={{
+              display: 'inline-block',
+              width: '100%',
+              flexDirection: 'row',
               justifyContent: 'center',
               textAlign: 'center',
               padding: 10,

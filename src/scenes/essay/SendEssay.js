@@ -175,7 +175,7 @@ const SendEssay = ({
           <TextCKEditor
             label={'Текст сочинения'}
             value={text}
-            rows={51}
+            rows={68}
             changeValue={setText}
             placeholder={'Напишите сочинение...'}
             style={{
