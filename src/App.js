@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import logo from './logo.svg';
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
@@ -25,10 +25,15 @@ import CheckEssays from './scenes/essay/CheckEssays'
 import EssayPage from './scenes/essay/EssayPage'
 import UserEssays from './scenes/essay/UserEssays'
 import UserPage from './scenes/auth/UserPage'
+import { setToken } from './store/auth/actions'
+import { initializeStore } from './store/store'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-const App = (props) => {
+const App = ({ setToken }, props) => {
   const { history } = props
   require('dotenv').config()
+  setToken()
 
   return (
     <Switch>
@@ -60,4 +65,10 @@ const App = (props) => {
   )
 }
 
-export default App
+const putDispatchToProps = (dispatch) => {
+  return {
+    setToken: bindActionCreators(setToken, dispatch),
+  }
+}
+
+export default connect(null, putDispatchToProps)(App)

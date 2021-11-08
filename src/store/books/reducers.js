@@ -114,6 +114,11 @@ export const booksReducer = (state = initialState, action) => {
         // isLoading: true,
       }
 
+    // case ACTION_IS_FAVORITE_BOOK + START:
+    //   return {
+    //     ...state,
+    //     isFavorite: false,
+    //   }
     case ACTION_IS_FAVORITE_BOOK + SUCCESS:
       return {
         ...state,

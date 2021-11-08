@@ -48,6 +48,7 @@ const PostPage = ({
                   fontSize: 16,
                   textAlign: 'left',
                 }}
+                className={'ck-content'}
                 dangerouslySetInnerHTML={{ __html: `${text}` }}
               />
               {/*<CommonText*/}

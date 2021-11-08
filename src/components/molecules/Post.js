@@ -107,6 +107,7 @@ const Post = ({
                 width: '100%',
                 textAlign: 'left',
               }}
+              className={'ck-content'}
               dangerouslySetInnerHTML={{ __html: `${short_text}` }}
             />
           </Link>

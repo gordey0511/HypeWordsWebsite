@@ -45,13 +45,12 @@ const BookPage = ({
 
   // const [userToken,setUserToken] = useState("")
   useEffect(() => {
-    isLoading = false
     // setUserToken(localStorage.getItem("token"))
     console.log('BOOK PAGE ' + userToken)
     if (userToken !== undefined && userToken !== '') {
       getIsFavorite(userToken, token)
     }
-  }, [])
+  }, [userToken])
 
   useEffect(() => {
     if (link_of_author !== undefined && link_of_author !== '') {

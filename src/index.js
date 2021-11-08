@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
@@ -12,6 +12,7 @@ import Navbar from './components/organisms/Navbar'
 import App from './App'
 
 import './index.scss'
+import { setToken } from './store/auth/actions'
 
 const history = createBrowserHistory()
 

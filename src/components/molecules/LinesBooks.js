@@ -17,19 +17,21 @@ export const LinesBooks = ({ array }) => {
   return (
     // <div className={"middle_block_list"}>
     <div className={'center_block_books'}>
-      {array.map((item) => (
-        <div style={styles.li} key={item.id}>
-          <OutlinedCard
-            id={item.id}
-            authorName={item.authorName}
-            link_text={'book'}
-            text={item.name}
-            type={[]}
-            // author_id = {item.author_id}
-            // year={item.year_published}
-          />
-        </div>
-      ))}
+      {array !== undefined && array !== null
+        ? array.map((item) => (
+            <div style={styles.li} key={item.id}>
+              <OutlinedCard
+                id={item.id}
+                authorName={item.authorName}
+                link_text={'book'}
+                text={item.name}
+                type={[]}
+                // author_id = {item.author_id}
+                // year={item.year_published}
+              />
+            </div>
+          ))
+        : null}
     </div>
     // </div>
   )

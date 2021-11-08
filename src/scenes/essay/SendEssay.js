@@ -126,9 +126,10 @@ const SendEssay = ({
               marginBottom: 0,
               fontSize: 45,
             }}
-            label={topic.topics}
+            label={'Тема сочинения'}
+            // label={topic.topics}
             disabled={true}
-            value={topicUser}
+            value={topic.topics}
             changeValue={handleTopicUser}
           />
         )
@@ -151,7 +152,7 @@ const SendEssay = ({
   }, [topic, topicUser])
 
   return (
-    <div className={'center_block'} style={{ width: '60%', display: 'flex' }}>
+    <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
       {errorComponent === null ? (
         <div
           style={{

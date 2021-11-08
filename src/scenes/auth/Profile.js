@@ -21,6 +21,8 @@ const Profile = ({
   updateNavbar,
   getFavoriteBooks,
 }) => {
+  const history = useHistory()
+
   useEffect(() => {
     console.log('PROFILE NAVBAR UP ' + NAVBAR_TITLE.Profile + ': ' + token)
     getData(token)
