@@ -10,6 +10,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { FormAuth } from '../../components/molecules/FormAuth'
 import { CardActionAuth } from '../../components/atoms/CardActionAuth'
 import { loginUser } from '../../store/auth/actions'
+import { CommonSnackbar } from '../../components/atoms/Snackbars/CommonSnackbar'
 
 const useStyles = makeStyles({
   root: {
@@ -24,12 +25,13 @@ const useStyles = makeStyles({
   },
 })
 
-const Login = ({ updateNavbar, loginUser, token }) => {
+const Login = ({ updateNavbar, loginUser, token, error }) => {
   const classes = useStyles()
   let history = useHistory()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   useEffect(() => {
     console.log('Login ' + token)
@@ -54,6 +56,17 @@ const Login = ({ updateNavbar, loginUser, token }) => {
     updateNavbar(NAVBAR_TITLE.Login)
   }, [])
 
+  useEffect(() => {
+    console.log('ERROR ' + error)
+    if (error !== undefined && error !== '') {
+      setOpenSnackbar(true)
+    }
+  }, [error])
+
+  const handleCloseSnacbar = () => {
+    setOpenSnackbar(!openSnackbar)
+  }
+
   return (
     <div className={'block_vertical'}>
       <div className={'center_block_login'}>
@@ -75,6 +88,8 @@ const Login = ({ updateNavbar, loginUser, token }) => {
             <CardActionAuth text={'Создать аккаунт'} link={'/register'} />
           </div>
         </Card>
+
+        <CommonSnackbar open={openSnackbar} text={error} handleClose={handleCloseSnacbar} />
         {/*Параметры {email} {password}*/}
       </div>
     </div>
@@ -85,6 +100,7 @@ const putStateToProps = (state) => {
   state.auth.token = localStorage.getItem('userToken')
   return {
     token: state.auth.token,
+    error: state.auth.error,
   }
 }
 

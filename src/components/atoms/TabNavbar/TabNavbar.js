@@ -49,7 +49,6 @@ const TabNavbar = ({ tab_text, current_text, link, handleClick }) => {
         tab_text === current_text && classes.red_tab_navbar
       )}
       component={Typography}
-      onClick={handleClick}
       label={tab_text}
     />
   )

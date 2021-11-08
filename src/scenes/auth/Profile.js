@@ -13,8 +13,7 @@ import UserPosts from '../post/UserPosts'
 
 const Profile = ({
   name,
-  mainName,
-  userToken,
+  token,
   email,
   logout,
   getData,
@@ -22,27 +21,24 @@ const Profile = ({
   updateNavbar,
   getFavoriteBooks,
 }) => {
-  let history = useHistory()
-  const link = window.location.pathname
-  console.log(link)
-  const token = link.substr(6, link.length - 6)
-  console.log(token + ' ! ' + userToken)
+  const history = useHistory()
 
   useEffect(() => {
     console.log('PROFILE NAVBAR UP ' + NAVBAR_TITLE.Profile + ': ' + token)
     getData(token)
-    updateNavbar(mainName)
+    // updateNavbar(name)
   }, [token])
 
   useEffect(() => {
-    console.log('FAVORITE BOOKS ' + token + ' ! ' + userToken)
     if (token !== undefined && token !== null && token !== '') {
       console.log('FAVORITE BOOKS ' + token)
       getFavoriteBooks(token)
-    } else {
-      getFavoriteBooks(userToken)
     }
   }, [token])
+
+  useEffect(() => {
+    console.log('NAME ' + name)
+  }, [name])
 
   const handleButton = () => {
     logout()
@@ -61,59 +57,54 @@ const Profile = ({
     <div className={'block_profile'}>
       <div className={'profile_name'}>{name}</div>
       <div className={'profile_email'}>{email}</div>
-      {token === userToken ? (
-        <div className={'block_profile_sub'}>
-          <ButtonMaterial
-            text={'Проверить сочинения'}
-            handleClick={handleButtonCheckEssay}
-            color={'primary'}
-            styles={{
-              width: 300,
-              marginTop: 10,
-              marginBottom: 10,
-            }}
-          />
+      <div className={'block_profile_sub'}>
+        <ButtonMaterial
+          text={'Проверить сочинения'}
+          handleClick={handleButtonCheckEssay}
+          color={'primary'}
+          styles={{
+            height: 50,
+            width: 300,
+          }}
+        />
 
-          <ButtonMaterial
-            text={'Мои сочинения'}
-            handleClick={handleButtonUserEssay}
-            color={'primary'}
-            styles={{
-              width: 300,
-              marginTop: 10,
-              marginBottom: 10,
-            }}
-          />
+        <ButtonMaterial
+          text={'Мои сочинения'}
+          handleClick={handleButtonUserEssay}
+          color={'primary'}
+          styles={{
+            height: 50,
+            width: 300,
+            marginLeft: 20,
+            marginRight: 20,
+          }}
+        />
 
-          <ButtonMaterial
-            text={'Выйти'}
-            handleClick={handleButton}
-            color={'secondary'}
-            styles={{
-              width: 300,
-              marginTop: 10,
-            }}
-          />
-          <div className={'profile_bookmark'}>Избранные книги</div>
-          <LinesBooks array={favorites} />
-        </div>
-      ) : (
-        <div>
-          <div className={'profile_bookmark'}>Посты</div>
-          <UserPosts token={token} />
-        </div>
-      )}
+        <ButtonMaterial
+          text={'Выйти'}
+          handleClick={handleButton}
+          color={'secondary'}
+          styles={{
+            height: 50,
+            width: 300,
+          }}
+        />
+      </div>
+      <div className={'profile_bookmark'}>Избранные книги</div>
+      <LinesBooks array={favorites} />
+      <div>
+        <div className={'profile_bookmark'}>Посты</div>
+        <UserPosts token={token} />
+      </div>
     </div>
   )
 }
 
 const putStateToProps = (state) => {
-  state.auth.userToken = localStorage.getItem('userToken')
   return {
-    mainName: state.auth.name,
-    userToken: state.auth.userToken,
+    token: state.auth.token,
     name: state.auth.userName,
-    email: state.auth.userEmail,
+    email: state.auth.email,
     favorites: state.auth.favorites,
   }
 }

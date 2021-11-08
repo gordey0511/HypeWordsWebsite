@@ -45,10 +45,13 @@ const MainPage = ({ updateNavbar }) => {
       <header className={'main_page_text'}>
         <a style={styles.block_top}>
           <div>
-            Рады видеть вас на нашем сайте. <text className={'main_page_text_color'}></text>
+            Рады вас видеть на сайте <text className={'main_page_text_color'}></text>
+            {/*<br />*/}
+            <text className={'main_page_text_color'}>HypeWords.</text>
             <br />
-            <text className={'main_page_text_color'}>HypeWords</text> — сайт про любимые <br />
-            слова авторов из разных книг.
+            Выберите один из разделов
+            {/*<text className={'main_page_text_color'}>HypeWords</text> — сайт про любимые <br />*/}
+            {/*слова авторов из разных книг.*/}
           </div>
         </a>
         <div className={'main_div_buttons'}>

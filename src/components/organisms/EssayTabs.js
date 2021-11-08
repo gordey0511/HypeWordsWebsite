@@ -147,14 +147,14 @@ const EssayTabs = ({
           <div>
             <b>Название:</b> {title}
           </div>
-          {start_time !== undefined ? (
+          {start_time !== undefined && start_time !== 0 ? (
             <div>
-              <b>Время начала:</b> {getStringDate(start_time)}
+              <b>Время начала:</b> {getStringDate(start_time * 1000)}
             </div>
           ) : null}
-          {end_time !== undefined ? (
+          {end_time !== undefined && end_time !== 0 ? (
             <div>
-              <b>Время окончания:</b> {getStringDate(end_time)}
+              <b>Время окончания:</b> {getStringDate(end_time * 1000)}
             </div>
           ) : null}
           {comment !== undefined ? (

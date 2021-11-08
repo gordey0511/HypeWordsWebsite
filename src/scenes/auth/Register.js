@@ -63,8 +63,8 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
   }
 
   const handleButton = () => {
-    console.log('REGISTER START ' + name + ' ' + email + ' ' + password)
-    createUser(name, email, password)
+    console.log('REGISTER START ' + name + ' ' + surname + ' ' + email + ' ' + password)
+    createUser(name, surname, email, password)
   }
 
   useEffect(() => {
@@ -72,9 +72,9 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
   }, [])
 
   useEffect(() => {
-    if (error !== undefined && error !== '') {
-      alert('Все сломалось, исправьте данные')
-    }
+    // if (error !== undefined && error !== '') {
+    //   alert('Все сломалось, исправьте данные')
+    // }
     console.log('ERROR REGISTER ' + error)
   }, [error])
 

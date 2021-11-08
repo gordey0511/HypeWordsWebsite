@@ -16,14 +16,13 @@ import {
 import { FAIL, START, SUCCESS } from '../constants'
 
 const initialState = {
-  isLoading: false,
   name: '',
   authorName: '',
   link_of_author: '',
   year_published: '',
   link_of_text: '',
   isFavorite: false,
-  isLoadingWords: false,
+  isLoading: false,
   similarAuthor: '',
   similarBooks: [],
   section: [],
@@ -115,6 +114,11 @@ export const booksReducer = (state = initialState, action) => {
         // isLoading: true,
       }
 
+    // case ACTION_IS_FAVORITE_BOOK + START:
+    //   return {
+    //     ...state,
+    //     isFavorite: false,
+    //   }
     case ACTION_IS_FAVORITE_BOOK + SUCCESS:
       return {
         ...state,
@@ -135,24 +139,35 @@ export const booksReducer = (state = initialState, action) => {
       console.log('COMPLETE ' + ACTION_GET_WORDS_BOOK + START)
       return {
         ...state,
-        isLoadingWords: true,
+        // isLoading: true,
         words: [],
       }
     case ACTION_GET_WORDS_BOOK + SUCCESS:
       return {
         ...state,
         words: data,
-        isLoadingWords: false,
+        // isLoading: false,
       }
     case ACTION_GET_SIMILAR_AUTHOR + SUCCESS:
       return {
         ...state,
         similarAuthor: data,
       }
+    case ACTION_GET_SIMILAR_BOOKS + START:
+      return {
+        ...state,
+        isLoading: true,
+      }
     case ACTION_GET_SIMILAR_BOOKS + SUCCESS:
       return {
         ...state,
         similarBooks: data,
+        isLoading: false,
+      }
+    case ACTION_GET_SIMILAR_BOOKS + FAIL:
+      return {
+        ...state,
+        isLoading: false,
       }
     case ACTION_GET_WORDS_USER + SUCCESS:
       return {

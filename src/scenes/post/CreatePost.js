@@ -56,7 +56,7 @@ const CreatePost = ({ token, createPostAction, update_navbar }) => {
       className={'center_block'}
       style={{ width: '66%', flexDirection: 'column', display: 'flex' }}
     >
-      {token !== undefined && token !== '' ? (
+      {token !== undefined && token !== null && token !== '' ? (
         <div
           style={{
             flexDirection: 'column',

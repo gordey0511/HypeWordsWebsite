@@ -150,7 +150,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
 
   return (
     <div className={'center_block'} style={{ width: '66%', display: 'flex' }}>
-      {user_id !== undefined && user_id !== '' ? (
+      {user_id !== undefined && user_id !== null && user_id !== '' ? (
         <div className={'center_block'} style={{ width: '100%', display: 'flex' }}>
           <MainTitle text={TITLES.CREATE_TOPIC} />
           <TextFieldMaterial
@@ -277,7 +277,6 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
 }
 
 const putStateToProps = (state) => {
-  state.auth.token = localStorage.getItem('userToken')
   return {
     user_id: state.auth.token,
     token_new_lesson: state.lessons.token_new_lesson,

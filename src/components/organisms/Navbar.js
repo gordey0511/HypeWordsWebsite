@@ -28,14 +28,9 @@ import {
 } from '../../utils/arrays_navbar'
 import { NavbarProfile } from '../molecules/NavbarProfile'
 
-const Navbar = ({ current_text, getData, token }) => {
+const Navbar = ({ current_text, userName, getData, token }) => {
   const [openMenu, setOpenMenu] = useState(false)
   const [openMenuProfile, setOpenMenuProfile] = useState(false)
-  const [name, setName] = useState(undefined)
-
-  useEffect(() => {
-    setName(localStorage.getItem('userName'))
-  }, [localStorage.getItem('userName')])
 
   useEffect(() => {
     console.log('TOKEN USER ' + token)
@@ -127,7 +122,7 @@ const Navbar = ({ current_text, getData, token }) => {
                 }}
                 onClick={handleProfile}
               >
-                <TabNavbar tab_text={name} current_text={current_text} />
+                <TabNavbar tab_text={userName} current_text={current_text} />
                 <ArrowDropDownIcon
                   style={{
                     display: 'flex',
@@ -154,13 +149,12 @@ const Navbar = ({ current_text, getData, token }) => {
 }
 
 const putStateToProps = (state) => {
-  state.auth.token = localStorage.getItem('userToken')
-  state.auth.name = localStorage.getItem('UserName')
+  // state.auth.token = localStorage.getItem('userToken')
   return {
     current_text: state.navbar.current_text,
-    name: state.auth.name,
-    // token: state.auth.token,
+    userName: state.auth.userName,
     token: state.auth.token,
+    // token: localStorage.getItem('userToken'),
   }
 }
 

@@ -95,14 +95,15 @@ const CheckEssays = ({
   return (
     <div>
       <div className={'essay_vertical'}>
-        <div className={'center_block_login'}>
+        <div className={'center_block_lessons_navbar'}>
           <Tabs
             value={value}
             onChange={handleChange}
             variant="scrollable"
             indicatorColor="secondary"
             textColor="inherit"
-            scrollButtons={false}
+            scrollButtons={true}
+            style={{ justifyContent: 'center', textAlign: 'center' }}
             aria-label="scrollable prevent tabs example"
           >
             {list_lessons.map(({ title }, index) => (

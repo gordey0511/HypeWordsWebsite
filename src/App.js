@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import logo from './logo.svg';
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
@@ -24,10 +24,16 @@ import { EssayChecking } from './components/atoms/TextsInput/EssayCheckingCKEdit
 import CheckEssays from './scenes/essay/CheckEssays'
 import EssayPage from './scenes/essay/EssayPage'
 import UserEssays from './scenes/essay/UserEssays'
+import UserPage from './scenes/auth/UserPage'
+import { setToken } from './store/auth/actions'
+import { initializeStore } from './store/store'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-const App = (props) => {
+const App = ({ setToken }, props) => {
   const { history } = props
   require('dotenv').config()
+  setToken()
 
   return (
     <Switch>
@@ -41,8 +47,8 @@ const App = (props) => {
       <Route exact path="/book/:id" component={BookPage} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-      {/*<Route exact path='/profile' component={Profile}/>*/}
-      <Route exact path="/user/:token" component={Profile} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/user/:token" component={UserPage} />
       <Route exact path="/book/text/:token" component={TextBook} />
       <Route exact path="/posts/" component={Posts} />
       <Route exact path="/create_post" component={CreatePost} />
@@ -54,8 +60,15 @@ const App = (props) => {
       <Route exact path="/essay/:id" component={EssayPage} />
       <Route exact path="/test_check" component={EssayChecking} />
       <Route exact path="/user_essays/" component={UserEssays} />
+      <Route exact path="/user_essays/:id" component={UserEssays} />
     </Switch>
   )
 }
 
-export default App
+const putDispatchToProps = (dispatch) => {
+  return {
+    setToken: bindActionCreators(setToken, dispatch),
+  }
+}
+
+export default connect(null, putDispatchToProps)(App)

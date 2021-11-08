@@ -19,12 +19,24 @@ const initialState = {
   books: [],
   place_of_live: '',
   authors: [],
+  statistic: {},
 }
 
 export const authorsReducer = (state = initialState, action) => {
   const data = action.payload
 
   switch (action.type) {
+    case ACTION_GET_DATA_OF_AUTHOR + START:
+      return {
+        ...state,
+        name: '',
+        about: '',
+        date_of_live: '',
+        place_of_live: '',
+        statistic: {},
+        books: [],
+        section: [],
+      }
     case ACTION_GET_DATA_OF_AUTHOR + SUCCESS:
       return {
         ...state,
@@ -32,6 +44,7 @@ export const authorsReducer = (state = initialState, action) => {
         about: data.about,
         date_of_live: data.date_of_live,
         place_of_live: data.place_of_live,
+        statistic: data.statistic,
         books: data.books,
         section: data.section,
       }

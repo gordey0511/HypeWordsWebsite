@@ -17,14 +17,11 @@ const useStyles = makeStyles({
   root: {
     // minWidth: '100%',
     // display: "block",
-    width: '55%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'flex',
+    width: '100%',
+    display: 'inline-block',
     // float: "left",
-    justifyContent: 'left',
     textAlign: 'left',
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   bullet: {
     // display: 'inline-block',
@@ -107,8 +104,10 @@ const Post = ({
             <div
               style={{
                 fontSize: 16,
+                width: '100%',
                 textAlign: 'left',
               }}
+              className={'ck-content'}
               dangerouslySetInnerHTML={{ __html: `${short_text}` }}
             />
           </Link>

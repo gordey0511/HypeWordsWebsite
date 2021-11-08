@@ -76,7 +76,7 @@ const TextBook = ({
         </Link>
 
         <div className={'book_author'}>
-          {`${year_published}, `}
+          {year_published !== undefined ? <div>{`${year_published}, `}</div> : null}
           {section.map((name) => (
             <text>{name}</text>
           ))}

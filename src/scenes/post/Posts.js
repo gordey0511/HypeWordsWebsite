@@ -17,7 +17,13 @@ const Posts = ({ posts, getPosts, update_navbar }) => {
   }, [posts])
 
   return (
-    <div>
+    <div
+      style={{
+        width: '50%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}
+    >
       <ListPosts array={posts} />
     </div>
   )

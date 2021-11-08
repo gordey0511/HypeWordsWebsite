@@ -5,11 +5,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 // import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ListIcon from '@material-ui/icons/List'
 
-const userToken = localStorage.getItem('userToken')
-
 export const profile_menu = {
   text: 'Профиль',
-  link: '/user/' + userToken,
+  link: '/profile',
   icon: (
     <AccountCircleIcon
       style={{
