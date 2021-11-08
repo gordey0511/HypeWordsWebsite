@@ -93,6 +93,14 @@
     vertical-align: middle;
 }
 
+.essay_vertical{
+    display: flex;
+    margin-top: 0px;
+    /*margin-bottom: 30px;*/
+    /*padding-top: 30px;*/
+    vertical-align: middle;
+}
+
 .middle_block_list{
     width: 70%;
     margin-left: 15%;

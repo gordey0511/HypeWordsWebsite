@@ -1,224 +1,149 @@
-import React, {useEffect, useState} from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import {Essay} from "../../components/molecules/Essays/Essay";
-import {bindActionCreators} from "redux";
-import {getCheckListEssays, setScoreStudent} from "../../store/lessons/actions";
-import {connect, useSelector} from "react-redux";
-import EssayTabPanel from "../../components/organisms/EssayTabPanel";
-import {MainTitle} from "../../components/atoms/Texts/MainTitle";
+import React, { useEffect, useState } from 'react'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import { Essay } from '../../components/molecules/Essays/Essay'
+import { bindActionCreators } from 'redux'
+import {
+  getCheckListEssays,
+  getListLessonsUser,
+  setScoreStudent,
+} from '../../store/lessons/actions'
+import { connect } from 'react-redux'
+import EssayTabPanel from '../../components/molecules/EssayTabPanel'
+import { MainTitle } from '../../components/atoms/Texts/MainTitle'
+import EssayTabs from '../../components/organisms/EssayTabs'
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props
 
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-            // style={{
-            //     width: '90%',
-            // }}
-        >
-            {value === index && (
-                <Box p={3}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+      // style={{
+      //     width: '90%',
+      // }}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  )
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-        display: 'flex',
-        height: 'auto',
-        width: 1000,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-    },
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    height: 'auto',
+    width: 1000,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
 
-    tabs: {
-        width: '20%',
-        borderRight: `1px solid ${theme.palette.divider}`,
-    },
+  tabs: {
+    width: '20%',
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
 
-    tab_checked: {
-        backgroundColor: "#46d713",
-    },
+  tab_checked: {
+    backgroundColor: '#46d713',
+  },
 
-    tab_int_progress: {
-        backgroundColor: "#fdf901",
-    },
+  tab_int_progress: {
+    backgroundColor: '#fdf901',
+  },
 
-    body: {
-        width: '80%',
-        borderRight: `1px solid ${theme.palette.divider}`,
-    },
-}));
+  body: {
+    width: '80%',
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
+}))
 
 const CheckEssays = ({
-    getCheckListEssays,
-    user_id,
-                            }) => {
-    const classes = useStyles();
-    const [listEssays, setListEssays] = useState([])
-    const [value, setValue] = React.useState(0);
-    const check_list_essays = useSelector((state) => state.lessons.check_list_essays)
-
-    useEffect(() => {
-        console.log("USER ID "+user_id)
-        if(user_id!==undefined&&user_id!==""){
-            getCheckListEssays(user_id)
-        }
-    },[user_id])
-
-    useEffect(() => {
-        setListEssays(check_list_essays)
-        console.log("check_list_essays "+check_list_essays)
-    },[check_list_essays])
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    function getTab(text, check){
-        let classes_tab = {};
-        if(check == "checked"){
-            classes_tab = classes.tab_checked
-        }else if(check == "in_progress"){
-            classes_tab = classes.tab_int_progress
-        }
-
-        return (
-            <Tab
-                label={text}
-                className={classes_tab}
-                style={{
-                    fontWeight: 600,
-                    fontSize: 16,
-                }}
-            />
-        )
+  check_list_essays,
+  getCheckListEssays,
+  user_id,
+  getListLessonsUser,
+  list_lessons,
+}) => {
+  const [value, setValue] = useState(0)
+  useEffect(() => {
+    console.log('USER ID ' + user_id)
+    if (user_id !== undefined && user_id !== '') {
+      getListLessonsUser(user_id)
     }
+  }, [user_id])
 
-    const [blockEssays, setBlockEssays] = useState(null);
-    const [TabsEssays, setTabsEssays] = useState(null);
+  useEffect(() => {
+    console.log('list_lessons ' + list_lessons)
+  }, [list_lessons])
 
-    useEffect(()=>{
-        console.log("check_list_essaysTab "+check_list_essays)
-        setTabsEssays(
-            check_list_essays.map(({
-                                student_name,
-                                check
-                            }) => (
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
 
-                getTab(student_name,check)
-            )
-            )
-        )
-    },[check_list_essays])
-
-
-    useEffect(()=>{
-        console.log("check_list_essaysPanel "+check_list_essays+" "+value)
-        setBlockEssays(
-            check_list_essays.map(({
-                            _id,
-                            topic,
-                            student_text,
-                            comment,
-                            student_id,
-                            check,
-                            score,
-                            student_name,
-                            teacher_text,
-                            teacher_name
-                        },
-                        index
-        ) => (
-            <TabPanel
-                value={value}
-                index={index}
-                className = {classes.body}
-            >
-                <EssayTabPanel
-                    // titleLesson={"Урок"}
-                    topicEssay={topic}
-                    textStudent={(teacher_text!==undefined)?teacher_text:student_text}
-                    id_essay={_id}
-                    checkEssay = {check}
-                    score={score}
-                    studentName={student_name}
-                    teacherName = {teacher_name}
-                    accordion = {
-                        {
-                            title: "Текст ученика (без правок)",
-                            text: student_text,
-                            visible: true,
-                        }
-                    }
-                    // commentEssay={
-                    //     comment !== undefined ? comment : ""
-                    // }
-                />
-            </TabPanel>
-        )))
-    },[check_list_essays,value])
-
-
-    return (
-        <div>
-            <MainTitle
-                style={{
-                    display: "flex",
-                    textAlign: "center",
-                    justifyContent: 'center',
-                    marginBottom: 20,
-                }}
-                text={"Проверить сочинения"}
-            />
-
-
-
-            <div className={classes.root}>
-                <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={value}
-                    color={"primary"}
-                    onChange={handleChange}
-                    aria-label="Vertical tabs example"
-                    className={classes.tabs}
-                >
-
-                    {TabsEssays}
-                </Tabs>
-
-                {blockEssays}
-
-            </div>
+  return (
+    <div>
+      <div className={'essay_vertical'}>
+        <div className={'center_block_login'}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            indicatorColor="secondary"
+            textColor="inherit"
+            scrollButtons={false}
+            aria-label="scrollable prevent tabs example"
+          >
+            {list_lessons.map(({ title }, index) => (
+              <Tab label={title} />
+            ))}
+          </Tabs>
         </div>
-    );
+      </div>
+
+      <div className={'essay_vertical'} style={{ marginTop: 20 }}>
+        <div className={'center_block_login'}>
+          {list_lessons !== undefined && list_lessons.length > value ? (
+            <EssayTabs
+              title={list_lessons[value].title}
+              lesson_id={list_lessons[value]._id}
+              start_time={list_lessons[value].start_time}
+              end_time={list_lessons[value].end_time}
+              comment={list_lessons[value].comment}
+            />
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
 
-const putStateToProps = state => {
-    return {
-        user_id: state.auth.token,
-    }
+const putStateToProps = (state) => {
+  return {
+    user_id: state.auth.token,
+    check_list_essays: state.lessons.check_list_essays,
+    list_lessons: state.lessons.list_lessons,
+  }
 }
 
-const putDispatchToProps = dispatch => {
-    return {
-        getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
-    }
+const putDispatchToProps = (dispatch) => {
+  return {
+    getCheckListEssays: bindActionCreators(getCheckListEssays, dispatch),
+    getListLessonsUser: bindActionCreators(getListLessonsUser, dispatch),
+  }
 }
 
-export default connect(putStateToProps, putDispatchToProps)(CheckEssays);
+export default connect(putStateToProps, putDispatchToProps)(CheckEssays)
