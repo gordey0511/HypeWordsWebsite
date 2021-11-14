@@ -47,17 +47,17 @@ const MainPage = ({ updateNavbar }) => {
           <div>
             Рады вас видеть на сайте <text className={'main_page_text_color'}></text>
             {/*<br />*/}
-            <text className={'main_page_text_color'}>HypeWords.</text>
+            <text className={'main_page_text_color'}>{'HypeWords'}</text>
             <br />
-            Выберите один из разделов
+            Выберите один из разделов слева
             {/*<text className={'main_page_text_color'}>HypeWords</text> — сайт про любимые <br />*/}
             {/*слова авторов из разных книг.*/}
           </div>
         </a>
         <div className={'main_div_buttons'}>
           <LinkButton link={'/posts'} text={'Посты'} />
-          <LinkButton link={'/books'} text={'Книги'} />
-          <LinkButton link={'/authors'} text={'Авторы'} />
+          {/*<LinkButton link={'/analyze'} text={'Книги'} />*/}
+          {/*<LinkButton link={'/authors'} text={'Авторы'} />*/}
           <LinkButton link={'/analyze'} text={'Анализировать'} color={'secondary'} />
         </div>
       </header>

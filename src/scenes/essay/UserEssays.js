@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { getUserEssays } from '../../store/auth/actions'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
+import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -123,67 +124,73 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
   }
 
   return (
-    <div>
-      <MainTitle
-        style={{
-          display: 'flex',
-          textAlign: 'center',
-          justifyContent: 'center',
-          marginBottom: 20,
-        }}
-        text={'Мои сочинения'}
-      />
-      <div className={classes.root}>
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          color={'primary'}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
-          {list_essays.map(({ topic, check }) => getTab(topic, check))}
-        </Tabs>
+    <div className={'block_profile'}>
+      {user_id !== undefined && user_id !== null && user_id !== '' ? (
+        <div>
+          <MainTitle
+            style={{
+              display: 'flex',
+              textAlign: 'center',
+              justifyContent: 'center',
+              marginBottom: 20,
+            }}
+            text={'Мои сочинения'}
+          />
+          <div className={classes.root}>
+            <Tabs
+              orientation="vertical"
+              variant="scrollable"
+              value={value}
+              color={'primary'}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              className={classes.tabs}
+            >
+              {list_essays.map(({ topic, check }) => getTab(topic, check))}
+            </Tabs>
 
-        {list_essays.map(
-          (
-            {
-              _id,
-              topic,
-              student_text,
-              teacher_text,
-              comment,
-              student_id,
-              check,
-              score,
-              student_name,
-              teacher_name,
-            },
-            index
-          ) => (
-            <TabPanel value={value} index={index} className={classes.body}>
-              <EssayTabPanel
-                // titleLesson={"Урок"}
-                topicEssay={topic}
-                textStudent={student_text}
-                textTeacher={teacher_text}
-                id_essay={_id}
-                checkEssay={check}
-                score={score}
-                studentName={student_name}
-                teacherName={teacher_name}
-                visible={false}
-                accordion={{
-                  title: 'Сочинение без правок',
-                  text: student_text,
-                  visible: teacher_text === undefined ? false : true,
-                }}
-              />
-            </TabPanel>
-          )
-        )}
-      </div>
+            {list_essays.map(
+              (
+                {
+                  _id,
+                  topic,
+                  student_text,
+                  teacher_text,
+                  comment,
+                  student_id,
+                  check,
+                  score,
+                  student_name,
+                  teacher_name,
+                },
+                index
+              ) => (
+                <TabPanel value={value} index={index} className={classes.body}>
+                  <EssayTabPanel
+                    // titleLesson={"Урок"}
+                    topicEssay={topic}
+                    textStudent={student_text}
+                    textTeacher={teacher_text}
+                    id_essay={_id}
+                    checkEssay={check}
+                    score={score}
+                    studentName={student_name}
+                    teacherName={teacher_name}
+                    visible={false}
+                    accordion={{
+                      title: 'Сочинение без правок',
+                      text: student_text,
+                      visible: teacher_text === undefined ? false : true,
+                    }}
+                  />
+                </TabPanel>
+              )
+            )}
+          </div>
+        </div>
+      ) : (
+        <NeedRegistration />
+      )}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 // type MiddleWareAPI = {disp
 // type MiddleWare
 
-import { BASE_URL } from '../utils/constants'
+import { SERVER_URL } from '../utils/constants'
 
 export const api = ({ dispatch, getState }) => (next) => (action) => {
   console.log('API', action)
@@ -21,7 +21,7 @@ export const api = ({ dispatch, getState }) => (next) => (action) => {
     // Authorization: `Bearer ${token}`
   }
   // }
-  const url = BASE_URL + action.rest
+  const url = SERVER_URL + action.rest
 
   // console.log('FETCH ' + url)
   next({

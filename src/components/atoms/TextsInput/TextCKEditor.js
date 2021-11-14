@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'
 
 import { makeStyles } from '@material-ui/styles'
 import produce from 'immer'
-import { BASE_URL } from '../../../utils/constants'
+import { SERVER_URL } from '../../../utils/constants'
 import { StudentEditor } from 'student-editor/build/ckeditor'
 
 const useStyles = makeStyles({

@@ -13,6 +13,8 @@ import App from './App'
 
 import './index.scss'
 import { setToken } from './store/auth/actions'
+import { Box, Toolbar } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 
 const history = createBrowserHistory()
 
@@ -38,8 +40,15 @@ const AppContainer = () => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <BrowserRouter history={history}>
-          <Navbar />
-          <WrappedApp />
+          {/*<Box sx={{ display: 'flex' }}>*/}
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <Navbar />
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Toolbar />
+              <WrappedApp />
+            </Box>
+          </Box>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

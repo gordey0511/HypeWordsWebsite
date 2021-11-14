@@ -10,6 +10,7 @@ import { NAVBAR_TITLE } from '../../utils/constants'
 import '../../styles/blocks.css'
 import { LinesBooks } from '../../components/molecules/LinesBooks'
 import UserPosts from '../post/UserPosts'
+import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
 
 const Profile = ({
   name,
@@ -55,47 +56,53 @@ const Profile = ({
 
   return (
     <div className={'block_profile'}>
-      <div className={'profile_name'}>{name}</div>
-      <div className={'profile_email'}>{email}</div>
-      <div className={'block_profile_sub'}>
-        <ButtonMaterial
-          text={'Проверить сочинения'}
-          handleClick={handleButtonCheckEssay}
-          color={'primary'}
-          styles={{
-            height: 50,
-            width: 300,
-          }}
-        />
+      {token !== undefined && token !== null && token !== '' ? (
+        <div>
+          <div className={'profile_name'}>{name}</div>
+          <div className={'profile_email'}>{email}</div>
+          <div className={'block_profile_sub'}>
+            <ButtonMaterial
+              text={'Проверить сочинения'}
+              handleClick={handleButtonCheckEssay}
+              color={'primary'}
+              styles={{
+                height: 50,
+                width: 300,
+              }}
+            />
 
-        <ButtonMaterial
-          text={'Мои сочинения'}
-          handleClick={handleButtonUserEssay}
-          color={'primary'}
-          styles={{
-            height: 50,
-            width: 300,
-            marginLeft: 20,
-            marginRight: 20,
-          }}
-        />
+            <ButtonMaterial
+              text={'Мои сочинения'}
+              handleClick={handleButtonUserEssay}
+              color={'primary'}
+              styles={{
+                height: 50,
+                width: 300,
+                marginLeft: 20,
+                marginRight: 20,
+              }}
+            />
 
-        <ButtonMaterial
-          text={'Выйти'}
-          handleClick={handleButton}
-          color={'secondary'}
-          styles={{
-            height: 50,
-            width: 300,
-          }}
-        />
-      </div>
-      <div className={'profile_bookmark'}>Избранные книги</div>
-      <LinesBooks array={favorites} />
-      <div>
-        <div className={'profile_bookmark'}>Посты</div>
-        <UserPosts token={token} />
-      </div>
+            <ButtonMaterial
+              text={'Выйти'}
+              handleClick={handleButton}
+              color={'secondary'}
+              styles={{
+                height: 50,
+                width: 300,
+              }}
+            />
+          </div>
+          <div className={'profile_bookmark'}>Избранные книги</div>
+          <LinesBooks array={favorites} />
+          <div>
+            <div className={'profile_bookmark'}>Посты</div>
+            <UserPosts token={token} />
+          </div>
+        </div>
+      ) : (
+        <NeedRegistration />
+      )}
     </div>
   )
 }

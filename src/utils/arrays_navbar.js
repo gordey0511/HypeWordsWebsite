@@ -1,9 +1,12 @@
 import EditIcon from '@material-ui/icons/Edit'
 import React from 'react'
-import PostAddIcon from '@material-ui/icons/PostAdd'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 // import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ListIcon from '@material-ui/icons/List'
+import BookIcon from '@mui/icons-material/Book'
+import SettingsIcon from '@mui/icons-material/Settings'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
+import PostAddIcon from '@mui/icons-material/PostAdd'
 
 export const profile_menu = {
   text: 'Профиль',
@@ -57,17 +60,67 @@ export const new_post = {
   ),
 }
 
-export const check_user_menu = () => {
-  return {
-    text: 'Мои сочинения',
-    link: '/user_essays/',
-    icon: (
-      <ListIcon
-        style={{
-          height: 30,
-          width: 30,
-        }}
-      />
-    ),
-  }
+export const check_user_menu = {
+  text: 'Мои сочинения',
+  link: '/user_essays/',
+  icon: (
+    <BookIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_posts = {
+  text: 'Посты',
+  link: '/posts/',
+  icon: (
+    <ListIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_analyze = {
+  text: 'Анализировать',
+  link: '/analyze/',
+  icon: (
+    <PostAddIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_settings = {
+  text: 'Настройки',
+  link: '/profile',
+  icon: (
+    <SettingsIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_policy = {
+  text: 'Политика конфеденциальности',
+  link: 'http://ledokolpro.tilda.ws/policy',
+  icon: (
+    <PrivacyTipIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
 }

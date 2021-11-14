@@ -15,6 +15,7 @@ import { connect } from 'react-redux'
 import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
 import EssayTabs from '../../components/organisms/EssayTabs'
+import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -93,41 +94,47 @@ const CheckEssays = ({
   }
 
   return (
-    <div>
-      <div className={'essay_vertical'}>
-        <div className={'center_block_lessons_navbar'}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant="scrollable"
-            indicatorColor="secondary"
-            textColor="inherit"
-            scrollButtons={true}
-            style={{ justifyContent: 'center', textAlign: 'center' }}
-            aria-label="scrollable prevent tabs example"
-          >
-            {list_lessons.map(({ title }, index) => (
-              <Tab label={title} />
-            ))}
-          </Tabs>
-        </div>
-      </div>
+    <div className={'block_profile'}>
+      {user_id !== undefined && user_id !== null && user_id !== '' ? (
+        <div>
+          <div className={'essay_vertical'}>
+            <div className={'center_block_lessons_navbar'}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                variant="scrollable"
+                indicatorColor="secondary"
+                textColor="inherit"
+                scrollButtons={true}
+                style={{ justifyContent: 'center', textAlign: 'center' }}
+                aria-label="scrollable prevent tabs example"
+              >
+                {list_lessons.map(({ title }, index) => (
+                  <Tab label={title} />
+                ))}
+              </Tabs>
+            </div>
+          </div>
 
-      <div className={'essay_vertical'} style={{ marginTop: 20 }}>
-        <div className={'center_block_login'}>
-          {list_lessons !== undefined && list_lessons.length > value ? (
-            <EssayTabs
-              title={list_lessons[value].title}
-              lesson_id={list_lessons[value]._id}
-              start_time={list_lessons[value].start_time}
-              end_time={list_lessons[value].end_time}
-              comment={list_lessons[value].comment}
-            />
-          ) : (
-            <div></div>
-          )}
+          <div className={'essay_vertical'} style={{ marginTop: 20 }}>
+            <div className={'center_block_login'}>
+              {list_lessons !== undefined && list_lessons.length > value ? (
+                <EssayTabs
+                  title={list_lessons[value].title}
+                  lesson_id={list_lessons[value]._id}
+                  start_time={list_lessons[value].start_time}
+                  end_time={list_lessons[value].end_time}
+                  comment={list_lessons[value].comment}
+                />
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <NeedRegistration />
+      )}
     </div>
   )
 }
