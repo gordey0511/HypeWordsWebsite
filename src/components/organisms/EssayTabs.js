@@ -103,8 +103,9 @@ const EssayTabs = ({
   }
 
   const handleClick = () => {
-    navigator.clipboard.writeText(`${WEBSITE_URL}/send_essay/${lesson_id}`)
-    setSnackbar(true)
+    navigator.clipboard
+      .writeText(`${WEBSITE_URL}/send_essay/${lesson_id}`)
+      .then((r) => setSnackbar(true))
   }
 
   const handleCloseSnackbar = () => {

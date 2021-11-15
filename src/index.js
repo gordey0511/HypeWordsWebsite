@@ -45,7 +45,7 @@ const AppContainer = () => {
             <CssBaseline />
             <Navbar />
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-              <Toolbar />
+              {/*<Toolbar />*/}
               <WrappedApp />
             </Box>
           </Box>

@@ -94,7 +94,7 @@ const CheckEssays = ({
   }
 
   return (
-    <div className={'block_profile'}>
+    <div className={'block_check_essays'}>
       {user_id !== undefined && user_id !== null && user_id !== '' ? (
         <div>
           <div className={'essay_vertical'}>
@@ -127,7 +127,7 @@ const CheckEssays = ({
                   comment={list_lessons[value].comment}
                 />
               ) : (
-                <div></div>
+                <div>Вы еще не создали ни одного урока</div>
               )}
             </div>
           </div>

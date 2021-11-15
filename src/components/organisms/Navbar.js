@@ -133,7 +133,7 @@ const Navbar = ({ current_text, userName, getData, token }) => {
         </List>
         <Divider />
         <List>
-          {[open_posts, open_analyze, open_settings].map(({ text, link, icon }, index) => (
+          {[open_posts, open_settings].map(({ text, link, icon }, index) => (
             <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
               <ListItem
                 button

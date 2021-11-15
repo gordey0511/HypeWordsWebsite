@@ -121,11 +121,13 @@ const FullWidthAnalyzeResult = ({
                 <div className={'subtitle_analyze'}>Вам нравятся такие слова</div>
                 <div className={'text_analyze'}>
                   <div>
-                    {words.map(({ name, cnt, rate }) => (
-                      <div>
-                        <i>{name}</i> — {textWord(rate)}
-                      </div>
-                    ))}
+                    {words !== undefined && words !== null
+                      ? words.map(({ name, cnt, rate }) => (
+                          <div>
+                            <i>{name}</i> — {textWord(rate)}
+                          </div>
+                        ))
+                      : null}
                   </div>
                 </div>
               </div>

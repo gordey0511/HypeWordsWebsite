@@ -93,10 +93,10 @@ const Profile = ({
               }}
             />
           </div>
-          <div className={'profile_bookmark'}>Избранные книги</div>
-          <LinesBooks array={favorites} />
+          {/*<div className={'profile_bookmark'}>Избранные книги</div>*/}
+          {/*<LinesBooks array={favorites} />*/}
           <div>
-            <div className={'profile_bookmark'}>Посты</div>
+            <div className={'profile_bookmark'}>Мои посты</div>
             <UserPosts token={token} />
           </div>
         </div>

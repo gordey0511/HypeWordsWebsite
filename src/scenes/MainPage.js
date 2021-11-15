@@ -55,10 +55,10 @@ const MainPage = ({ updateNavbar }) => {
           </div>
         </a>
         <div className={'main_div_buttons'}>
-          <LinkButton link={'/posts'} text={'Посты'} />
+          {/*<LinkButton link={'/posts'} text={'Посты'} />*/}
           {/*<LinkButton link={'/analyze'} text={'Книги'} />*/}
           {/*<LinkButton link={'/authors'} text={'Авторы'} />*/}
-          <LinkButton link={'/analyze'} text={'Анализировать'} color={'secondary'} />
+          {/*<LinkButton link={'/analyze'} text={'Анализировать'} color={'secondary'} />*/}
         </div>
       </header>
       <div>
