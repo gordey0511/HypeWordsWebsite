@@ -47,11 +47,15 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
   }, [token])
 
   const changeName = (event) => {
-    setName(event.target.value)
+    if (event.target.value.length < 50) {
+      setName(event.target.value)
+    }
   }
 
   const changeSurname = (event) => {
-    setSurname(event.target.value)
+    if (event.target.value.length < 50) {
+      setSurname(event.target.value)
+    }
   }
 
   const changeEmail = (event) => {
@@ -64,7 +68,9 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
 
   const handleButton = () => {
     console.log('REGISTER START ' + name + ' ' + surname + ' ' + email + ' ' + password)
-    createUser(name, surname, email, password)
+    if (surname.length > 0 && name.length > 0) {
+      createUser(name, surname, email, password)
+    }
   }
 
   useEffect(() => {

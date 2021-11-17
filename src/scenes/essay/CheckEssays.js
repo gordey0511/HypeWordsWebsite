@@ -86,7 +86,7 @@ const CheckEssays = ({
   }, [user_id])
 
   useEffect(() => {
-    console.log('list_lessons ' + list_lessons)
+    console.log('list_lessons ' + list_lessons.publication_time)
   }, [list_lessons])
 
   const handleChange = (event, newValue) => {
@@ -125,6 +125,8 @@ const CheckEssays = ({
                   start_time={list_lessons[value].start_time}
                   end_time={list_lessons[value].end_time}
                   comment={list_lessons[value].comment}
+                  score_names={list_lessons[value].score_names}
+                  publication_time={list_lessons[value].publication_time}
                 />
               ) : (
                 <div>Вы еще не создали ни одного урока</div>

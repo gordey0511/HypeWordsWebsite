@@ -19,36 +19,42 @@ export const EssayScore = ({
     >
       {
         <div>
-          <CommonSelect
-            label={textSelect}
-            value={valueSelect}
-            disabled={disabled}
-            array={[
-              {
-                text: 'Единица',
-              },
-              {
-                text: 'Два',
-              },
-              {
-                text: 'Три',
-              },
-              {
-                text: 'Четыре',
-              },
-              {
-                text: 'Пять',
-              },
-            ]}
-            handleChange={handleChangeSelect}
-            styles={{
-              display: visible ? 'flex' : 'none',
-              width: 150,
-              marginTop: 20,
-              textAlign: 'left',
-              justifyContent: 'left',
-            }}
-          />
+          {valueSelect !== undefined && valueSelect !== null
+            ? valueSelect.map(({ name, score }, index) => (
+                <div>
+                  <CommonSelect
+                    label={name}
+                    value={valueSelect[index].score}
+                    disabled={disabled}
+                    array={[
+                      {
+                        text: 'Единица',
+                      },
+                      {
+                        text: 'Два',
+                      },
+                      {
+                        text: 'Три',
+                      },
+                      {
+                        text: 'Четыре',
+                      },
+                      {
+                        text: 'Пять',
+                      },
+                    ]}
+                    handleChange={handleChangeSelect(index)}
+                    styles={{
+                      display: visible ? 'flex' : 'none',
+                      width: 250,
+                      marginTop: 20,
+                      textAlign: 'left',
+                      justifyContent: 'left',
+                    }}
+                  />
+                </div>
+              ))
+            : null}
 
           <ButtonMaterial
             text={!disabled ? textButton : 'Изменить результат'}

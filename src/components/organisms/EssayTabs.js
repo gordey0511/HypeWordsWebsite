@@ -82,13 +82,15 @@ const EssayTabs = ({
   end_time,
   comment,
   title,
+  publication_time,
+  score_names,
 }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
   const [snackbar, setSnackbar] = useState(false)
 
   useEffect(() => {
-    console.log('USER ID ' + lesson_id)
+    console.log('PUB TIME TAB ' + publication_time)
     if (lesson_id !== undefined && lesson_id !== '') {
       getCheckListEssays(lesson_id)
     }
@@ -102,11 +104,15 @@ const EssayTabs = ({
     setValue(newValue)
   }
 
-  const handleClick = () => {
-    navigator.clipboard
-      .writeText(`${WEBSITE_URL}/send_essay/${lesson_id}`)
-      .then((r) => setSnackbar(true))
+  const handleClick = (e) => {
+    e.preventDefault()
+    e.clipboardData.setData('text/plain', `${WEBSITE_URL}/send_essay/${lesson_id}`)
   }
+  // const handleClick = () => {
+  //   navigator.clipboard
+  //     .writeText(`${WEBSITE_URL}/send_essay/${lesson_id}`)
+  //     .then((r) => setSnackbar(true))
+  // }
 
   const handleCloseSnackbar = () => {
     setSnackbar(false)
@@ -141,7 +147,7 @@ const EssayTabs = ({
         }}
       >
         <div style={{ textAlign: 'left' }}>
-          <Button onClick={handleClick} style={{ marginBottom: 15 }}>
+          <Button onCopy={handleClick} style={{ marginBottom: 15 }}>
             <ContentCopyIcon style={{ marginRight: 10 }} />
             Ссылка на урок
           </Button>
@@ -195,6 +201,7 @@ const EssayTabs = ({
                 student_name,
                 teacher_text,
                 teacher_name,
+                publication_time,
               },
               index
             ) => (
@@ -205,7 +212,9 @@ const EssayTabs = ({
                   textStudent={teacher_text !== undefined ? teacher_text : student_text}
                   id_essay={_id}
                   checkEssay={check}
-                  score={score}
+                  scoreInitial={score}
+                  score_names={score_names}
+                  publication_time={publication_time}
                   studentName={student_name}
                   teacherName={teacher_name}
                   accordion={{

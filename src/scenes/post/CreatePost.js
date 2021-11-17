@@ -29,7 +29,9 @@ const CreatePost = ({ token, createPostAction, update_navbar }) => {
   }, [])
 
   const handleTitle = (event) => {
-    setTitle(event.target.value)
+    if (event.target.value.length < 120) {
+      setTitle(event.target.value)
+    }
   }
 
   const handleType = ({ target: { checked } }) => {

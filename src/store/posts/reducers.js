@@ -14,6 +14,7 @@ const initialState = {
   authorName: '',
   likes: 0,
   posts: [],
+  publication_time: 0,
 }
 
 export const postsReducer = (state = initialState, action) => {
@@ -34,6 +35,7 @@ export const postsReducer = (state = initialState, action) => {
         text: data.text,
         likes: data.likes,
         author_id: data.author_id,
+        publication_time: data.publication_time,
       }
 
     case ACTION_GET_AUTHOR_NAME + SUCCESS:

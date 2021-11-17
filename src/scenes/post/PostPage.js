@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { CardActionArea, makeStyles } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
 import { styleCard } from '../../styles/style'
+import { getStringDate } from '../essay/SendEssay'
 
 const PostPage = ({
   title,
@@ -19,6 +20,7 @@ const PostPage = ({
   likes,
   getPost,
   getAuthorName,
+  publication_time,
 }) => {
   const link = window.location.pathname
   const token = link.substr(6, link.length - 6)
@@ -43,6 +45,7 @@ const PostPage = ({
           <CardActionArea>
             <CardContent>
               <MainTitle text={title} />
+              {/*{getStringDate(publication_time)}*/}
               <div
                 style={{
                   fontSize: 16,
@@ -71,6 +74,7 @@ const putStateToProps = (state) => {
     author_id: state.posts.author_id,
     authorName: state.posts.authorName,
     likes: state.posts.likes,
+    publication_time: state.posts.publication_time,
   }
 }
 

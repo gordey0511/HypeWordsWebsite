@@ -54,15 +54,21 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
   }
 
   const handleTitle = (event) => {
-    setTitle(event.target.value)
+    if (event.target.value.length < 75) {
+      setTitle(event.target.value)
+    }
   }
 
   const handleTopic = (event) => {
-    setTopic(event.target.value)
+    if (event.target.value.length < 75) {
+      setTopic(event.target.value)
+    }
   }
 
   const handleComment = (event) => {
-    setComment(event.target.value)
+    if (event.target.value.length < 3000) {
+      setComment(event.target.value)
+    }
   }
 
   const handleClose = () => {
@@ -106,7 +112,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
       }
 
       if (!isNaN(Date.parse(date[1]))) {
-        date_end = getTimeStamp(date[1])
+        date_end = getTimeStamp(date[1]) + 86399
       }
 
       createTopic(title, type, topicsArray, user_id, date_start, date_end, comment)

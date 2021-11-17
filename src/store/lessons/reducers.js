@@ -84,7 +84,7 @@ export const lessonsReducer = (state = initialState, action) => {
         if (state.check_list_essays[i]._id === data.essay_id) {
           // state.check_list_essays[i].set()
           state.check_list_essays[i].teacher_text = data.teacher_text
-          state.check_list_essays[i].score = data.score
+          state.check_list_essays[i].valueSelect = data.valueSelect
           //     console.log(state.check_list_essays[i])
           break
         }
@@ -97,7 +97,7 @@ export const lessonsReducer = (state = initialState, action) => {
         if (state.check_list_essays[i]._id === data._id) {
           // state.check_list_essays[i].set()
           state.check_list_essays[i].teacher_text = data.teacher_text
-          state.check_list_essays[i].score = data.score
+          state.check_list_essays[i].valueSelect = data.valueSelect
           state.check_list_essays[i].check = data.check
           state.check_list_essays[i].teacher_id = data.teacher_id
           console.log('UPDATE ' + state.check_list_essays[i])

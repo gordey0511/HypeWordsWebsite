@@ -122,30 +122,32 @@ const Navbar = ({ current_text, userName, getData, token }) => {
           />
         </div>
         <List>
-          {[profile_menu, check_essays_menu, check_user_menu].map(({ text, link, icon }, index) => (
-            <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
-              <ListItem button key={text}>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </Link>
-          ))}
+          {[profile_menu, check_essays_menu, check_user_menu, open_posts].map(
+            ({ text, link, icon }, index) => (
+              <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
+                <ListItem button key={text}>
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              </Link>
+            )
+          )}
         </List>
-        <Divider />
-        <List>
-          {[open_posts, open_settings].map(({ text, link, icon }, index) => (
-            <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
-              <ListItem
-                button
-                key={text}
-                className={{ textDecoration: 'none', color: '#272727', fontSize: 25 }}
-              >
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={text} style={{ textDecoration: 'none' }} />
-              </ListItem>
-            </Link>
-          ))}
-        </List>
+        {/*<Divider />*/}
+        {/*<List>*/}
+        {/*  {[open_posts, open_settings].map(({ text, link, icon }, index) => (*/}
+        {/*    <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>*/}
+        {/*      <ListItem*/}
+        {/*        button*/}
+        {/*        key={text}*/}
+        {/*        className={{ textDecoration: 'none', color: '#272727', fontSize: 25 }}*/}
+        {/*      >*/}
+        {/*        <ListItemIcon>{icon}</ListItemIcon>*/}
+        {/*        <ListItemText primary={text} style={{ textDecoration: 'none' }} />*/}
+        {/*      </ListItem>*/}
+        {/*    </Link>*/}
+        {/*  ))}*/}
+        {/*</List>*/}
       </Box>
     </Drawer>
 

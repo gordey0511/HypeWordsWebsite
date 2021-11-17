@@ -19,10 +19,24 @@ import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCh
 import { Typography } from '@mui/material'
 
 export const getStringDate = (currentTimestamp) => {
-  let dateStr = new Intl.DateTimeFormat('en-US', {
+  currentTimestamp *= 1000
+  let dateStr = new Intl.DateTimeFormat('ru-RU', {
     year: 'numeric',
-    month: '2-digit',
     day: '2-digit',
+    month: '2-digit',
+  }).format(currentTimestamp) // 01/11/2021
+  console.log('UPDATE PARAM 2 ' + dateStr)
+  return dateStr
+}
+
+export const getStringTime = (currentTimestamp) => {
+  currentTimestamp *= 1000
+  let dateStr = new Intl.DateTimeFormat('ru-RU', {
+    year: 'numeric',
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
   }).format(currentTimestamp) // 01/11/2021
   console.log('UPDATE PARAM 2 ' + dateStr)
   return dateStr
@@ -92,9 +106,9 @@ const SendEssay = ({
     if (student_id === undefined || student_id === '') {
       setErrorComponent(<NeedRegistration />)
     } else if (start_time !== undefined && timestampNow < start_time) {
-      setErrorComponent(<LessonNotStarted date={getStringDate(start_time * 1000)} name={Title} />)
+      setErrorComponent(<LessonNotStarted date={getStringDate(start_time)} name={Title} />)
     } else if (end_time !== undefined && end_time !== 0 && timestampNow > end_time) {
-      setErrorComponent(<LessonFinished date={getStringDate(end_time * 1000)} name={Title} />)
+      setErrorComponent(<LessonFinished date={getStringDate(end_time)} name={Title} />)
     } else {
       setErrorComponent(null)
     }
@@ -119,6 +133,7 @@ const SendEssay = ({
           />
         )
       } else if (topic.type === 'common') {
+        setTopicUser(topic.topics)
         setChoiceTopics(
           <TextFieldMaterial
             styles={{
@@ -153,68 +168,72 @@ const SendEssay = ({
 
   return (
     <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
-      {errorComponent === null ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <MainTitle text={Title} />
-          <p style={{ textAlign: 'left', margin: 0 }}>
-            <b>Преподаватель</b> {teacherName}
-          </p>
-
-          {commentTeacher !== undefined && commentTeacher !== '' ? (
-            <Typography variant={'body1'} style={{ textAlign: 'left' }}>
-              <b>Комментарий </b>
-              {commentTeacher}
-            </Typography>
-          ) : null}
-
-          {choiceTopics}
-          <TextCKEditor
-            label={'Текст сочинения'}
-            value={text}
-            rows={68}
-            changeValue={setText}
-            placeholder={'Напишите сочинение...'}
+      {student_id !== undefined && student_id !== null && student_id !== '' ? (
+        errorComponent === null ? (
+          <div
             style={{
-              marginBottom: 20,
-              marginTop: 30,
+              display: 'flex',
+              flexDirection: 'column',
             }}
-          />
+          >
+            <MainTitle text={Title} />
+            <p style={{ textAlign: 'left', margin: 0 }}>
+              <b>Преподаватель</b> {teacherName}
+            </p>
 
-          <ButtonMaterial
-            text={'Отправить сочинение на проверку'}
-            styles={{
-              marginTop: 20,
-              marginBottom: 50,
-              width: '100%',
-            }}
-            color={'primary'}
-            handleClick={handleButton}
-          />
+            {commentTeacher !== undefined && commentTeacher !== '' ? (
+              <Typography variant={'body1'} style={{ textAlign: 'left' }}>
+                <b>Комментарий </b>
+                {commentTeacher}
+              </Typography>
+            ) : null}
 
-          <CommonDialog
-            open={openSubmitted}
-            title={'Вы успешно отправили сочинение!'}
-            text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
-            handleClose={handleCloseDialogs}
-            buttons={[
-              {
-                text: 'Закрыть',
-                handleClick: handleCloseDialogs,
-              },
-              {
-                text: 'Посмотреть',
-                handleClick: handleCloseDialogs,
-              },
-            ]}
-          />
-        </div>
+            {choiceTopics}
+            <TextCKEditor
+              label={'Текст сочинения'}
+              value={text}
+              rows={68}
+              changeValue={setText}
+              placeholder={'Напишите сочинение...'}
+              style={{
+                marginBottom: 20,
+                marginTop: 30,
+              }}
+            />
+
+            <ButtonMaterial
+              text={'Отправить сочинение на проверку'}
+              styles={{
+                marginTop: 20,
+                marginBottom: 50,
+                width: '100%',
+              }}
+              color={'primary'}
+              handleClick={handleButton}
+            />
+
+            <CommonDialog
+              open={openSubmitted}
+              title={'Вы успешно отправили сочинение!'}
+              text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
+              handleClose={handleCloseDialogs}
+              buttons={[
+                {
+                  text: 'Закрыть',
+                  handleClick: handleCloseDialogs,
+                },
+                {
+                  text: 'Посмотреть',
+                  handleClick: handleCloseDialogs,
+                },
+              ]}
+            />
+          </div>
+        ) : (
+          errorComponent
+        )
       ) : (
-        errorComponent
+        <NeedRegistration />
       )}
     </div>
   )

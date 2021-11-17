@@ -20,6 +20,7 @@ const lessonInitialState = {
   students: {},
   topic: {},
   start_time: 0,
+  publication_time: 0,
   end_time: 0,
   comment: '',
   check_list_essays: [],
@@ -46,6 +47,8 @@ export const lessonsReducer = createReducer(lessonInitialState, {
       start_time,
       end_time,
       comment,
+      publication_time,
+      score_names,
     } = action.payload
 
     state.token = token
@@ -56,6 +59,8 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     state.start_time = start_time
     state.end_time = end_time
     state.comment = comment
+    state.publication_time = publication_time
+    state.score_names = score_names
   },
   [ACTION_GET_DATA_TEACHER + START]: (state) => {
     state.teacher_name = ''

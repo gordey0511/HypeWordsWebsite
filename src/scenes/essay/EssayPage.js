@@ -60,7 +60,7 @@ const putStateToProps = (state) => {
     topic: state.essays.topic,
     student_text: state.essays.student_text,
     student_id: state.essays.student_id,
-    score: state.essays.score,
+    score: state.essays.valueSelect,
     teacher_id: state.essays.teacher_id,
     teacher_text: state.essays.teacher_text,
     comment: state.essays.comment,

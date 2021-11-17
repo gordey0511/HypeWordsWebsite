@@ -17,7 +17,6 @@ export const createPost = (title, text, author_id, type) => {
       text: text,
       author_id: author_id,
       type: type,
-      time_pub: 228,
       likes: 0,
       likes_users: [],
       comments: [],

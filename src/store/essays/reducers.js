@@ -35,7 +35,7 @@ export const essaysReducer = (state = initialState, action) => {
         topic: data.topic,
         student_text: data.student_text,
         student_id: data.student_id,
-        score: data.score,
+        score: data.valueSelect,
         teacher_id: data.teacher_id,
         teacher_text: data.teacher_text,
         comment: data.comment,

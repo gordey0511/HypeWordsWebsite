@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ArrowDropDown'
 import { CommonAccordion } from './Accordion/CommonAccordion'
 import { CommonSnackbar } from '../atoms/Snackbars/CommonSnackbar'
+import { getStringTime } from '../../scenes/essay/SendEssay'
 
 const EssayTabPanel = ({
   titleLesson,
@@ -24,31 +25,55 @@ const EssayTabPanel = ({
   user_id,
   id_essay,
   checkEssay,
-  score,
+  scoreInitial,
   studentName,
   teacherName,
   accordion,
   typeTabPanel,
+  score_names,
   visible = true,
+  publication_time,
 }) => {
   const [text, setText] = useState(textTeacher !== undefined ? textTeacher : textStudent)
-  const [valueSelect, setValueSelect] = useState(score)
+  const [valueSelect, setValueSelect] = useState([])
   const [openSnackbar, setOpenSnackbar] = useState(false)
 
   useEffect(() => {
-    setValueSelect(score)
-  }, [score])
+    console.log('PUBLICATION TIME ' + publication_time)
+  }, [])
+
+  useEffect(() => {
+    // console.log('SCORE INITIAL ' + scoreInitial.length + ' ' + score_names)
+    if (scoreInitial !== undefined && scoreInitial !== null && scoreInitial.length === 2) {
+      setValueSelect(scoreInitial.map(({ name, score }, index) => ({ name: name, score: score })))
+      console.log('SCORE INITIAL NEW ' + ' ' + score_names)
+    } else {
+      setValueSelect(score_names.map((name, index) => ({ name: name, score: null })))
+    }
+    // else {
+    // setValueSelect(score_names.map((name, index) => ({ name: name, score: null })))
+    // }
+  }, [scoreInitial])
+
+  // useEffect(() => {
+  //   console.log('VALUESELECT ' + valueSelect[0] + ' ' + score_names.length)
+  // }, [valueSelect])
 
   const timeout = useRef(null)
 
-  const handleChangeSelect = (event) => {
-    setValueSelect(event.target.value)
+  const handleChangeSelect = (index) => (event) => {
+    console.log('SET MARK ' + index + ' ' + event.target.value)
+    let newValueSelect = Object.assign([], valueSelect)
+    newValueSelect[index].score = event.target.value
+
+    setValueSelect(newValueSelect)
+    // console.log('NEW MARKS ' + valueSelect[0].score)
     if (timeout.current !== null) {
       clearTimeout(timeout.current)
     }
     timeout.current = setTimeout(() => {
-      saveValueToDB(text, event.target.value)
-    }, 500)
+      saveValueToDB(text, valueSelect)
+    }, 200)
   }
 
   const saveValueToDB = (text, value) => {
@@ -57,12 +82,13 @@ const EssayTabPanel = ({
   }
   const handleChangeText = (text) => {
     setText(text)
+
     if (timeout.current !== null) {
       clearTimeout(timeout.current)
     }
     timeout.current = setTimeout(() => {
       saveValueToDB(text, valueSelect)
-    }, 500)
+    }, 200)
   }
 
   useEffect(() => {
@@ -78,6 +104,7 @@ const EssayTabPanel = ({
       return
     }
     if (checkEssay === undefined || checkEssay === 'in_progress') {
+      checkEssay = 'checked'
       setScoreStudent(user_id, text, valueSelect, id_essay, 'checked')
     } else {
       checkEssay = 'in_progress'
@@ -93,24 +120,43 @@ const EssayTabPanel = ({
 
   let middlePlace = <div></div>
 
+  const getScore = (score) => {
+    let res = <b></b>
+    if (score === 'Пять') {
+      res = <b style={{ color: '#42ea05' }}>{score}</b>
+    } else if (score === 'Четыре') {
+      res = <b style={{ color: '#c1e205' }}>{score}</b>
+    } else if (score === 'Три') {
+      res = <b style={{ color: '#ec9f06' }}>{score}</b>
+    } else if (score === 'Два') {
+      res = <b style={{ color: '#d44706' }}>{score}</b>
+    } else {
+      res = <b style={{ color: '#e50c0c' }}>{score}</b>
+    }
+    return res
+  }
+
   if (!visible) {
-    if (score !== undefined && textTeacher !== undefined) {
+    if (scoreInitial !== undefined && textTeacher !== undefined) {
       // setText(textTeacher)
       middlePlace = (
         <div
           style={{
             fontSize: 25,
-            color: 'blue',
-            fontWeight: 500,
+            // marginTop: 10,
             textAlign: 'left',
             justifyContent: 'left',
           }}
         >
-          {`Оценка ${score}`}
+          {scoreInitial.map(({ name, score }, index) => (
+            <div>
+              {name}: {getScore(score)}
+            </div>
+          ))}
         </div>
       )
     } else {
-      middlePlace = <div>Ждем проверки учителем</div>
+      middlePlace = <div>Ждем проверки учителем...</div>
     }
   }
 
@@ -131,24 +177,34 @@ const EssayTabPanel = ({
       <div
         style={{
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'left',
           fontSize: 15,
           marginTop: 7,
         }}
       >
-        {typeTabPanel === 'check' ? (
-          <div>Ученик {studentName}</div>
-        ) : (
-          <div>Учитель {teacherName}</div>
-        )}
+        <div style={{ display: 'block', textAlign: 'left' }}>
+          {typeTabPanel === 'check' ? (
+            <div style={{ textAlign: 'left' }}>Ученик: {studentName}</div>
+          ) : (
+            <div>Учитель: {teacherName}</div>
+          )}
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'row', textAlign: 'left' }}>
+          {publication_time !== undefined && publication_time !== null && publication_time !== 0 ? (
+            <div>Время отправки: {getStringTime(publication_time)}</div>
+          ) : null}
+        </div>
       </div>
 
       <div
         style={{
           display: 'flex',
           textAlign: 'flex',
-          color: 'blue',
-          marginTop: 10,
+          color: 'black',
+          fontSize: 25,
+          marginTop: 0,
         }}
       >
         {middlePlace}
@@ -161,7 +217,6 @@ const EssayTabPanel = ({
         visible={visible}
         disabled={Boolean(checkEssay !== undefined && checkEssay === 'checked')}
         textButton={'Завершить проверку'}
-        textSelect={'Оценка'}
       />
 
       <CommonSnackbar
