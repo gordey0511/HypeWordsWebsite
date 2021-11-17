@@ -151,46 +151,48 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
                 : null}
             </Tabs>
 
-            {list_essays.map(
-              (
-                {
-                  _id,
-                  topic,
-                  student_text,
-                  teacher_text,
-                  comment,
-                  student_id,
-                  check,
-                  score,
-                  student_name,
-                  teacher_name,
-                  publication_time,
-                },
-                index
-              ) => (
-                <TabPanel value={value} index={index} className={classes.body}>
-                  <EssayTabPanel
-                    // titleLesson={"Урок"}
-                    topicEssay={topic}
-                    textStudent={student_text}
-                    textTeacher={teacher_text}
-                    id_essay={_id}
-                    checkEssay={check}
-                    scoreInitial={score}
-                    score_names={['Оценка по литературе', 'Оценка по русскому']}
-                    publication_time={publication_time}
-                    studentName={student_name}
-                    teacherName={teacher_name}
-                    visible={false}
-                    accordion={{
-                      title: 'Сочинение без правок',
-                      text: student_text,
-                      visible: teacher_text === undefined ? false : true,
-                    }}
-                  />
-                </TabPanel>
-              )
-            )}
+            {list_essays !== undefined && list_essays !== null
+              ? list_essays.map(
+                  (
+                    {
+                      _id,
+                      topic,
+                      student_text,
+                      teacher_text,
+                      comment,
+                      student_id,
+                      check,
+                      score,
+                      student_name,
+                      teacher_name,
+                      publication_time,
+                    },
+                    index
+                  ) => (
+                    <TabPanel value={value} index={index} className={classes.body}>
+                      <EssayTabPanel
+                        // titleLesson={"Урок"}
+                        topicEssay={topic}
+                        textStudent={student_text}
+                        textTeacher={teacher_text}
+                        id_essay={_id}
+                        checkEssay={check}
+                        scoreInitial={score}
+                        score_names={['Оценка по литературе', 'Оценка по русскому']}
+                        publication_time={publication_time}
+                        studentName={student_name}
+                        teacherName={teacher_name}
+                        visible={false}
+                        accordion={{
+                          title: 'Сочинение без правок',
+                          text: student_text,
+                          visible: teacher_text === undefined ? false : true,
+                        }}
+                      />
+                    </TabPanel>
+                  )
+                )
+              : null}
           </div>
         </div>
       ) : (
