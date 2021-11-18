@@ -8,31 +8,39 @@ import { CheckBox } from '../../components/atoms/Checkboxs/Checkbox'
 import { bindActionCreators } from 'redux'
 import { createTopic } from '../../store/lessons/actions'
 import { connect } from 'react-redux'
-import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
-import { DialogNewLesson } from '../../components/molecules/Dialogs/DialogNewLesson'
 import { CommonDialog } from '../../components/molecules/Dialogs/CommonDialog'
 import { links } from '../../utils/links'
 import { useHistory } from 'react-router-dom'
 import { CommonSnackbar } from '../../components/atoms/Snackbars/CommonSnackbar'
 import { CommonDateRangePicker } from '../../components/atoms/DateRangePicker/CommonDateRangePicker'
-import { TextFieldChips } from '../../components/atoms/TextsInput/TextFieldChips'
 import { CommonChip } from '../../components/atoms/Chips/CommonChip'
-import { Chip } from '@mui/material'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 
 function getTimeStamp(date) {
   return date.getTime() / 1000
 }
 
-const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
+export const copyToClipboard = (url) => {
+  const textField = document.createElement('textarea')
+  textField.innerText = url
+  document.body.appendChild(textField)
+  textField.select()
+  document.execCommand('copy')
+  document.body.removeChild(textField)
+  textField.remove()
+}
+
+const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email }) => {
   const [title, setTitle] = useState('')
   const [topic, setTopic] = useState('')
+  const [score, setScore] = useState('')
   const [comment, setComment] = useState('')
   const [checked, setChecked] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [date, setDate] = useState([null, null])
   const [topicsArray, setTopicsArray] = useState([])
+  const [scoreArray, setScoreArray] = useState([])
   const [textSnackbar, setTextSnackbar] = useState('')
   const [severitySnackbar, setSeveritySnackbar] = useState('')
   const history = useHistory()
@@ -65,6 +73,12 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
     }
   }
 
+  const handleScore = (event) => {
+    if (event.target.value.length < 50) {
+      setScore(event.target.value)
+    }
+  }
+
   const handleComment = (event) => {
     if (event.target.value.length < 3000) {
       setComment(event.target.value)
@@ -93,6 +107,12 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
     } else if (topic.length !== 0) {
       check_fields = false
       setTextSnackbar('Вы не добавили тему из поля ввода')
+    } else if (scoreArray.length === 0) {
+      check_fields = false
+      setTextSnackbar('Вы не добавили ни одной оценки')
+    } else if (score !== '') {
+      check_fields = false
+      setTextSnackbar('У вас в поле оценки остался текст')
     }
 
     if (check_fields) {
@@ -115,7 +135,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
         date_end = getTimeStamp(date[1]) + 86399
       }
 
-      createTopic(title, type, topicsArray, user_id, date_start, date_end, comment)
+      createTopic(title, type, topicsArray, user_id, date_start, date_end, comment, scoreArray)
     } else {
       setSeveritySnackbar('error')
       setOpenSnackbar(true)
@@ -123,7 +143,8 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
   }
 
   const handleClick = () => {
-    navigator.clipboard.writeText(`${links.new_lesson}${token_new_lesson}`)
+    console.log('COPY LINK')
+    copyToClipboard(`${links.new_lesson}${token_new_lesson}`)
     setTextSnackbar('Ссылка скопирована!')
     setSeveritySnackbar('success')
     setOpenSnackbar(true)
@@ -142,10 +163,23 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
     }
   }
 
+  const handleAddChipScore = () => {
+    if (score !== '') {
+      setScoreArray(scoreArray.concat(score))
+      setScore('')
+    } else {
+      alert('Оценка пустая')
+    }
+  }
+
   function handleDeleteChip(index) {
     setTopicsArray(
       topicsArray.slice(0, index).concat(topicsArray.slice(index + 1, topicsArray.length))
     )
+  }
+
+  function handleDeleteChipScore(index) {
+    setScoreArray(scoreArray.slice(0, index).concat(scoreArray.slice(index + 1, scoreArray.length)))
   }
 
   const handleKeyPress = (target) => {
@@ -154,9 +188,15 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
     }
   }
 
+  const handleKeyPresScore = (target) => {
+    if (target.key === 'Enter') {
+      handleAddChipScore()
+    }
+  }
+
   return (
     <div className={'center_block'} style={{ width: '66%', display: 'flex' }}>
-      {user_id !== undefined && user_id !== null && user_id !== '' ? (
+      {checkUserAuth(user_id, verified_email) ? (
         <div className={'center_block'} style={{ width: '100%', display: 'flex' }}>
           <MainTitle text={TITLES.CREATE_TOPIC} />
           <TextFieldMaterial
@@ -169,7 +209,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
           <TextFieldMaterial
             styles={{
               display: checked ? 'none' : 'flex',
-              marginBottom: 15,
+              marginBottom: 0,
               fontSize: 45,
             }}
             label={'Тема сочинения'}
@@ -183,8 +223,10 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
 
           <div
             style={{
-              marginTop: 15,
-              display: 'flex',
+              marginTop: 25,
+              display: 'inline-block',
+              width: '100%',
+              textAlign: 'left',
               flexDirection: 'row',
             }}
           >
@@ -193,6 +235,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
                 text={name}
                 index={index}
                 style={{
+                  // display: 'flex',
                   width: 'auto',
                   margin: 6,
                 }}
@@ -205,7 +248,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
             styles={{
               display: 'flex',
               marginTop: 10,
-              width: 'auto',
+              width: 200,
             }}
             label={'Свободная тема'}
             handleChange={handleChecked}
@@ -226,6 +269,44 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
               startText={'Начало урока'}
               endText={'Конец урока'}
             />
+          </div>
+
+          <TextFieldMaterial
+            styles={{
+              display: checked ? 'none' : 'flex',
+              marginBottom: 0,
+              fontSize: 45,
+            }}
+            label={'Название оценки'}
+            value={score}
+            onKeyDown={handleKeyPresScore}
+            setLabel={setScore}
+            disabled={checked}
+            changeValue={handleScore}
+            helperText={'Чтобы добавить оценку за урок нажмите enter'}
+          />
+
+          <div
+            style={{
+              marginTop: 25,
+              display: 'inline-block',
+              width: '100%',
+              textAlign: 'left',
+              flexDirection: 'row',
+            }}
+          >
+            {scoreArray.map((name, index) => (
+              <CommonChip
+                text={name}
+                index={index}
+                style={{
+                  // display: 'flex',
+                  width: 'auto',
+                  margin: 6,
+                }}
+                onDelete={handleDeleteChipScore}
+              />
+            ))}
           </div>
 
           <MultilineTextInput
@@ -252,23 +333,23 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
           />
         </div>
       ) : (
-        <NeedRegistration />
+        <NeedAuth />
       )}
 
       <CommonDialog
         open={openDialog}
         title={'Урок опубликован!'}
-        text={`Ссылка на урок </br><b><Link onclick={handleClick}>${links.new_lesson}${token_new_lesson}</Link></b></br> Отправьте ее своим ученикам`}
+        text={`Ссылка на урок </br><b><Link onclick={handleClick}>${links.new_lesson}${token_new_lesson}</Link></b></br> <br/> Отправьте ее своим ученикам`}
         handleClose={handleClose}
         buttons={[
           {
             text: 'Закрыть',
             handleClick: handleClose,
           },
-          {
-            text: 'Скопировать',
-            handleClick: handleClick,
-          },
+          // {
+          //   text: 'Скопировать',
+          //   handleClick: handleClick,
+          // },
         ]}
       />
 
@@ -285,6 +366,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic }) => {
 const putStateToProps = (state) => {
   return {
     user_id: state.auth.token,
+    verified_email: state.auth.verified_email,
     token_new_lesson: state.lessons.token_new_lesson,
   }
 }

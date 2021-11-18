@@ -29,8 +29,10 @@ import { setToken } from './store/auth/actions'
 import { initializeStore } from './store/store'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import VerifyEmail from './scenes/VerifyEmail'
+import TestPage from './scenes/TestPage'
 
-const App = ({ setToken }, props) => {
+const App = ({ user_id, verified_email, setToken }, props) => {
   const { history } = props
   require('dotenv').config()
   setToken()
@@ -61,8 +63,17 @@ const App = ({ setToken }, props) => {
       <Route exact path="/test_check" component={EssayChecking} />
       <Route exact path="/user_essays/" component={UserEssays} />
       <Route exact path="/user_essays/:id" component={UserEssays} />
+      <Route exact path="/verify_email/:id" component={VerifyEmail} />
+      <Route exact path="/test_page" component={TestPage} />
     </Switch>
   )
+}
+
+const putStateToProps = (state) => {
+  return {
+    user_id: state.auth.token,
+    verified_email: state.auth.verified_email,
+  }
 }
 
 const putDispatchToProps = (dispatch) => {
@@ -71,4 +82,4 @@ const putDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, putDispatchToProps)(App)
+export default connect(putStateToProps, putDispatchToProps)(App)

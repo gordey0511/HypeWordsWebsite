@@ -36,7 +36,7 @@ const Login = ({ updateNavbar, loginUser, token, error }) => {
   useEffect(() => {
     console.log('Login ' + token)
     if (token !== undefined && token !== null && token !== '') {
-      history.push('/')
+      history.push('/profile')
     }
   }, [token])
 
@@ -70,7 +70,7 @@ const Login = ({ updateNavbar, loginUser, token, error }) => {
   return (
     <div className={'block_vertical'}>
       <div className={'center_block_login'}>
-        <Card lassName={classes.root} variant="outlined" className={'form_auth'} elevation={5}>
+        <Card className={classes.root} variant="outlined" elevation={5}>
           <div
           // className={"form_auth"}
           >

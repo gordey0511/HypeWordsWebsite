@@ -8,15 +8,17 @@ import {
   ACTION_SET_SCORE_STUDENT,
   ACTION_UPDATE_CHECK_ESSAYS,
 } from './actions'
-import { START, SUCCESS } from '../constants'
+import { FAIL, START, SUCCESS } from '../constants'
 
 const lessonInitialState = {
   isLoading: false,
+  isLoadingListLessons: false,
   token_new_lesson: '',
   token: '',
   teacherName: '',
   teacher_id: '',
   title: '',
+  score_names: [],
   students: {},
   topic: {},
   start_time: 0,
@@ -72,8 +74,10 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     state.check_list_essays = []
     state.isLoading = true
   },
+  [ACTION_GET_CHECK_LIST_ESSAYS + FAIL]: (state, action) => {
+    state.isLoading = false
+  },
   [ACTION_GET_CHECK_LIST_ESSAYS + SUCCESS]: (state, action) => {
-    console.log(1)
     state.isLoading = false
     state.check_list_essays = action.payload
   },
@@ -97,9 +101,14 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     })
   },
   [ACTION_GET_LIST_LESSONS_USER + START]: (state) => {
+    state.isLoadingListLessons = true
     state.list_lessons = []
   },
+  [ACTION_GET_LIST_LESSONS_USER + FAIL]: (state, action) => {
+    state.isLoadingListLessons = false
+  },
   [ACTION_GET_LIST_LESSONS_USER + SUCCESS]: (state, action) => {
+    state.isLoadingListLessons = false
     state.list_lessons = action.payload
   },
 })

@@ -11,24 +11,28 @@ import '../../styles/blocks.css'
 import { LinesBooks } from '../../components/molecules/LinesBooks'
 import UserPosts from '../post/UserPosts'
 import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
+import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
+import { Loading } from '../../components/molecules/Problems/Loading'
 
 const Profile = ({
   name,
   token,
   email,
   logout,
+  verified_email,
   getData,
   favorites,
+  isLoadingData,
   updateNavbar,
   getFavoriteBooks,
 }) => {
   const history = useHistory()
 
+  const value = 0
+
   useEffect(() => {
-    console.log('PROFILE NAVBAR UP ' + NAVBAR_TITLE.Profile + ': ' + token)
     getData(token)
-    // updateNavbar(name)
-  }, [token])
+  }, [value])
 
   useEffect(() => {
     if (token !== undefined && token !== null && token !== '') {
@@ -56,52 +60,58 @@ const Profile = ({
 
   return (
     <div className={'block_profile'}>
-      {token !== undefined && token !== null && token !== '' ? (
-        <div>
-          <div className={'profile_name'}>{name}</div>
-          <div className={'profile_email'}>{email}</div>
-          <div className={'block_profile_sub'}>
-            <ButtonMaterial
-              text={'Проверить сочинения'}
-              handleClick={handleButtonCheckEssay}
-              color={'primary'}
-              styles={{
-                height: 50,
-                width: 300,
-              }}
-            />
-
-            <ButtonMaterial
-              text={'Мои сочинения'}
-              handleClick={handleButtonUserEssay}
-              color={'primary'}
-              styles={{
-                height: 50,
-                width: 300,
-                marginLeft: 20,
-                marginRight: 20,
-              }}
-            />
-
-            <ButtonMaterial
-              text={'Выйти'}
-              handleClick={handleButton}
-              color={'secondary'}
-              styles={{
-                height: 50,
-                width: 300,
-              }}
-            />
-          </div>
-          {/*<div className={'profile_bookmark'}>Избранные книги</div>*/}
-          {/*<LinesBooks array={favorites} />*/}
-          <div>
-            <div className={'profile_bookmark'}>Мои посты</div>
-            <UserPosts token={token} />
-          </div>
-        </div>
+      {isLoadingData === true ? (
+        <Loading />
       ) : (
-        <NeedRegistration />
+        <div>
+          {checkUserAuth(token, verified_email) ? (
+            <div>
+              <div className={'profile_name'}>{name}</div>
+              <div className={'profile_email'}>{email}</div>
+              <div className={'block_profile_sub'}>
+                <ButtonMaterial
+                  text={'Проверить сочинения'}
+                  handleClick={handleButtonCheckEssay}
+                  color={'primary'}
+                  styles={{
+                    height: 50,
+                    width: 300,
+                  }}
+                />
+
+                <ButtonMaterial
+                  text={'Мои сочинения'}
+                  handleClick={handleButtonUserEssay}
+                  color={'primary'}
+                  styles={{
+                    height: 50,
+                    width: 300,
+                    marginLeft: 20,
+                    marginRight: 20,
+                  }}
+                />
+
+                <ButtonMaterial
+                  text={'Выйти'}
+                  handleClick={handleButton}
+                  color={'secondary'}
+                  styles={{
+                    height: 50,
+                    width: 300,
+                  }}
+                />
+              </div>
+              {/*<div className={'profile_bookmark'}>Избранные книги</div>*/}
+              {/*<LinesBooks array={favorites} />*/}
+              <div>
+                <div className={'profile_bookmark'}>Мои посты</div>
+                <UserPosts token={token} />
+              </div>
+            </div>
+          ) : (
+            <NeedAuth fromProfile={true} />
+          )}
+        </div>
       )}
     </div>
   )
@@ -113,6 +123,8 @@ const putStateToProps = (state) => {
     name: state.auth.userName,
     email: state.auth.email,
     favorites: state.auth.favorites,
+    verified_email: state.auth.verified_email,
+    isLoadingData: state.auth.isLoadingData,
   }
 }
 

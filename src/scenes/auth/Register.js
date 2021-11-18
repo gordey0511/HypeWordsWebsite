@@ -21,6 +21,7 @@ import { createUser } from '../../store/auth/actions'
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    width: 400,
   },
 
   left: {
@@ -42,7 +43,7 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
 
   useEffect(() => {
     if (token !== undefined && token !== null && token !== '') {
-      history.push('/')
+      history.push('/profile')
     }
   }, [token])
 
@@ -86,26 +87,24 @@ const Register = ({ token, updateNavbar, createUser, error }) => {
 
   return (
     <div className={'block_vertical'}>
-      <div className={'center_block_login'}>
-        <Card lassName={classes.root} variant="outlined" elevation={5} className={'form_auth'}>
-          <div>
-            <FormAuth
-              title={'Регистрация'}
-              text1={'Почта'}
-              text2={'Пароль'}
-              text_button={'зарегистрироваться'}
-              email={email}
-              changeEmail={changeEmail}
-              password={password}
-              changePassword={changePassword}
-              name={name}
-              changeName={changeName}
-              surname={surname}
-              changeSurname={changeSurname}
-              handleButton={handleButton}
-            />
-            <CardActionAuth text={'Уже есть аккаунт'} link={'/login'} />
-          </div>
+      <div className={'center_block_auth'}>
+        <Card className={classes.root} variant="outlined" elevation={5}>
+          <FormAuth
+            title={'Регистрация'}
+            text1={'Почта'}
+            text2={'Пароль'}
+            text_button={'зарегистрироваться'}
+            email={email}
+            changeEmail={changeEmail}
+            password={password}
+            changePassword={changePassword}
+            name={name}
+            changeName={changeName}
+            surname={surname}
+            changeSurname={changeSurname}
+            handleButton={handleButton}
+          />
+          <CardActionAuth text={'Уже есть аккаунт'} link={'/login'} />
         </Card>
         {/*{name} {email} {password}*/}
       </div>

@@ -17,6 +17,7 @@ import { CommonSelect } from '../../components/atoms/Selects/CommonSelect'
 import { CommonSelect2 } from '../../components/atoms/Selects/CommonSelect2'
 import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCheckingCKEditor'
 import { Typography } from '@mui/material'
+import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 
 export const getStringDate = (currentTimestamp) => {
   currentTimestamp *= 1000
@@ -49,12 +50,14 @@ const SendEssay = ({
   student_id,
   type,
   topic,
+  studentVerified,
   start_time,
   end_time,
   commentTeacher,
   getLesson,
   getTeacher,
   sendEssay,
+  score_names,
 }) => {
   const [topicUser, setTopicUser] = useState('Тема1')
   const [text, setText] = useState('')
@@ -95,7 +98,7 @@ const SendEssay = ({
   }
 
   const handleButton = () => {
-    sendEssay(student_id, topicUser, text, comment, token, teacher_id)
+    sendEssay(student_id, topicUser, text, comment, token, teacher_id, score_names)
     setOpenSubmitted(true)
   }
 
@@ -103,8 +106,8 @@ const SendEssay = ({
   useEffect(() => {
     let timestampNow = Number(Number(dateNow.getTime()) / 1000)
     console.log('UPDATE PARAM ', student_id, start_time, timestampNow, end_time)
-    if (student_id === undefined || student_id === '') {
-      setErrorComponent(<NeedRegistration />)
+    if (checkUserAuth(student_id, studentVerified)) {
+      setErrorComponent(<NeedAuth />)
     } else if (start_time !== undefined && timestampNow < start_time) {
       setErrorComponent(<LessonNotStarted date={getStringDate(start_time)} name={Title} />)
     } else if (end_time !== undefined && end_time !== 0 && timestampNow > end_time) {
@@ -168,7 +171,7 @@ const SendEssay = ({
 
   return (
     <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
-      {student_id !== undefined && student_id !== null && student_id !== '' ? (
+      {checkUserAuth(student_id, studentVerified) ? (
         errorComponent === null ? (
           <div
             style={{
@@ -222,10 +225,6 @@ const SendEssay = ({
                   text: 'Закрыть',
                   handleClick: handleCloseDialogs,
                 },
-                {
-                  text: 'Посмотреть',
-                  handleClick: handleCloseDialogs,
-                },
               ]}
             />
           </div>
@@ -233,7 +232,7 @@ const SendEssay = ({
           errorComponent
         )
       ) : (
-        <NeedRegistration />
+        <NeedAuth />
       )}
     </div>
   )
@@ -242,6 +241,7 @@ const SendEssay = ({
 const putStateToProps = (state) => {
   return {
     student_id: state.auth.token,
+    studentVerified: state.auth.verified_email,
     teacher_id: state.lessons.teacher_id,
     topic: state.lessons.topic,
     start_time: state.lessons.start_time,
@@ -249,6 +249,7 @@ const putStateToProps = (state) => {
     teacherName: state.lessons.teacher_name,
     Title: state.lessons.title,
     commentTeacher: state.lessons.comment,
+    score_names: state.lessons.score_names,
   }
 }
 

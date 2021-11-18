@@ -11,6 +11,7 @@ import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { getUserEssays } from '../../store/auth/actions'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
 import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
+import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
+const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
@@ -87,12 +88,14 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
   }, [user_id])
 
   useEffect(() => {
-    list_essays.map(({ _id }, index) => {
-      if (_id == token) {
-        setValue(index)
-        return
-      }
-    })
+    if (list_essays !== undefined && list_essays !== null) {
+      list_essays.map(({ _id }, index) => {
+        if (_id == token) {
+          setValue(index)
+          return
+        }
+      })
+    }
   }, [list_essays])
 
   useEffect(() => {
@@ -125,7 +128,7 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
 
   return (
     <div className={'block_profile'}>
-      {user_id !== undefined && user_id !== null && user_id !== '' ? (
+      {checkUserAuth(user_id, verified_email) ? (
         <div>
           <MainTitle
             style={{
@@ -178,7 +181,6 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
                         id_essay={_id}
                         checkEssay={check}
                         scoreInitial={score}
-                        score_names={['Оценка по литературе', 'Оценка по русскому']}
                         publication_time={publication_time}
                         studentName={student_name}
                         teacherName={teacher_name}
@@ -196,7 +198,7 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
           </div>
         </div>
       ) : (
-        <NeedRegistration />
+        <NeedAuth />
       )}
     </div>
   )
@@ -205,6 +207,7 @@ const UserEssays = ({ list_essays, user_id, getUserEssays }) => {
 const putStateToProps = (state) => {
   return {
     user_id: state.auth.token,
+    verified_email: state.auth.verified_email,
     list_essays: state.auth.essays,
   }
 }

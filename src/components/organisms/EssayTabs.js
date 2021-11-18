@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import { Essay } from '../../components/molecules/Essays/Essay'
 import { bindActionCreators } from 'redux'
-import { getCheckListEssays, setScoreStudent } from '../../store/lessons/actions'
 import { connect } from 'react-redux'
 import EssayTabPanel from '../../components/molecules/EssayTabPanel'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
@@ -19,6 +18,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { links } from '../../utils/links'
 import { CommonSnackbar } from '../atoms/Snackbars/CommonSnackbar'
 import { getStringDate } from '../../scenes/essay/SendEssay'
+import { copyToClipboard } from '../../scenes/essay/CreateTopic'
+import { getCheckListEssays } from '../../store/lessons/actions'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -104,9 +105,8 @@ const EssayTabs = ({
     setValue(newValue)
   }
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    e.clipboardData.setData('text/plain', `${WEBSITE_URL}/send_essay/${lesson_id}`)
+  const handleClick = () => {
+    copyToClipboard(`${WEBSITE_URL}/send_essay/${lesson_id}`)
   }
   // const handleClick = () => {
   //   navigator.clipboard
@@ -147,10 +147,14 @@ const EssayTabs = ({
         }}
       >
         <div style={{ textAlign: 'left' }}>
-          <Button onCopy={handleClick} style={{ marginBottom: 15 }}>
+          <Button onClick={handleClick} style={{ marginBottom: 15 }}>
             <ContentCopyIcon style={{ marginRight: 10 }} />
             Ссылка на урок
           </Button>
+          <div style={{ marginBottom: 10 }}>
+            <b>Ссылка: </b>
+            {`${WEBSITE_URL}/send_essay/${lesson_id}`}
+          </div>
           <div>
             <b>Название:</b> {title}
           </div>

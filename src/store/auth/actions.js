@@ -8,6 +8,8 @@ export const ACTION_GET_FAVORITE_BOOKS = 'ACTION_GET_FAVORITE_BOOKS'
 export const ACTION_GET_USER_LIST_ESSAYS = 'ACTION_GET_USER_LIST_ESSAYS'
 export const ACTION_GET_DATA_USER_INF = 'ACTION_GET_DATA_USER_INF'
 export const ACTION_UPDATE_TOKEN = 'ACTION_UPDATE_TOKEN'
+export const ACTION_SET_VERIFIED_EMAIL = 'ACTION_SET_VERIFIED_EMAIL'
+export const ACTION_SEND_VERIFY_EMAIL = 'ACTION_SEND_VERIFY_EMAIL'
 
 export const createUser = (name, surname, email, password) => {
   return {
@@ -72,5 +74,23 @@ export const getUserEssays = (id) => {
 export const setToken = () => {
   return {
     type: ACTION_UPDATE_TOKEN,
+  }
+}
+
+export const setVerifiedEmail = (id) => {
+  return {
+    type: ACTION_SET_VERIFIED_EMAIL,
+    rest: '/verify_email/' + id,
+    method: 'GET',
+    query: null,
+  }
+}
+
+export const sendVerifyEmail = (id) => {
+  return {
+    type: ACTION_SEND_VERIFY_EMAIL,
+    rest: '/send_verify_email/' + id,
+    method: 'GET',
+    query: null,
   }
 }

@@ -9,6 +9,7 @@ import { MainTitle } from '../atoms/Texts/MainTitle'
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    width: 400,
   },
   bullet: {
     display: 'inline-block',
@@ -58,9 +59,10 @@ export const FormAuth = ({
   }
 
   return (
-    <CardContent onKeyDown={handleKeyPress}>
+    <CardContent className={classes.root} onKeyDown={handleKeyPress}>
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
       <div
+        // style={{ display: 'flex', width: 400 }}
         onKeyDown={handleKeyPress}
         className={'center_block_login'}
         // style={{
@@ -70,6 +72,9 @@ export const FormAuth = ({
         <MainTitle text={title} />
         {name !== undefined ? (
           <div>
+            <p style={{ fontSize: 15, textAlign: 'left', margin: 0 }}>
+              Пожалуйста, введите ваше настоящее имя и фамилию
+            </p>
             <TextFieldMaterial
               className={classes.margin}
               value={name}

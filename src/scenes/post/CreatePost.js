@@ -16,8 +16,9 @@ import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCh
 import { CommonText } from '../../components/atoms/Texts/CommonText'
 import Typography from '@material-ui/core/Typography'
 import { SimpleTooltip } from '../../components/atoms/Tooltips/SimpleTooltip'
+import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 
-const CreatePost = ({ token, createPostAction, update_navbar }) => {
+const CreatePost = ({ token, verified_email, createPostAction, update_navbar }) => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [type, setType] = useState('public')
@@ -58,7 +59,7 @@ const CreatePost = ({ token, createPostAction, update_navbar }) => {
       className={'center_block'}
       style={{ width: '66%', flexDirection: 'column', display: 'flex' }}
     >
-      {token !== undefined && token !== null && token !== '' ? (
+      {checkUserAuth(token, verified_email) ? (
         <div
           style={{
             flexDirection: 'column',
@@ -107,7 +108,7 @@ const CreatePost = ({ token, createPostAction, update_navbar }) => {
           />
         </div>
       ) : (
-        <NeedRegistration />
+        <NeedAuth />
       )}
     </div>
   )
@@ -128,9 +129,10 @@ const CreatePost = ({ token, createPostAction, update_navbar }) => {
 // export default connect(putStateToProps, putDispatchToProps)(CreatePost);
 
 const putStateToProps = (state) => {
-  state.auth.token = localStorage.getItem('userToken')
+  // state.auth.token = localStorage.getItem('userToken')
   return {
     token: state.auth.token,
+    verified_email: state.auth.verified_email,
   }
 }
 

@@ -7,6 +7,7 @@ import {
   ACTION_GET_USER_LIST_ESSAYS,
   ACTION_LOGIN_USER,
   ACTION_LOGOUT_USER,
+  ACTION_SET_VERIFIED_EMAIL,
   ACTION_UPDATE_TOKEN,
 } from './actions'
 
@@ -16,6 +17,9 @@ const initialState = {
   email: '',
   password: '',
   token: '',
+  verified_email: false,
+  isLoading: false,
+  isLoadingData: false,
   userToken: '',
   userName: '',
   userEmail: '',
@@ -43,6 +47,7 @@ export const authReducer = (state = initialState, action) => {
         password: data.password,
         token: data.token,
         error: '',
+        verified_email: data.verified_email,
       }
     case ACTION_CREATE_USER + FAIL:
       return { ...state, error: action.error }
@@ -55,6 +60,7 @@ export const authReducer = (state = initialState, action) => {
         password: data.password,
         token: data.token,
         error: '',
+        verified_email: data.verified_email,
       }
     case ACTION_LOGIN_USER + FAIL:
       return { ...state, error: 'Такого пользователя не существует' }
@@ -69,6 +75,7 @@ export const authReducer = (state = initialState, action) => {
         email: '',
         password: '',
         error: '',
+        verified_email: false,
       }
     case ACTION_UPDATE_TOKEN:
       console.log('ACTION UPDATE TOKEN ' + localStorage.getItem('userToken'))
@@ -83,6 +90,13 @@ export const authReducer = (state = initialState, action) => {
         email: '',
         password: '',
         error: '',
+        isLoadingData: true,
+        verified_email: false,
+      }
+    case ACTION_GET_DATA_USER + FAIL:
+      return {
+        ...state,
+        isLoadingData: false,
       }
     case ACTION_GET_DATA_USER + SUCCESS:
       // localStorage.setItem('userToken', data.token)
@@ -91,9 +105,11 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         name: data.name,
         myName: data.name,
+        isLoadingData: false,
         userName: data.name,
         email: data.email,
         password: data.password,
+        verified_email: data.verified_email,
       }
     case ACTION_GET_FAVORITE_BOOKS + SUCCESS:
       return {
@@ -117,6 +133,26 @@ export const authReducer = (state = initialState, action) => {
         userEmail: data.email,
         userPassword: data.password,
         userToken: data.token,
+      }
+
+    case ACTION_SET_VERIFIED_EMAIL + START:
+      return {
+        ...state,
+        isLoading: true,
+        verified_email: false,
+      }
+
+    case ACTION_SET_VERIFIED_EMAIL + FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        verified_email: false,
+      }
+    case ACTION_SET_VERIFIED_EMAIL + SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        verified_email: true,
       }
   }
   return state

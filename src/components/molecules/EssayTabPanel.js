@@ -44,12 +44,13 @@ const EssayTabPanel = ({
 
   useEffect(() => {
     // console.log('SCORE INITIAL ' + scoreInitial.length + ' ' + score_names)
-    if (scoreInitial !== undefined && scoreInitial !== null && scoreInitial.length === 2) {
+    if (scoreInitial !== undefined && scoreInitial !== null) {
       setValueSelect(scoreInitial.map(({ name, score }, index) => ({ name: name, score: score })))
       console.log('SCORE INITIAL NEW ' + ' ' + score_names)
-    } else {
-      setValueSelect(score_names.map((name, index) => ({ name: name, score: null })))
     }
+    // else {
+    //   setValueSelect(score_names.map((name, index) => ({ name: name, score: null })))
+    // }
     // else {
     // setValueSelect(score_names.map((name, index) => ({ name: name, score: null })))
     // }
@@ -76,9 +77,10 @@ const EssayTabPanel = ({
     }, 200)
   }
 
-  const saveValueToDB = (text, value) => {
+  const saveValueToDB = (text, value, type = 'in_progress') => {
     console.log('save', text, value)
-    setScoreStudent(user_id, text, value, id_essay, 'in_progress')
+
+    setScoreStudent(user_id, text, value, id_essay, type)
   }
   const handleChangeText = (text) => {
     setText(text)
@@ -105,10 +107,24 @@ const EssayTabPanel = ({
     }
     if (checkEssay === undefined || checkEssay === 'in_progress') {
       checkEssay = 'checked'
-      setScoreStudent(user_id, text, valueSelect, id_essay, 'checked')
+      let checkScore = true
+      valueSelect.map(({ name, score }) => {
+        if (score === undefined || score === null) {
+          checkScore = false
+        }
+      })
+
+      if (checkScore) {
+        setScoreStudent(user_id, text, valueSelect, id_essay, 'checked')
+      } else {
+        alert('Вы не поставили все оценки')
+      }
+
+      // setScoreStudent(user_id, text, valueSelect, id_essay, 'checked')
     } else {
       checkEssay = 'in_progress'
-      setScoreStudent(user_id, text, valueSelect, id_essay, 'in_progress')
+      saveValueToDB(text, valueSelect, 'in_progress')
+      // setScoreStudent(user_id, text, valueSelect, id_essay, 'in_progress')
     }
   }
 
