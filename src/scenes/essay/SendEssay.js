@@ -18,6 +18,7 @@ import { CommonSelect2 } from '../../components/atoms/Selects/CommonSelect2'
 import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCheckingCKEditor'
 import { Typography } from '@mui/material'
 import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
+import { getUser } from '../../store/auth/actions'
 
 export const getStringDate = (currentTimestamp) => {
   currentTimestamp *= 1000
@@ -58,6 +59,7 @@ const SendEssay = ({
   getTeacher,
   sendEssay,
   score_names,
+  getData,
 }) => {
   const [topicUser, setTopicUser] = useState('Тема1')
   const [text, setText] = useState('')
@@ -71,6 +73,7 @@ const SendEssay = ({
 
   useEffect(() => {
     console.log('TOKEN ' + token)
+    getData(student_id)
     getLesson(token)
   }, [token])
 
@@ -115,7 +118,7 @@ const SendEssay = ({
     } else {
       setErrorComponent(null)
     }
-  }, [student_id, start_time, end_time])
+  }, [student_id, studentVerified, start_time, end_time])
 
   const [choiceTopics, setChoiceTopics] = useState(null)
   useEffect(() => {
@@ -171,69 +174,63 @@ const SendEssay = ({
 
   return (
     <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
-      {checkUserAuth(student_id, studentVerified) ? (
-        errorComponent === null ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <MainTitle text={Title} />
-            <p style={{ textAlign: 'left', margin: 0 }}>
-              <b>Преподаватель</b> {teacherName}
-            </p>
+      {/*( errorComponent === null ? (*/}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <MainTitle text={Title} />
+        <p style={{ textAlign: 'left', margin: 0 }}>
+          <b>Преподаватель</b> {teacherName}
+        </p>
 
-            {commentTeacher !== undefined && commentTeacher !== '' ? (
-              <Typography variant={'body1'} style={{ textAlign: 'left' }}>
-                <b>Комментарий </b>
-                {commentTeacher}
-              </Typography>
-            ) : null}
+        {commentTeacher !== undefined && commentTeacher !== '' ? (
+          <Typography variant={'body1'} style={{ textAlign: 'left' }}>
+            <b>Комментарий </b>
+            {commentTeacher}
+          </Typography>
+        ) : null}
 
-            {choiceTopics}
-            <TextCKEditor
-              label={'Текст сочинения'}
-              value={text}
-              rows={68}
-              changeValue={setText}
-              placeholder={'Напишите сочинение...'}
-              style={{
-                marginBottom: 20,
-                marginTop: 30,
-              }}
-            />
+        {choiceTopics}
+        <TextCKEditor
+          label={'Текст сочинения'}
+          value={text}
+          rows={68}
+          changeValue={setText}
+          placeholder={'Напишите сочинение...'}
+          style={{
+            marginBottom: 20,
+            marginTop: 30,
+          }}
+        />
 
-            <ButtonMaterial
-              text={'Отправить сочинение на проверку'}
-              styles={{
-                marginTop: 20,
-                marginBottom: 50,
-                width: '100%',
-              }}
-              color={'primary'}
-              handleClick={handleButton}
-            />
+        <ButtonMaterial
+          text={'Отправить сочинение на проверку'}
+          styles={{
+            marginTop: 20,
+            marginBottom: 50,
+            width: '100%',
+          }}
+          color={'primary'}
+          handleClick={handleButton}
+        />
 
-            <CommonDialog
-              open={openSubmitted}
-              title={'Вы успешно отправили сочинение!'}
-              text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
-              handleClose={handleCloseDialogs}
-              buttons={[
-                {
-                  text: 'Закрыть',
-                  handleClick: handleCloseDialogs,
-                },
-              ]}
-            />
-          </div>
-        ) : (
-          errorComponent
-        )
-      ) : (
-        <NeedAuth />
-      )}
+        <CommonDialog
+          open={openSubmitted}
+          title={'Вы успешно отправили сочинение!'}
+          text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
+          handleClose={handleCloseDialogs}
+          buttons={[
+            {
+              text: 'Закрыть',
+              handleClick: handleCloseDialogs,
+            },
+          ]}
+        />
+      </div>
+      ) : ( errorComponent ) )
     </div>
   )
 }
@@ -258,6 +255,7 @@ const putDispatchToProps = (dispatch) => {
     getLesson: bindActionCreators(getLesson, dispatch),
     getTeacher: bindActionCreators(getTeacher, dispatch),
     sendEssay: bindActionCreators(sendEssay, dispatch),
+    getData: bindActionCreators(getUser, dispatch),
   }
 }
 

@@ -91,7 +91,6 @@ export const authReducer = (state = initialState, action) => {
         password: '',
         error: '',
         isLoadingData: true,
-        verified_email: false,
       }
     case ACTION_GET_DATA_USER + FAIL:
       return {
@@ -139,7 +138,6 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        verified_email: false,
       }
 
     case ACTION_SET_VERIFIED_EMAIL + FAIL:
