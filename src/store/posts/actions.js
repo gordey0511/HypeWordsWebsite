@@ -6,7 +6,7 @@ export const ACTION_CREATE_POSTS = 'ACTION_CREATE_POSTS'
 export const ACTION_GET_AUTHOR_NAME_LIST_POST = 'ACTION_GET_AUTHOR_NAME_LIST_POST'
 export const ACTION_GET_AUTHORS_POSTS = 'ACTION_GET_AUTHORS_POSTS'
 
-export const createPost = (title, text, author_id, type) => {
+export const createPost = (title, text, author_id, type, verified) => {
   console.log('USER ID ' + author_id)
   return {
     type: ACTION_CREATE_POSTS,
@@ -20,6 +20,7 @@ export const createPost = (title, text, author_id, type) => {
       likes: 0,
       likes_users: [],
       comments: [],
+      verified: verified,
     },
   }
 }

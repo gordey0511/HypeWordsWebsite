@@ -130,6 +130,7 @@ const CheckEssays = ({
                     start_time={list_lessons[value].start_time}
                     end_time={list_lessons[value].end_time}
                     comment={list_lessons[value].comment}
+                    topic={list_lessons[value].topic}
                     score_names={list_lessons[value].score_names}
                     publication_time={list_lessons[value].publication_time}
                   />

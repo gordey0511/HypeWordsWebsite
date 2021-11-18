@@ -82,6 +82,7 @@ const EssayTabs = ({
   start_time,
   end_time,
   comment,
+  topic,
   title,
   publication_time,
   score_names,
@@ -138,6 +139,44 @@ const EssayTabs = ({
     )
   }
 
+  const [listTopics, setListTopics] = useState([])
+
+  useEffect(() => {
+    if (topic !== undefined && topic !== null) {
+      if (topic.type === 'free') {
+        setListTopics(['Свободная тема'])
+      } else if (topic.type === 'common') {
+        setListTopics([topic.topics])
+      } else if (topic.type === 'array') {
+        setListTopics([
+          topic.topics.map((name, index) => {
+            if (index === topic.topics.length - 1) {
+              return name
+            } else {
+              return `${name}, `
+            }
+          }),
+        ])
+      }
+    }
+  }, [topic])
+
+  const [listScore, setListScore] = useState([])
+
+  useEffect(() => {
+    if (score_names !== undefined && score_names !== null) {
+      setListScore([
+        score_names.map((name, index) => {
+          if (index === score_names.length - 1) {
+            return name
+          } else {
+            return `${name}, `
+          }
+        }),
+      ])
+    }
+  }, [score_names])
+
   return (
     <div>
       <CommonAccordion
@@ -158,16 +197,23 @@ const EssayTabs = ({
           <div>
             <b>Название:</b> {title}
           </div>
+          <div>
+            <b>Темы сочинения:</b> {listTopics.map((name, index) => name)}
+          </div>
           {start_time !== undefined && start_time !== 0 ? (
             <div>
-              <b>Время начала:</b> {getStringDate(start_time * 1000)}
+              <b>Время начала:</b> {getStringDate(start_time)}
             </div>
           ) : null}
           {end_time !== undefined && end_time !== 0 ? (
             <div>
-              <b>Время окончания:</b> {getStringDate(end_time * 1000)}
+              <b>Время окончания:</b> {getStringDate(end_time)}
             </div>
           ) : null}
+          <div>
+            <b>Названия оценок:</b>
+            {listScore.map((name, index) => name)}
+          </div>
           {comment !== undefined ? (
             <div>
               <b>Комментарий:</b> {comment}

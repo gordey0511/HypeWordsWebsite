@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography'
 import { SimpleTooltip } from '../../components/atoms/Tooltips/SimpleTooltip'
 import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 
-const CreatePost = ({ token, verified_email, createPostAction, update_navbar }) => {
+const CreatePost = ({ token, verified_email, createPostAction, update_navbar, trusted }) => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [type, setType] = useState('public')
@@ -50,7 +50,7 @@ const CreatePost = ({ token, verified_email, createPostAction, update_navbar }) 
 
   const sendPost = () => {
     console.log('NEW POST INF ' + title + ' ' + text + ' ' + ' ' + type)
-    createPostAction(title, text, token, type)
+    createPostAction(title, text, token, type, trusted)
     history.push('/posts')
   }
 
@@ -67,6 +67,10 @@ const CreatePost = ({ token, verified_email, createPostAction, update_navbar }) 
           }}
         >
           <MainTitle text={'Новый пост'} />
+          <div style={{ textAlign: 'left' }}>
+            Если вы не проверенный пользователь, то пока ваш пост не пройдет модерацию, он будет
+            доступен только у вас на страничке
+          </div>
           <TextFieldMaterial
             styles={{ marginBottom: 20, fontSize: 45 }}
             label={'Заголовок'}
@@ -132,6 +136,7 @@ const putStateToProps = (state) => {
   // state.auth.token = localStorage.getItem('userToken')
   return {
     token: state.auth.token,
+    trusted: state.auth.trusted,
     verified_email: state.auth.verified_email,
   }
 }

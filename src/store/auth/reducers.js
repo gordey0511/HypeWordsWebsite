@@ -19,6 +19,7 @@ const initialState = {
   token: '',
   verified_email: false,
   isLoading: false,
+  trusted: false,
   isLoadingData: false,
   userToken: '',
   userName: '',
@@ -47,6 +48,7 @@ export const authReducer = (state = initialState, action) => {
         password: data.password,
         token: data.token,
         error: '',
+        trusted: data.trusted,
         verified_email: data.verified_email,
       }
     case ACTION_CREATE_USER + FAIL:
@@ -59,6 +61,7 @@ export const authReducer = (state = initialState, action) => {
         email: data.email,
         password: data.password,
         token: data.token,
+        trusted: data.trusted,
         error: '',
         verified_email: data.verified_email,
       }
@@ -75,6 +78,7 @@ export const authReducer = (state = initialState, action) => {
         email: '',
         password: '',
         error: '',
+        trusted: false,
         verified_email: false,
       }
     case ACTION_UPDATE_TOKEN:
@@ -108,6 +112,7 @@ export const authReducer = (state = initialState, action) => {
         userName: data.name,
         email: data.email,
         password: data.password,
+        trusted: data.trusted,
         verified_email: data.verified_email,
       }
     case ACTION_GET_FAVORITE_BOOKS + SUCCESS:

@@ -31,8 +31,10 @@ const Profile = ({
   const value = 0
 
   useEffect(() => {
-    getData(token)
-  }, [value])
+    if (token !== undefined && token !== null) {
+      getData(token)
+    }
+  }, [token])
 
   useEffect(() => {
     if (token !== undefined && token !== null && token !== '') {

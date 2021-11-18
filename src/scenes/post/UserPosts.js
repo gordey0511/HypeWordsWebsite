@@ -5,6 +5,7 @@ import { getAuthorPosts } from '../../store/posts/actions'
 import { connect } from 'react-redux'
 import { update_navbar } from '../../store/navbar/actions'
 import { NAVBAR_TITLE } from '../../utils/constants'
+import NoPosts from '../../components/molecules/Problems/NoPosts'
 
 const Posts = ({ posts, getPosts, update_navbar, token }) => {
   useEffect(() => {
@@ -18,7 +19,11 @@ const Posts = ({ posts, getPosts, update_navbar, token }) => {
 
   return (
     <div>
-      <ListPosts array={posts} />
+      {posts !== undefined && posts !== null && posts.length > 0 ? (
+        <ListPosts array={posts} />
+      ) : (
+        <NoPosts />
+      )}
     </div>
   )
 }

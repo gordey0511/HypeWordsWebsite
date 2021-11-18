@@ -12,6 +12,7 @@ import { getUserEssays } from '../../store/auth/actions'
 import { MainTitle } from '../../components/atoms/Texts/MainTitle'
 import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
 import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
+import { NoMyEssays } from '../../components/molecules/Problems/NoMyEssays'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -139,63 +140,65 @@ const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays }) => 
             }}
             text={'Мои сочинения'}
           />
-          <div className={classes.root}>
-            <Tabs
-              orientation="vertical"
-              variant="scrollable"
-              value={value}
-              color={'primary'}
-              onChange={handleChange}
-              aria-label="Vertical tabs example"
-              className={classes.tabs}
-            >
-              {list_essays !== undefined && list_essays !== null
-                ? list_essays.map(({ topic, check }) => getTab(topic, check))
-                : null}
-            </Tabs>
+          {list_essays !== undefined && list_essays !== null && list_essays.length > 0 ? (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                color={'primary'}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                className={classes.tabs}
+              >
+                {list_essays !== undefined && list_essays !== null
+                  ? list_essays.map(({ topic, check }) => getTab(topic, check))
+                  : null}
+              </Tabs>
 
-            {list_essays !== undefined && list_essays !== null
-              ? list_essays.map(
-                  (
-                    {
-                      _id,
-                      topic,
-                      student_text,
-                      teacher_text,
-                      comment,
-                      student_id,
-                      check,
-                      score,
-                      student_name,
-                      teacher_name,
-                      publication_time,
-                    },
-                    index
-                  ) => (
-                    <TabPanel value={value} index={index} className={classes.body}>
-                      <EssayTabPanel
-                        // titleLesson={"Урок"}
-                        topicEssay={topic}
-                        textStudent={student_text}
-                        textTeacher={teacher_text}
-                        id_essay={_id}
-                        checkEssay={check}
-                        scoreInitial={score}
-                        publication_time={publication_time}
-                        studentName={student_name}
-                        teacherName={teacher_name}
-                        visible={false}
-                        accordion={{
-                          title: 'Сочинение без правок',
-                          text: student_text,
-                          visible: teacher_text === undefined ? false : true,
-                        }}
-                      />
-                    </TabPanel>
-                  )
+              {list_essays.map(
+                (
+                  {
+                    _id,
+                    topic,
+                    student_text,
+                    teacher_text,
+                    comment,
+                    student_id,
+                    check,
+                    score,
+                    student_name,
+                    teacher_name,
+                    publication_time,
+                  },
+                  index
+                ) => (
+                  <TabPanel value={value} index={index} className={classes.body}>
+                    <EssayTabPanel
+                      // titleLesson={"Урок"}
+                      topicEssay={topic}
+                      textStudent={student_text}
+                      textTeacher={teacher_text}
+                      id_essay={_id}
+                      checkEssay={check}
+                      scoreInitial={score}
+                      publication_time={publication_time}
+                      studentName={student_name}
+                      teacherName={teacher_name}
+                      visible={false}
+                      accordion={{
+                        title: 'Сочинение без правок',
+                        text: student_text,
+                        visible: teacher_text === undefined ? false : true,
+                      }}
+                    />
+                  </TabPanel>
                 )
-              : null}
-          </div>
+              )}
+            </div>
+          ) : (
+            <NoMyEssays />
+          )}
         </div>
       ) : (
         <NeedAuth />

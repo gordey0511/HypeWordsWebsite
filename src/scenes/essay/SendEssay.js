@@ -109,9 +109,7 @@ const SendEssay = ({
   useEffect(() => {
     let timestampNow = Number(Number(dateNow.getTime()) / 1000)
     console.log('UPDATE PARAM ', student_id, start_time, timestampNow, end_time)
-    if (checkUserAuth(student_id, studentVerified)) {
-      setErrorComponent(<NeedAuth />)
-    } else if (start_time !== undefined && timestampNow < start_time) {
+    if (start_time !== undefined && timestampNow < start_time) {
       setErrorComponent(<LessonNotStarted date={getStringDate(start_time)} name={Title} />)
     } else if (end_time !== undefined && end_time !== 0 && timestampNow > end_time) {
       setErrorComponent(<LessonFinished date={getStringDate(end_time)} name={Title} />)
@@ -174,63 +172,69 @@ const SendEssay = ({
 
   return (
     <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
-      {/*( errorComponent === null ? (*/}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <MainTitle text={Title} />
-        <p style={{ textAlign: 'left', margin: 0 }}>
-          <b>Преподаватель</b> {teacherName}
-        </p>
+      {checkUserAuth(student_id, studentVerified) ? (
+        errorComponent === null ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <MainTitle text={Title} />
+            <p style={{ textAlign: 'left', margin: 0 }}>
+              <b>Преподаватель</b> {teacherName}
+            </p>
 
-        {commentTeacher !== undefined && commentTeacher !== '' ? (
-          <Typography variant={'body1'} style={{ textAlign: 'left' }}>
-            <b>Комментарий </b>
-            {commentTeacher}
-          </Typography>
-        ) : null}
+            {commentTeacher !== undefined && commentTeacher !== '' ? (
+              <Typography variant={'body1'} style={{ textAlign: 'left' }}>
+                <b>Комментарий </b>
+                {commentTeacher}
+              </Typography>
+            ) : null}
 
-        {choiceTopics}
-        <TextCKEditor
-          label={'Текст сочинения'}
-          value={text}
-          rows={68}
-          changeValue={setText}
-          placeholder={'Напишите сочинение...'}
-          style={{
-            marginBottom: 20,
-            marginTop: 30,
-          }}
-        />
+            {choiceTopics}
+            <TextCKEditor
+              label={'Текст сочинения'}
+              value={text}
+              rows={68}
+              changeValue={setText}
+              placeholder={'Напишите сочинение...'}
+              style={{
+                marginBottom: 20,
+                marginTop: 30,
+              }}
+            />
 
-        <ButtonMaterial
-          text={'Отправить сочинение на проверку'}
-          styles={{
-            marginTop: 20,
-            marginBottom: 50,
-            width: '100%',
-          }}
-          color={'primary'}
-          handleClick={handleButton}
-        />
+            <ButtonMaterial
+              text={'Отправить сочинение на проверку'}
+              styles={{
+                marginTop: 20,
+                marginBottom: 50,
+                width: '100%',
+              }}
+              color={'primary'}
+              handleClick={handleButton}
+            />
 
-        <CommonDialog
-          open={openSubmitted}
-          title={'Вы успешно отправили сочинение!'}
-          text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
-          handleClose={handleCloseDialogs}
-          buttons={[
-            {
-              text: 'Закрыть',
-              handleClick: handleCloseDialogs,
-            },
-          ]}
-        />
-      </div>
-      ) : ( errorComponent ) )
+            <CommonDialog
+              open={openSubmitted}
+              title={'Вы успешно отправили сочинение!'}
+              text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
+              handleClose={handleCloseDialogs}
+              buttons={[
+                {
+                  text: 'Закрыть',
+                  handleClick: handleCloseDialogs,
+                },
+              ]}
+            />
+          </div>
+        ) : (
+          errorComponent
+        )
+      ) : (
+        <NeedAuth />
+      )}
     </div>
   )
 }
