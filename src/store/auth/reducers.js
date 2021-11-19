@@ -66,7 +66,7 @@ export const authReducer = (state = initialState, action) => {
         verified_email: data.verified_email,
       }
     case ACTION_LOGIN_USER + FAIL:
-      return { ...state, error: 'Такого пользователя не существует' }
+      return { ...state, error: 'Не получилось войти' }
     case ACTION_LOGIN_USER + START:
       return { ...state, error: '' }
     case ACTION_LOGOUT_USER:

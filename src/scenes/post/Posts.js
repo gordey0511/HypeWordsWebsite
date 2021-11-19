@@ -5,8 +5,9 @@ import { getPosts } from '../../store/posts/actions'
 import { connect } from 'react-redux'
 import { update_navbar } from '../../store/navbar/actions'
 import { NAVBAR_TITLE } from '../../utils/constants'
+import { Loading } from '../../components/molecules/Problems/Loading'
 
-const Posts = ({ posts, getPosts, update_navbar }) => {
+const Posts = ({ posts, isLoading, getPosts, update_navbar }) => {
   useEffect(() => {
     getPosts()
     update_navbar(NAVBAR_TITLE.Posts)
@@ -24,7 +25,11 @@ const Posts = ({ posts, getPosts, update_navbar }) => {
         marginRight: 'auto',
       }}
     >
-      <ListPosts array={posts} />
+      {isLoading !== true ? (
+        <ListPosts array={posts} />
+      ) : (
+        <Loading style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }} />
+      )}
     </div>
   )
 }
@@ -32,6 +37,7 @@ const Posts = ({ posts, getPosts, update_navbar }) => {
 const putStateToProps = (state) => {
   return {
     posts: state.posts.posts,
+    isLoading: state.posts.isLoading,
   }
 }
 

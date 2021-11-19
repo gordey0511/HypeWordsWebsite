@@ -211,7 +211,7 @@ const EssayTabs = ({
             </div>
           ) : null}
           <div>
-            <b>Названия оценок:</b>
+            <b>Названия оценок: </b>
             {listScore.map((name, index) => name)}
           </div>
           {comment !== undefined ? (

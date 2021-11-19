@@ -19,8 +19,15 @@ import { setVerifiedEmail } from '../store/auth/actions'
 import { Loading } from '../components/molecules/Problems/Loading'
 
 const VerifyEmail = ({ user_id, verified_email, isLoading, setVerifiedEmail }) => {
+  const link = window.location.pathname
+  const token = link.substr(14, link.length - 14)
+
   useEffect(() => {
-    setVerifiedEmail(user_id)
+    if (token === user_id) {
+      setVerifiedEmail(user_id)
+    } else {
+      alert('Ошибка, попробуйте снова')
+    }
   }, [])
 
   return (

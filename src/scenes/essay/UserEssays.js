@@ -201,7 +201,9 @@ const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays }) => 
           )}
         </div>
       ) : (
-        <NeedAuth />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <NeedAuth />
+        </div>
       )}
     </div>
   )

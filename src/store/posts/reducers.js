@@ -12,6 +12,7 @@ const initialState = {
   text: [],
   author_id: '',
   authorName: '',
+  isLoading: false,
   likes: 0,
   posts: [],
   publication_time: 0,
@@ -22,10 +23,21 @@ export const postsReducer = (state = initialState, action) => {
   let new_posts = []
 
   switch (action.type) {
+    case ACTION_GET_POSTS + START:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case ACTION_GET_POSTS + FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      }
     case ACTION_GET_POSTS + SUCCESS:
       return {
         ...state,
         posts: data,
+        isLoading: false,
       }
 
     case ACTION_GET_POST + SUCCESS:

@@ -98,10 +98,10 @@ const CheckEssays = ({
   }
 
   return (
-    <div className={'block_check_essays'}>
+    <div>
       {checkUserAuth(user_id, verified_email) ? (
         isLoadingListLessons === false ? (
-          <div>
+          <div className={'block_check_essays'}>
             <div className={'essay_vertical'}>
               <div className={'center_block_lessons_navbar'}>
                 <Tabs
@@ -153,7 +153,9 @@ const CheckEssays = ({
           </div>
         )
       ) : (
-        <NeedAuth />
+        <div className={'block_profile'}>
+          <NeedAuth />
+        </div>
       )}
     </div>
   )
