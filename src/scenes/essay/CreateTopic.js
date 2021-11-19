@@ -143,8 +143,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email })
   }
 
   const handleClick = () => {
-    console.log('COPY LINK')
-    copyToClipboard(`${links.new_lesson}${token_new_lesson}`)
+    navigator.clipboard.writeText(`${links.new_lesson}${token_new_lesson}`)
     setTextSnackbar('Ссылка скопирована!')
     setSeveritySnackbar('success')
     setOpenSnackbar(true)
@@ -346,10 +345,10 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email })
             text: 'Закрыть',
             handleClick: handleClose,
           },
-          // {
-          //   text: 'Скопировать',
-          //   handleClick: handleClick,
-          // },
+          {
+            text: 'Скопировать',
+            handleClick: handleClick,
+          },
         ]}
       />
 
