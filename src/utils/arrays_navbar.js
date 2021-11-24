@@ -7,7 +7,8 @@ import BookIcon from '@mui/icons-material/Book'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import PostAddIcon from '@mui/icons-material/PostAdd'
-
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import ArticleIcon from '@mui/icons-material/Article'
 export const profile_menu = {
   text: 'Профиль',
   link: '/profile',
@@ -64,7 +65,7 @@ export const check_user_menu = {
   text: 'Мои сочинения',
   link: '/user_essays/',
   icon: (
-    <BookIcon
+    <ListIcon
       style={{
         height: 30,
         width: 30,
@@ -77,7 +78,20 @@ export const open_posts = {
   text: 'Посты',
   link: '/posts/',
   icon: (
-    <ListIcon
+    <ArticleIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_manual_doc = {
+  text: 'Инструкция',
+  link: '/manual_doc/',
+  icon: (
+    <MenuBookIcon
       style={{
         height: 30,
         width: 30,

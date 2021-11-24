@@ -25,6 +25,7 @@ import {
   new_lesson,
   new_post,
   open_analyze,
+  open_manual_doc,
   open_policy,
   open_posts,
   open_settings,
@@ -122,7 +123,7 @@ const Navbar = ({ current_text, userName, getData, token }) => {
           />
         </div>
         <List>
-          {[profile_menu, check_essays_menu, check_user_menu, open_posts].map(
+          {[profile_menu, check_essays_menu, check_user_menu, open_posts, open_manual_doc].map(
             ({ text, link, icon }, index) => (
               <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
                 <ListItem button key={text}>

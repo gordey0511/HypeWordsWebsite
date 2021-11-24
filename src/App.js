@@ -65,6 +65,15 @@ const App = ({ user_id, verified_email, setToken }, props) => {
       <Route exact path="/user_essays/:id" component={UserEssays} />
       <Route exact path="/verify_email/:id" component={VerifyEmail} />
       <Route exact path="/test_page" component={TestPage} />
+      <Route
+        path="/manual_doc"
+        component={() => {
+          window.open(
+            'https://docs.google.com/document/d/1HZzlGMphqFPe7xbfiFVel4CBh4-a06sPaWAg5HCy3zw/edit?usp=sharing'
+          )
+          window.location.href = window.location.protocol + '//' + window.location.host
+        }}
+      />
     </Switch>
   )
 }
