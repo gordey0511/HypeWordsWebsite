@@ -13,6 +13,7 @@ import { MainTitle } from '../../components/atoms/Texts/MainTitle'
 import { NeedRegistration } from '../../components/molecules/Problems/NeedRegistration'
 import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 import { NoMyEssays } from '../../components/molecules/Problems/NoMyEssays'
+import { Loading } from '../../components/molecules/Problems/Loading'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props
@@ -74,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays }) => {
+const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays, isLoadingData }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
@@ -129,81 +130,87 @@ const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays }) => 
 
   return (
     <div className={'block_profile'}>
-      {checkUserAuth(user_id, verified_email) ? (
+      {!isLoadingData ? (
         <div>
-          <MainTitle
-            style={{
-              display: 'flex',
-              textAlign: 'center',
-              justifyContent: 'center',
-              marginBottom: 20,
-            }}
-            text={'Мои сочинения'}
-          />
-          {list_essays !== undefined && list_essays !== null && list_essays.length > 0 ? (
-            <div className={classes.root}>
-              <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                color={'primary'}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-                className={classes.tabs}
-              >
-                {list_essays !== undefined && list_essays !== null
-                  ? list_essays.map(({ topic, check }) => getTab(topic, check))
-                  : null}
-              </Tabs>
+          {checkUserAuth(user_id, verified_email) ? (
+            <div>
+              <MainTitle
+                style={{
+                  display: 'flex',
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 20,
+                }}
+                text={'Мои сочинения'}
+              />
+              {list_essays !== undefined && list_essays !== null && list_essays.length > 0 ? (
+                <div className={classes.root}>
+                  <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    color={'primary'}
+                    onChange={handleChange}
+                    aria-label="Vertical tabs example"
+                    className={classes.tabs}
+                  >
+                    {list_essays !== undefined && list_essays !== null
+                      ? list_essays.map(({ topic, check }) => getTab(topic, check))
+                      : null}
+                  </Tabs>
 
-              {list_essays.map(
-                (
-                  {
-                    _id,
-                    topic,
-                    student_text,
-                    teacher_text,
-                    comment,
-                    student_id,
-                    check,
-                    score,
-                    student_name,
-                    teacher_name,
-                    publication_time,
-                  },
-                  index
-                ) => (
-                  <TabPanel value={value} index={index} className={classes.body}>
-                    <EssayTabPanel
-                      // titleLesson={"Урок"}
-                      topicEssay={topic}
-                      textStudent={student_text}
-                      textTeacher={teacher_text}
-                      id_essay={_id}
-                      checkEssay={check}
-                      scoreInitial={score}
-                      publication_time={publication_time}
-                      studentName={student_name}
-                      teacherName={teacher_name}
-                      visible={false}
-                      accordion={{
-                        title: 'Сочинение без правок',
-                        text: student_text,
-                        visible: teacher_text === undefined ? false : true,
-                      }}
-                    />
-                  </TabPanel>
-                )
+                  {list_essays.map(
+                    (
+                      {
+                        _id,
+                        topic,
+                        student_text,
+                        teacher_text,
+                        comment,
+                        student_id,
+                        check,
+                        score,
+                        student_name,
+                        teacher_name,
+                        publication_time,
+                      },
+                      index
+                    ) => (
+                      <TabPanel value={value} index={index} className={classes.body}>
+                        <EssayTabPanel
+                          // titleLesson={"Урок"}
+                          topicEssay={topic}
+                          textStudent={student_text}
+                          textTeacher={teacher_text}
+                          id_essay={_id}
+                          checkEssay={check}
+                          scoreInitial={score}
+                          publication_time={publication_time}
+                          studentName={student_name}
+                          teacherName={teacher_name}
+                          visible={false}
+                          accordion={{
+                            title: 'Сочинение без правок',
+                            text: student_text,
+                            visible: teacher_text === undefined ? false : true,
+                          }}
+                        />
+                      </TabPanel>
+                    )
+                  )}
+                </div>
+              ) : (
+                <NoMyEssays />
               )}
             </div>
           ) : (
-            <NoMyEssays />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <NeedAuth />
+            </div>
           )}
         </div>
       ) : (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <NeedAuth />
-        </div>
+        <Loading style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }} />
       )}
     </div>
   )
@@ -214,6 +221,7 @@ const putStateToProps = (state) => {
     user_id: state.auth.token,
     verified_email: state.auth.verified_email,
     list_essays: state.auth.essays,
+    isLoadingData: state.auth.isLoadingData,
   }
 }
 

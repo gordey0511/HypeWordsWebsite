@@ -101,8 +101,10 @@ const SendEssay = ({
   }
 
   const handleButton = () => {
-    sendEssay(student_id, topicUser, text, comment, token, teacher_id, score_names)
-    setOpenSubmitted(true)
+    if (topicUser !== '') {
+      sendEssay(student_id, topicUser, text, comment, token, teacher_id, score_names)
+      setOpenSubmitted(true)
+    }
   }
 
   const [errorComponent, setErrorComponent] = useState(null)
@@ -160,7 +162,7 @@ const SendEssay = ({
               marginBottom: 0,
               fontSize: 45,
             }}
-            label={'Тема сочинени'}
+            label={'Тема сочинения'}
             array={topic.topics}
             value={topicUser}
             handleChange={handleTopicUser}

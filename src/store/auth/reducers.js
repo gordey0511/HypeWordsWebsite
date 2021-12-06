@@ -124,11 +124,18 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         essays: [],
+        isLoadingData: true,
       }
     case ACTION_GET_USER_LIST_ESSAYS + SUCCESS:
       return {
         ...state,
         essays: data,
+        isLoadingData: false,
+      }
+    case ACTION_GET_USER_LIST_ESSAYS + FAIL:
+      return {
+        ...state,
+        isLoadingData: false,
       }
     case ACTION_GET_DATA_USER_INF + SUCCESS:
       return {
