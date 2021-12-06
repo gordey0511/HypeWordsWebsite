@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { logOut, sendVerifyEmail } from '../../../store/auth/actions'
 
-const NeedVerify = ({ user_id, sendVerifyEmail, logOut }) => {
+const NeedVerify = ({ user_id, email, sendVerifyEmail, logOut }) => {
   const history = useHistory()
 
   const handleClickSendEmail = () => {
@@ -35,7 +35,11 @@ const NeedVerify = ({ user_id, sendVerifyEmail, logOut }) => {
           fontSize: 35,
         }}
       >
-        Подтвердите электронную почту
+        Подтвердите электронную почту {email}
+        <p style={{ marginTop: 0, fontSize: 19 }}>
+          При регистрации вам уже было выслано письмо, оно должно прийти в течение 3 минут. Если оно
+          не пришло, то нажмите кнопку снизу
+        </p>
       </Typography>
       <Link
         to={'/login'}

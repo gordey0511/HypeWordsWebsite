@@ -12,6 +12,7 @@ import { getAuthorNameListPost } from '../../store/posts/actions'
 import { connect } from 'react-redux'
 import { MainTitle } from '../atoms/Texts/MainTitle'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { AuthorIcon } from '../atoms/AuthorIcon'
 
 const useStyles = makeStyles({
   root: {
@@ -71,31 +72,7 @@ const Post = ({
       {/*<Link to={`/post/${id}`} className={classes.link}>*/}
       <CardActionArea>
         <CardContent className={classes.card_content}>
-          <Link to={`/user/${author_id}`} className={classes.link}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                marginBottom: 5,
-              }}
-            >
-              <AccountCircleIcon
-                style={{
-                  verticalAlign: 'center',
-                  paddingTop: 3,
-                }}
-              />
-              <Typography
-                variant={'h6'}
-                style={{
-                  marginLeft: 10,
-                  verticalAlign: 'center',
-                }}
-              >
-                {authorName}
-              </Typography>
-            </div>
-          </Link>
+          <AuthorIcon authorName={authorName} author_id={author_id} />
           {/*<MainTitle text={title}/>*/}
           <Link to={`/post/${id}`} className={classes.link}>
             <Typography style={{ fontWeight: 500 }} variant="h5" component="h2">

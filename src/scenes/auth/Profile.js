@@ -36,12 +36,12 @@ const Profile = ({
     }
   }, [token])
 
-  useEffect(() => {
-    if (token !== undefined && token !== null && token !== '') {
-      console.log('FAVORITE BOOKS ' + token)
-      getFavoriteBooks(token)
-    }
-  }, [token])
+  // useEffect(() => {
+  //   if (token !== undefined && token !== null && token !== '') {
+  //     console.log('FAVORITE BOOKS ' + token)
+  //     getFavoriteBooks(token)
+  //   }
+  // }, [token])
 
   useEffect(() => {
     console.log('NAME ' + name)

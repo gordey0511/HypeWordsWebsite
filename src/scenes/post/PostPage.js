@@ -10,6 +10,7 @@ import { CardActionArea, makeStyles } from '@material-ui/core'
 import CardContent from '@material-ui/core/CardContent'
 import { styleCard } from '../../styles/style'
 import { getStringDate } from '../essay/SendEssay'
+import { AuthorIcon } from '../../components/atoms/AuthorIcon'
 
 const PostPage = ({
   title,
@@ -39,27 +40,26 @@ const PostPage = ({
   return (
     <div className={'middle_block_post'}>
       <div className={'center_block'}>
-        <MainTitle text={authorName} />
         <Card className={classes.post_page} variant={'outlined'}>
-          {/*<Link to={``} className={classes.link}>*/}
-          <CardActionArea>
-            <CardContent>
-              <MainTitle text={title} />
-              {/*{getStringDate(publication_time)}*/}
-              <div
-                style={{
-                  fontSize: 16,
-                  textAlign: 'left',
-                }}
-                className={'ck-content'}
-                dangerouslySetInnerHTML={{ __html: `${text}` }}
-              />
-              {/*<CommonText*/}
-              {/*    body={"h6"}*/}
-              {/*    text={`${likes} лайков`}*/}
-              {/*/>*/}
-            </CardContent>
-          </CardActionArea>
+          <CardContent>
+            <AuthorIcon authorName={authorName} author_id={author_id} />
+            <MainTitle text={title} />
+            {/*{getStringDate(publication_time)}*/}
+            {/*<div style={{ textAlign: 'left' }}>{authorName}</div>*/}
+            <div
+              style={{
+                fontSize: 16,
+                textAlign: 'left',
+              }}
+              className={'ck-content'}
+              dangerouslySetInnerHTML={{ __html: `${text}` }}
+            />
+            {/*<CommonText*/}
+            {/*    body={"h6"}*/}
+            {/*    text={`${likes} лайков`}*/}
+            {/*/>*/}
+          </CardContent>
+          {/*</CardActionArea>*/}
           {/*</Link>*/}
         </Card>
       </div>

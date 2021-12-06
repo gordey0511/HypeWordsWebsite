@@ -47,6 +47,7 @@ export const postsReducer = (state = initialState, action) => {
         text: data.text,
         likes: data.likes,
         author_id: data.author_id,
+        authorName: data.authorName,
         publication_time: data.publication_time,
       }
 

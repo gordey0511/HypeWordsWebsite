@@ -31,6 +31,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import VerifyEmail from './scenes/VerifyEmail'
 import TestPage from './scenes/TestPage'
+import NotExistPage from './components/molecules/Problems/NotExistPage'
 
 const App = ({ user_id, verified_email, setToken }, props) => {
   const { history } = props
@@ -66,6 +67,7 @@ const App = ({ user_id, verified_email, setToken }, props) => {
       <Route exact path="/verify_email/:id" component={VerifyEmail} />
       <Route exact path="/test_page" component={TestPage} />
       <Route
+        exact
         path="/manual_doc"
         component={() => {
           window.open(
@@ -74,6 +76,8 @@ const App = ({ user_id, verified_email, setToken }, props) => {
           window.location.href = window.location.protocol + '//' + window.location.host
         }}
       />
+
+      <Route path={'/'} component={NotExistPage} />
     </Switch>
   )
 }

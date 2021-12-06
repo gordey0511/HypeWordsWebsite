@@ -40,7 +40,7 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email })
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [date, setDate] = useState([null, null])
   const [topicsArray, setTopicsArray] = useState([])
-  const [scoreArray, setScoreArray] = useState([])
+  const [scoreArray, setScoreArray] = useState(['Литература', 'Русский язык'])
   const [textSnackbar, setTextSnackbar] = useState('')
   const [severitySnackbar, setSeveritySnackbar] = useState('')
   const history = useHistory()
@@ -272,7 +272,6 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email })
 
           <TextFieldMaterial
             styles={{
-              display: checked ? 'none' : 'flex',
               marginBottom: 0,
               fontSize: 45,
             }}
@@ -280,7 +279,6 @@ const CreateTopic = ({ user_id, token_new_lesson, createTopic, verified_email })
             value={score}
             onKeyDown={handleKeyPresScore}
             setLabel={setScore}
-            disabled={checked}
             changeValue={handleScore}
             helperText={'Чтобы добавить оценку за урок нажмите enter'}
           />

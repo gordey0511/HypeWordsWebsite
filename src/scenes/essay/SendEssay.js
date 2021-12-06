@@ -61,7 +61,7 @@ const SendEssay = ({
   score_names,
   getData,
 }) => {
-  const [topicUser, setTopicUser] = useState('Тема1')
+  const [topicUser, setTopicUser] = useState('')
   const [text, setText] = useState('')
   const [comment, setComment] = useState('')
   const [openSubmitted, setOpenSubmitted] = useState(false)

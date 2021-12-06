@@ -15,16 +15,26 @@ import { LinkButton } from '../components/atoms/Buttons/LinkButton'
 import { NeedRegistration } from '../components/molecules/Problems/NeedRegistration'
 import { SuccessfulRegistration } from '../components/molecules/Problems/SuccessfulRegistration'
 import NeedVerify from '../components/molecules/Problems/NeedVerify'
-import { setVerifiedEmail } from '../store/auth/actions'
+import { setToken, setVerifiedEmail } from '../store/auth/actions'
 import { Loading } from '../components/molecules/Problems/Loading'
 
-const VerifyEmail = ({ user_id, verified_email, isLoading, setVerifiedEmail }) => {
+const VerifyEmail = ({
+  user_id,
+  setToken,
+  verified_email,
+  isLoading,
+  setVerifiedEmail,
+  getData,
+}) => {
   const link = window.location.pathname
   const token = link.substr(14, link.length - 14)
 
   useEffect(() => {
+    console.log('TOKEN INF ' + ' ' + token + ' ' + user_id)
     if (token === user_id) {
       setVerifiedEmail(user_id)
+    } else if (user_id === undefined || user_id === null || user_id === '') {
+      setToken()
     } else {
       alert('Ошибка, попробуйте снова')
     }
@@ -59,6 +69,7 @@ const putStateToProps = (state) => {
 
 const putDispatchToProps = (dispatch) => {
   return {
+    setToken: bindActionCreators(setToken, dispatch),
     setVerifiedEmail: bindActionCreators(setVerifiedEmail, dispatch),
   }
 }
