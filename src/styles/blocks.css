@@ -252,6 +252,17 @@
     margin-top: 20px;
 }
 
+
+.block_user_essays{
+    display: flex;
+    width: auto;
+    text-align: left;
+    margin-left: auto;
+    /*justify-content: center;*/
+    flex-direction: column;
+    margin-top: 20px;
+}
+
 .block_check_essays{
     display: flex;
     width: 100%;

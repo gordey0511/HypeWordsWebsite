@@ -19,6 +19,7 @@ import { EssayCheckingCKEditor } from '../../components/atoms/TextsInput/EssayCh
 import { Typography } from '@mui/material'
 import NeedAuth, { checkUserAuth } from '../../components/molecules/Problems/NeedAuth'
 import { getUser } from '../../store/auth/actions'
+import { Loading } from '../../components/molecules/Problems/Loading'
 
 export const getStringDate = (currentTimestamp) => {
   currentTimestamp *= 1000
@@ -60,6 +61,7 @@ const SendEssay = ({
   sendEssay,
   score_names,
   getData,
+  isLoading,
 }) => {
   const [topicUser, setTopicUser] = useState('')
   const [text, setText] = useState('')
@@ -102,8 +104,14 @@ const SendEssay = ({
 
   const handleButton = () => {
     if (topicUser !== '') {
-      sendEssay(student_id, topicUser, text, comment, token, teacher_id, score_names)
-      setOpenSubmitted(true)
+      if (text !== '') {
+        sendEssay(student_id, topicUser, text, comment, token, teacher_id, score_names)
+        setOpenSubmitted(true)
+      } else {
+        alert('Напишите текст сочинение')
+      }
+    } else {
+      alert('Выберите тему сочинения')
     }
   }
 
@@ -128,7 +136,7 @@ const SendEssay = ({
         setChoiceTopics(
           <TextFieldMaterial
             styles={{
-              marginTop: 20,
+              marginTop: 10,
               marginBottom: 0,
               fontSize: 45,
             }}
@@ -143,7 +151,7 @@ const SendEssay = ({
         setChoiceTopics(
           <TextFieldMaterial
             styles={{
-              marginTop: 20,
+              marginTop: 10,
               marginBottom: 0,
               fontSize: 45,
             }}
@@ -158,7 +166,7 @@ const SendEssay = ({
         setChoiceTopics(
           <CommonSelect2
             styles={{
-              marginTop: 20,
+              marginTop: 10,
               marginBottom: 0,
               fontSize: 45,
             }}
@@ -174,68 +182,76 @@ const SendEssay = ({
 
   return (
     <div className={'center_block'} style={{ width: '40%', display: 'flex' }}>
-      {checkUserAuth(student_id, studentVerified) ? (
-        errorComponent === null ? (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <MainTitle text={Title} />
-            <p style={{ textAlign: 'left', margin: 0 }}>
-              <b>Преподаватель</b> {teacherName}
-            </p>
+      {!isLoading ? (
+        <div>
+          {checkUserAuth(student_id, studentVerified) ? (
+            errorComponent === null ? (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <MainTitle text={Title} />
+                <p style={{ textAlign: 'left', margin: 0 }}>
+                  <b>Преподаватель</b> {teacherName}
+                </p>
 
-            {commentTeacher !== undefined && commentTeacher !== '' ? (
-              <Typography variant={'body1'} style={{ textAlign: 'left' }}>
-                <b>Комментарий </b>
-                {commentTeacher}
-              </Typography>
-            ) : null}
+                {commentTeacher !== undefined && commentTeacher !== '' ? (
+                  <Typography variant={'body1'} style={{ textAlign: 'left' }}>
+                    <b>Комментарий </b>
+                    {commentTeacher}
+                  </Typography>
+                ) : null}
 
-            {choiceTopics}
-            <TextCKEditor
-              label={'Текст сочинения'}
-              value={text}
-              rows={68}
-              changeValue={setText}
-              placeholder={'Напишите сочинение...'}
-              style={{
-                marginBottom: 20,
-                marginTop: 30,
-              }}
-            />
+                {choiceTopics}
+                <TextCKEditor
+                  label={'Текст сочинения'}
+                  value={text}
+                  rows={68}
+                  changeValue={setText}
+                  placeholder={'Напишите сочинение...'}
+                  style={{
+                    marginBottom: 20,
+                    marginTop: 30,
+                  }}
+                />
 
-            <ButtonMaterial
-              text={'Отправить сочинение на проверку'}
-              styles={{
-                marginTop: 20,
-                marginBottom: 50,
-                width: '100%',
-              }}
-              color={'primary'}
-              handleClick={handleButton}
-            />
+                <ButtonMaterial
+                  text={'Отправить сочинение на проверку'}
+                  styles={{
+                    marginTop: 20,
+                    marginBottom: 50,
+                    width: '100%',
+                  }}
+                  color={'primary'}
+                  handleClick={handleButton}
+                />
 
-            <CommonDialog
-              open={openSubmitted}
-              title={'Вы успешно отправили сочинение!'}
-              text={'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'}
-              handleClose={handleCloseDialogs}
-              buttons={[
-                {
-                  text: 'Закрыть',
-                  handleClick: handleCloseDialogs,
-                },
-              ]}
-            />
-          </div>
-        ) : (
-          errorComponent
-        )
+                <CommonDialog
+                  open={openSubmitted}
+                  title={'Вы успешно отправили сочинение!'}
+                  text={
+                    'В ближайшее время ваше сочинение проверит преподаватель. Следите за почтой'
+                  }
+                  handleClose={handleCloseDialogs}
+                  buttons={[
+                    {
+                      text: 'Закрыть',
+                      handleClick: handleCloseDialogs,
+                    },
+                  ]}
+                />
+              </div>
+            ) : (
+              errorComponent
+            )
+          ) : (
+            <NeedAuth />
+          )}
+        </div>
       ) : (
-        <NeedAuth />
+        <Loading style={{ display: 'flex', justifyContent: 'center', marginTop: 100 }} />
       )}
     </div>
   )
@@ -253,6 +269,7 @@ const putStateToProps = (state) => {
     Title: state.lessons.title,
     commentTeacher: state.lessons.comment,
     score_names: state.lessons.score_names,
+    isLoading: state.lessons.isLoading,
   }
 }
 

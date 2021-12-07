@@ -129,7 +129,7 @@ const UserEssays = ({ list_essays, user_id, verified_email, getUserEssays, isLoa
   }
 
   return (
-    <div className={'block_profile'}>
+    <div className={'block_user_essays'}>
       {!isLoadingData ? (
         <div>
           {checkUserAuth(user_id, verified_email) ? (

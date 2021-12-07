@@ -37,7 +37,10 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     state.token_new_lesson = action.payload
   },
   [ACTION_GET_LESSON + START]: (state) => {
-    return lessonInitialState
+    state.isLoading = true
+  },
+  [ACTION_GET_LESSON + FAIL]: (state) => {
+    state.isLoading = false
   },
   [ACTION_GET_LESSON + SUCCESS]: (state, action) => {
     const {
@@ -63,6 +66,7 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     state.comment = comment
     state.publication_time = publication_time
     state.score_names = score_names
+    state.isLoading = false
   },
   [ACTION_GET_DATA_TEACHER + START]: (state) => {
     state.teacher_name = ''

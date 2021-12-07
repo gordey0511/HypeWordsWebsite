@@ -1,6 +1,7 @@
 import EditIcon from '@material-ui/icons/Edit'
 import React from 'react'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import ClassIcon from '@mui/icons-material/Class'
 // import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ListIcon from '@material-ui/icons/List'
 import BookIcon from '@mui/icons-material/Book'
@@ -23,10 +24,10 @@ export const profile_menu = {
 }
 
 export const check_essays_menu = {
-  text: 'Проверить сочинения',
+  text: 'Мои уроки',
   link: '/check_essays',
   icon: (
-    <EditIcon
+    <ClassIcon
       style={{
         height: 30,
         width: 30,
@@ -65,7 +66,7 @@ export const check_user_menu = {
   text: 'Мои сочинения',
   link: '/user_essays/',
   icon: (
-    <ListIcon
+    <EditIcon
       style={{
         height: 30,
         width: 30,
