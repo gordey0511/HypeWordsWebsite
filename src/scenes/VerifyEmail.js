@@ -31,13 +31,13 @@ const VerifyEmail = ({
 
   useEffect(() => {
     console.log('TOKEN INF ' + ' ' + token + ' ' + user_id)
-    if (token === user_id) {
-      setVerifiedEmail(user_id)
-    } else if (user_id === undefined || user_id === null || user_id === '') {
-      setToken()
-    } else {
-      alert('Ошибка, попробуйте снова')
-    }
+    // if (token === user_id) {
+    setVerifiedEmail(user_id)
+    // } else if (user_id === undefined || user_id === null || user_id === '') {
+    //   setToken()
+    // } else {
+    //   alert('Ошибка, попробуйте снова')
+    // }
   }, [])
 
   return (
