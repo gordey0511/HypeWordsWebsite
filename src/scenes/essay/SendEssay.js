@@ -84,9 +84,9 @@ const SendEssay = ({
   // }, [topicUser])
 
   useEffect(() => {
-    if (teacher_id !== undefined && teacher_id !== '') {
-      getTeacher(teacher_id)
-    }
+    // if (teacher_id !== undefined && teacher_id !== '') {
+    //   getTeacher(teacher_id)
+    // }
   }, [teacher_id])
 
   const handleTopicUser = (event) => {

@@ -50,6 +50,7 @@ export const lessonsReducer = createReducer(lessonInitialState, {
       students,
       teacher_id,
       start_time,
+      teacherName,
       end_time,
       comment,
       publication_time,
@@ -66,6 +67,7 @@ export const lessonsReducer = createReducer(lessonInitialState, {
     state.comment = comment
     state.publication_time = publication_time
     state.score_names = score_names
+    state.teacher_name = teacherName
     state.isLoading = false
   },
   [ACTION_GET_DATA_TEACHER + START]: (state) => {
