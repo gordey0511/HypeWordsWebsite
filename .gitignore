@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 .env
+/StudentEditor/build
+/StudentEditor/node_modules
 
 # testing
 /coverage

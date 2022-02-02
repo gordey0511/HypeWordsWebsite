@@ -5,6 +5,8 @@ import ClassIcon from '@mui/icons-material/Class'
 // import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ListIcon from '@material-ui/icons/List'
 import BookIcon from '@mui/icons-material/Book'
+import LibriaryBooksIcon from '@mui/icons-material/LibraryBooks'
+import GroupIcon from '@mui/icons-material/Group'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import PostAddIcon from '@mui/icons-material/PostAdd'
@@ -106,6 +108,32 @@ export const open_analyze = {
   link: '/analyze/',
   icon: (
     <PostAddIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_books = {
+  text: 'Книги',
+  link: '/books/',
+  icon: (
+    <LibriaryBooksIcon
+      style={{
+        height: 30,
+        width: 30,
+      }}
+    />
+  ),
+}
+
+export const open_authors = {
+  text: 'Авторы',
+  link: '/authors/',
+  icon: (
+    <GroupIcon
       style={{
         height: 30,
         width: 30,
