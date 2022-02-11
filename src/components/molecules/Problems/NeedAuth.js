@@ -15,10 +15,10 @@ export const checkUserAuth = (user_id, verified_email) => {
     user_id !== undefined &&
     user_id !== null &&
     user_id !== ''
-    //   &&
-    // verified_email !== undefined &&
-    // verified_email !== null &&
-    // verified_email === true
+      &&
+    verified_email !== undefined &&
+    verified_email !== null &&
+    verified_email === true
   ) {
     return true
   }
