@@ -49,8 +49,24 @@ import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import { BrowserRouter } from 'react-router-dom'
 import App from '../../App'
+import FEATURES from '../../utils/features'
 
 const drawerWidth = 260
+
+const menues = [
+  profile_menu, 
+  check_essays_menu, 
+  check_user_menu, 
+  open_posts, 
+  open_manual_doc,
+].concat(
+  FEATURES.BOOKS?[open_books]:[]
+).concat(
+  FEATURES.AUTHORS?[open_authors]:[]
+).concat(
+  FEATURES.ANALYZE?[open_analyze]:[]
+)
+
 
 const Navbar = ({ current_text, userName, getData, token }) => {
   const [openMenu, setOpenMenu] = useState(false)
@@ -125,16 +141,7 @@ const Navbar = ({ current_text, userName, getData, token }) => {
           />
         </div>
         <List>
-          {[
-              profile_menu, 
-              check_essays_menu, 
-              check_user_menu, 
-              open_posts, 
-              open_analyze,
-              open_books,
-              open_authors,
-              open_manual_doc,
-          ].map(
+          {menues.map(
             ({ text, link, icon }, index) => (
               <Link style={{ textDecoration: 'none', color: '#272727' }} to={link}>
                 <ListItem button key={text}>

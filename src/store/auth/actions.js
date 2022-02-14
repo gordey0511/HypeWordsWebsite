@@ -14,7 +14,7 @@ export const ACTION_SEND_VERIFY_EMAIL = 'ACTION_SEND_VERIFY_EMAIL'
 export const createUser = (name, surname, email, password) => {
   return {
     type: ACTION_CREATE_USER,
-    rest: '/register',
+    rest: '/register/',
     method: 'POST',
     query: { name: name, surname: surname, email: email, password: password },
   }
@@ -23,7 +23,7 @@ export const createUser = (name, surname, email, password) => {
 export const loginUser = (email, password) => {
   return {
     type: ACTION_LOGIN_USER,
-    rest: '/login',
+    rest: '/login/',
     method: 'POST',
     query: { email: email, password: password },
   }

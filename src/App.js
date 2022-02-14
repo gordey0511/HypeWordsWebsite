@@ -32,6 +32,7 @@ import { connect } from 'react-redux'
 import VerifyEmail from './scenes/VerifyEmail'
 import TestPage from './scenes/TestPage'
 import NotExistPage from './components/molecules/Problems/NotExistPage'
+import FEATURES from './utils/features'
 
 const App = ({ user_id, verified_email, setToken }, props) => {
   const { history } = props
@@ -43,16 +44,23 @@ const App = ({ user_id, verified_email, setToken }, props) => {
       <Route exact history={history} path={'/'} component={MainPage} />
       <Route exact path="/test" component={CustomizedSnackbars} />
       <Route exact path={'/aboutme'} component={AboutMe} />
-      <Route exact path="/author/:id" component={AuthorPage} />
-      <Route exact path="/authors" component={ListOfAuthor} />
-      <Route exact path="/analyze" component={AnalyzePage} />
-      <Route exact path="/books" component={AllBooks} />
-      <Route exact path="/book/:id" component={BookPage} />
+      {FEATURES.AUTHORS && <>
+        <Route exact path="/author/:id" component={AuthorPage} />
+        <Route exact path="/authors" component={ListOfAuthor} />
+      </>}
+      {FEATURES.ANALYZE && <>
+        <Route exact path="/analyze" component={AnalyzePage} />
+      </>}
+
+      {FEATURES.BOOKS && <>
+        <Route exact path="/books" component={AllBooks} />
+        <Route exact path="/book/:id" component={BookPage} />
+        <Route exact path="/book/text/:token" component={TextBook} />
+      </>}
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/user/:token" component={UserPage} />
-      <Route exact path="/book/text/:token" component={TextBook} />
       <Route exact path="/posts/" component={Posts} />
       <Route exact path="/create_post" component={CreatePost} />
       <Route exact path="/post/:id" component={PostPage} />
