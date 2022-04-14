@@ -38,54 +38,50 @@ const App = ({ user_id, verified_email, setToken }, props) => {
   const { history } = props
   require('dotenv').config()
   setToken()
+  const routes = [ 
+    ["/", MainPage],
+    ["/test", CustomizedSnackbars],
+    ["/aboutme", AboutMe],
+    ["/login", Login],
+    ["/register", Register],
+    ["/profile", Profile],
+    ["/user/:token", UserPage],
+    ["/posts/", Posts],
+    ["/create_post", CreatePost],
+    ["/post/:id", PostPage],
+    ["/send_essay/:id", SendEssay],
+    ["/check_essay/:id", Essay],
+    ["/create_topic", CreateTopic],
+    ["/check_essays", CheckEssays],
+    ["/essay/:id", EssayPage],
+    ["/test_check", EssayChecking],
+    ["/user_essays/", UserEssays],
+    ["/user_essays/:id", UserEssays],
+    ["/verify_email/:id", VerifyEmail],
+    ["/test_page", TestPage],
+  ]
+  if (FEATURES.AUTHORS) {
+    Array.prototype.push.apply(routes, [
+      ["/author/:id", AuthorPage],
+      ["/authors", ListOfAuthor],
+    ])
+  }
+  if (FEATURES.BOOKS) {
+    Array.prototype.push.apply(routes, [
+      ["/books", AllBooks],
+      ["/book/:id", BookPage],
+      ["/book/text/:token", TextBook],
+    ])
+  }
+  if (FEATURES.ANALYZE) {
+    Array.prototype.push.apply(routes, [
+      ["/analyze", AnalyzePage],
+    ])
+  }
 
   return (
     <Switch>
-      <Route exact history={history} path={'/'} component={MainPage} />
-      <Route exact path="/test" component={CustomizedSnackbars} />
-      <Route exact path={'/aboutme'} component={AboutMe} />
-      {FEATURES.AUTHORS && <>
-        <Route exact path="/author/:id" component={AuthorPage} />
-        <Route exact path="/authors" component={ListOfAuthor} />
-      </>}
-      {FEATURES.ANALYZE && <>
-        <Route exact path="/analyze" component={AnalyzePage} />
-      </>}
-
-      {FEATURES.BOOKS && <>
-        <Route exact path="/books" component={AllBooks} />
-        <Route exact path="/book/:id" component={BookPage} />
-        <Route exact path="/book/text/:token" component={TextBook} />
-      </>}
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/user/:token" component={UserPage} />
-      <Route exact path="/posts/" component={Posts} />
-      <Route exact path="/create_post" component={CreatePost} />
-      <Route exact path="/post/:id" component={PostPage} />
-      <Route exact path="/send_essay/:id" component={SendEssay} />
-      <Route exact path="/check_essay/:id" component={Essay} />
-      <Route exact path="/create_topic" component={CreateTopic} />
-      <Route exact path="/check_essays" component={CheckEssays} />
-      <Route exact path="/essay/:id" component={EssayPage} />
-      <Route exact path="/test_check" component={EssayChecking} />
-      <Route exact path="/user_essays/" component={UserEssays} />
-      <Route exact path="/user_essays/:id" component={UserEssays} />
-      <Route exact path="/verify_email/:id" component={VerifyEmail} />
-      <Route exact path="/test_page" component={TestPage} />
-      <Route
-        exact
-        path="/manual_doc"
-        component={() => {
-          window.open(
-            'https://docs.google.com/document/d/1HZzlGMphqFPe7xbfiFVel4CBh4-a06sPaWAg5HCy3zw/edit?usp=sharing'
-          )
-          window.location.href = window.location.protocol + '//' + window.location.host
-        }}
-      />
-
-      <Route path={'/'} component={NotExistPage} />
+      {routes.map(r => <Route exact path={r[0]} component={r[1]} key={r[0]}/>)}
     </Switch>
   )
 }
