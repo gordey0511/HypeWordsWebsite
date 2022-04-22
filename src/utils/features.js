@@ -1,7 +1,7 @@
 const FEATURES = {
-  BOOKS: true,
-  AUTHORS: true,
-  ANALYZE: true,
+  BOOKS: false,
+  AUTHORS: false,
+  ANALYZE: false,
 }
 
 export default FEATURES
